@@ -314,518 +314,65 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Les applications que j'ai développées au sein de mon stage peuvent fournir le rendu normal 
 			    et le rendu Oculus, selon l'option spécifiée.
 
-	\subsection{Les nouvelles fonctionnalités}
-	
-		Les nouvelles fonctionnalités à implémenter sont diverses:
-		
-		\begin{itemize}
-			\item Mise en place de groupes d’habilitation pour restreindre les accès et les droits sur les données (2 types d'accès: visualisation seule ou accès total)
-			\item Améliorer le confort utilisateur en proposant des critères de recherche sur les données
-			\item Implémenter l’activation/désactivation d’un compte (qui se faisait manuellement auparavant via une sauvegarde dans un fichier Excel externe à l'application)
-			\item Empêcher que certaines données (notamment les cumuls) soient modifiées
-		\end{itemize}
 		
 	\subsection{Contraintes}
 		
-		L'application web doit respecter les normes de programmation et de qualité du CM-CIC. Plus précisément, certains mot-clés et certaines fonctionnalités des langages sont interdits d'utilisation,
-		notamment:
-		
-		\begin{itemize}
-			\item L'usage des pointeurs en C\# et en COBOL
-			\item L'utilisation de Javascript dans l'interface web
-			\item Le stockage de variables générales "en dur" dans le code (comme les tables de correspondances code société-libellé)
-			\item L'utilisation certains mot-clés comme "STOP RUN", "EXIT PROGRAM", "EJECT", etc. en COBOL
-		\end{itemize}
-		
-		De plus, le modèle d'architecture d'un projet est imposé (découpe en programmes métiers/logiques/physiques).
-	
-	\subsection{La norme ISO9001}
-	
-		La norme ISO9001 est un standard international  de qualité dont les exigences sont publiées par l’Organisation Internationale de Normalisation.
-		Elle est validée par des sociétés d’audit et de certification externes. 
-		A EI, tous les produits sont certifiés ISO9001. Les équipes subissent des audits internes et externes réguliers pour garantir cette norme. 
-		Les contraintes qui en découlent sont une production de documentation accrue et un reporting permanent dans l’avancement du projet et la résolution des incidents.
-		Mon projet est ainsi conforme à la norme ISO9001.
+
 
 	\subsection{Outils utilisés}
 	
 		\subsubsection{Programmes utilisés}
 		
-			\begin{itemize}
-				\item Microsoft Visual Source Safe 2005(gestionnaire de versions)
-				\item Microsoft Visual Studio 2010 (développement C\#, Xaml et Xml)
-				\item Microsoft Visio 2010 (schémas et analyse)
-				\item IBM Rational Developer for System z (développement COBOL)
-			\end{itemize}
+
 		
 		\subsubsection{Langages utilisés}
 			
-			\begin{itemize}
-				\item C\# 4.0 (développement web)
-				\item Xaml, HTML (Interface Homme-Machine)
-				\item Xml (mise en forme des données)
-				\item COBOL version 3 release 4 (traitements métiers)
-				\item SQL DB2 (base de données)
-			\end{itemize}
-			
-			Le Xaml m’a permis de mettre en forme les vues de l’application web : agencer les éléments entre eux, définir leurs propriétés,
-			et même mettre en place un rafraichissement partiel de la page (Ajax) sans écrire de JavaScript. C’est la partie Vue.\\
-			J’ai utilisé le Xml pour décrire les données qui alimentaient ces vues : c’est (partiellement) la partie Modèle. L’autre partie est la base de données DB2 (back-end).\\
-			La partie C\# quant à elle a servi à faire le routage entre les différentes pages ainsi qu’à introduire un minimum de logique en faisant des vérifications sur les données entrées par l'utilisateur 
-			et en faisant les appels aux programmes COBOL. C’est la partie Contrôleur.\\ 
-						
-			Ce sont les programmes COBOL qui implémentent la véritable logique de l’application avec les règles métier.
-			C’est aussi par l’intermédiaire du COBOL que se font les appels SQL à la base DB2.
-			L’interface entre la partie C\# et la partie COBOL se fait au moyen du format d’échange propre à EI : le LTNV. 
-			Ce dernier est ensuite transformé par l’intermédiaire du C\# en Xml nécessaire à l’alimentation des vues de l’application web.\\ 
-			
-			Les données suivent ainsi le cheminement suivant : \\
-
-			 Données SQL DB2 $\to$ Variables COBOL $\to$ LTNV $\to$ Variable C\# $\to$ Xml $\to$ Xaml $\to$ Utilisateur 
-
+		
 
 	
-		\subsubsection{Frameworks utilisés}
-		
-			\begin{itemize}
-				\item .Net 4.0 (framework microsoft pour le développement web)
-				\item Devbooster (framework interne pour le développement web)
-			\end{itemize}
-			
-			Toute la partie front-end, agencée selon le modèle Modèle Vue Controlleur, a été développée à la fois au sein du Framework  web propre à EI (Devbooster) et au sein du Framework .Net.
+		\subsubsection{Bibliothèques utilisés}
 		
 		
 	\subsection{Déroulement du stage}
 	
-		La première semaine (17/06 - 21/06) a été dédiée à l’analyse du programme existant, à l’architecture de l’application web et au dialogue avec les utilisateurs,
-		qui s’est poursuivi tout au long du stage. Elle a débuté par une rencontre avec les utilisateurs (17/06), où ont été présentés les besoins, les qualités et défauts de l’existant et les améliorations possibles. 
-		Cette semaine s’est ensuite poursuivie avec le développement de la maquette de l'interface web. \\ 
-		
-		La deuxième semaine (24/06 – 28/06) a été centrée sur l’interface (IHM) et l’ergonomie, avec la poursuite de la réalisation de la maquette de l’application web.
-		Elle a commencée avec un point sur l’interface homme-machine (24/06), l’ergonomie et les normes d’homogénéisation du groupe en termes d’interface.\\ 
-		
-		La troisième semaine (01/07 – 05/07) a prolongé la deuxième avec la transformation de la maquette en véritable application web, fonctionnant avec des données factices, 
-		même si les traitements métiers n'étaient pas implémentés.
-		Elle a été notamment l’occasion de faire un point sur l’avancement de l’interface web (03/07).\\ 
-
-		La quatrième semaine (08/07 – 12/07) a marqué un cap puisque je me suis focalisé sur la partie métier de l’application (gérée en COBOL) avec l’apprentissage de ce langage. 
-		En parallèle ont eu lieu deux réunions : une réunion d’équipe pour présenter et récapituler le travail de chacun (09/07) et une réunion avec les utilisateurs pour présenter la nouvelle interface (10/07). 
-		Cette dernière réunion a été l’occasion de soulever de nombreuses modifications et fonctionnalités à apporter, tant en terme d’ergonomie que de métier.\\
-
-		La cinquième semaine (15/07 – 19/07) a été consacrée à l’architecture et à l’analyse de la partie COBOL. Elle s’est achevée par une réunion d’équipe (19/07). \\ 
-		
-		La sixième semaine (22/07 - 26/07) a poursuivi l’architecture et à l’analyse de la partie COBOL, tout en peaufinant l'interface web en échangeant avec les utilisateurs sur de nombreux points.
-		Un point technique COBOL a été fait le 22/07.\\ 
-		
-		la septième semaine (29/07 - 02/08) a consisté principalement en l'amélioration de l'ergonomie de l'interface web et à la préparation des appels depuis cette dernière à la partie COBOL. De plus,
-		elle a été consacrée à la rédaction du rapport de stage.
-		\\ 
-		
-		La huitième semaine (05/08 - 09/08), ainsi que la neuvième (12/08 - 16/08) et la dixième (19/08 - 23/08), ont été consacrées au développements COBOL 
-		et à la mise en place des appels host depuis le web.\\ 
+		%Déroulement
 	
 	\subsection{Bonnes pratiques de développement}
-			Pour tout le développement de l'application web, j'ai suivi les conventions de nommage préconisées par Microsoft dans le document
-			"C\# Coding Conventions (C\# Programming Guide)" (\url{http://msdn.microsoft.com/en-us/library/vstudio/ff926074.aspx}), c'est-à-dire:
-			\begin{description} 
-				\item[Conventions de nommage] \hfill \\
-					Toutes les variables, noms de méthodes, noms de classes, etc. sont écrites avec la casse $Pascal$ (exemple: $MaMethode()$ ), sauf les membres privés et les paramètres de méthodes qui suivent
-					la casse $Camelcase$.
-					L'indentation, le style de code et la rédaction des commentaires sont aussi régis par des règles précises.
-				\item[Refactoring] \hfill \\
-					Vers la fin de mon projet, après une pause dans le développement de l'interface web pour me consacrer au développement COBOL, il m'est apparu que le code de l'interface web était moyennement clair pour moi, 
-					et peu clair pour les autres, surtout à cause de noms de variables peu explicites et des corps de méthodes trop longues.
-					J'ai donc pu faire la connaissance des outils de $refactoring$ de Visual Studio, en particulier $Refactor \to Rename$ pour renommer intelligiblement les variables
-					et $Refactor \to Extract Method$ pour découper les méthodes trop longues en plusieurs méthodes courtes.
-				\item[Test unitaires]  \hfill \\
-					Je me suis heurté à un cas où la vérification des données saisies par l'utilisateur était faite incorrectement par le framework. J'ai donc développé mes propres méthodes pour valider les données saisies,
-					notamment pour vérifier qu'un coefficient était du bon type et dans le bon intervalle. Me heurtant à certains bugs, j'ai écrit des test unitaires avec l'outil intégré de Visual Studio 
-					pour valider ces méthodes. Ainsi, le risque de données incorrectes validées est diminué, et il est possible de faire des tests de non-régression si changements il devait y avoir.
-					J'ai pu également ainsi automatiser ces tests au lieu de les faire manuellement au travers de l'interface, ce qui m'a permis de tester plus de cas et d'isoler ces tests de l'interface.
-			\end{description}
+			%Bonnes pratiques
 	
 	\subsection{Architecture}
 	
-		\subsubsection{Interface web}
-		
-			\begin{figure}[h!]
-			\caption{Fichiers de l'interface web}
-			\centering
-%				\includegraphics[width=6cm]{fichiers.png} 
-			\end{figure} 
-			
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-				\paragraph{Fichiers C\#}
-				
-					\begin{figure}[h!]
-					  \caption{Fichiers C\# de l'interface web}
-					  \centering
-%						  \includegraphics[width=6cm]{fichiers_c.png} 
-					\end{figure} 
-					
-					\begin{itemize}
-						\item App\_Code/BusinessLogic/Compte.cs : Fichier décrivant la classe Compte
-						\item App\_Code/BusinessLogic/Liaison.cs : Fichier décrivant la classe Liaison
-						\item App\_Code/Commands/\_EntryPoint.cs : Procédures de vérification des ressources et des droits d’accès à l’application
-						\item App\_Code/Commands/Menu.cs	: Code C\# associé à la page décrivant les entrées dans le menu latéral
-						\item App\_Code/Commands/\* : Fichiers C\# associées aux feuilles Xaml, contenant le code de navigation et les appels aux programmes métier
-					\end{itemize}
-
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-				\paragraph{Fichiers Xaml}
-				      \begin{figure}[h!]
-					\caption{Fichiers Xaml de l'interface web}
-					\centering
-%						\includegraphics[width=6cm]{fichiers_xaml.png} 
-					\end{figure} 
-					
-					\begin{itemize}
-						\item ListeLiaison.xaml : Ecran de liste des liaisons louées
-						\item DetailLiaison.xaml : Ecran de détail d’une liaison louée
-						\item FormulaireLiaison.xaml : Ecran de modification d'une liaison
-						%\item SupprimerLiaison.xaml : Ecran de confirmation de suppression d’une liaison
-						\item ListeComptes.xaml	: Ecran de liste des comptes
-						\item FormulaireCompte.xaml	: Ecran de création et de modification de compte
-						%\item SupprimerCompte.xaml : Ecran de confirmation de suppression d’un compte
-						\item Facture.xaml : Ecran récapitulatif de la facture et de confirmation de création
-						\item Menu.xaml	: Le menu latéral avec les liens vers ListeLiaison.xaml, ListeComptes.xaml et Facture.xaml
-					\end{itemize}
-
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-				\paragraph{Fichiers Xml}
-				      \begin{figure}[h!]
-					\caption{Fichiers Xml de l'interface web}
-					\centering
-%						\includegraphics[width=6cm]{fichiers_xml.png} 
-					\end{figure} 
-					Aux pages Xaml et C\# sont associés les fichiers Xml qui décrivent les données: \\
-					App\_GlobalResources/Model/* : Pages Xml associées aux pages Xaml et C\#, contenant les données.
-
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%				
-				\paragraph{Fichiers de configuration}
-% 				    \begin{figure}[h!]
-% 					\caption{Fichiers de configuration de l'interface web}
-% 					\centering
-% 						\includegraphics[width=12cm]{fichiers_cfg_projet.png} 
-% 					\end{figure} 
-% 					
-					Les fichiers suivants sont utilisés pour paramétrer l’application Web :
-					\begin{itemize}
-						\item /devbappli.config : Fichier contenant diverses options dont le flag "mode design" (true pour mettre en mode maquette)
-						\item /web.config : Fichier contenant diverses options et le flag de compilation en mode debug
-						\item /zz/devbtables.config	: Permet de stocker des tables de correspondances (par exemple code société-libellé)
-					\end{itemize}
-		
-			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-			\begin{figure}[h!]
-			\caption{Cinématique de l'interface web}
-			\centering
-%				\includegraphics[width=12cm]{cinematique_facll.png} 
-			\end{figure} 
-		
-		
-		\subsubsection{Programmes COBOL} 
-		
-			\begin{figure}[h!]
-			\caption{Architecture des programmes COBOL (la légende indique quelles sont les parties existantes au début du développement COBOL)}
-			\centering
-%				\includegraphics[width=12cm]{Analyse_cobol_light.png} 
-			\end{figure}
-			
-			\begin{description}
-				 \item[Application web] \hfill \\
-				 L'interface web écrite en C\# et Xaml. En réponse aux action des utilisateurs, elle déclenche des requêtes vers le host où résident les programmes COBOL.
-				 
-				 \item[PSB] \hfill \\
-				 Un programme C auto-généré qui fait tous les appels aux sous-programmes COBOL.
-				 
-				 \item[TWEB] \hfill \\
-				 Un programme COBOL qui vérifie que la requête provenant du web est bien formée.
-				 
-				 \item[Programme métier] \hfill \\
-				 Il effectue le routage (appel de sous-programmes logiques selon la requête) et héberge les règles métier (par exemple détermination du bimestre de facturation).
-				 
-				 \item[Programmes logiques] \hfill \\
-				 Une couche de vérification supplémentaire. Les programmes logiques vérifient que le requête vers la base de données est bien formée.
-				 
-				 \item[Programmes physiques] \hfill \\
-				 Exécution de la requête SQL et renvoie des informations.			 			 
-			\end{description}
-			
-			Il est à noter que l'écosystême COBOL ne suit pas le modèle middleware mais le modèle programme appellant- programme apppelé avec stockage des informations de retour dans des variables globales situées dans
-			des programmes COBOL dédiés (appelés Clause Copy).
+  %Architecture de l'application
 
 			
 \section{Remerciements}
 
 	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici. 
 
-	\begin{itemize}
-		\item Caroline \textsc{SCHIPPERS}, mon maître de stage, qui a réussi malgré son emploi du temps chargé à m’accompagner et me guider tout au long de mon projet
-		\item Fabrice \textsc{WENDLING}, analyste développeur, qui m’a beaucoup appris sur le développement web au sein du Framework Devbooster
-		\item Orian \textsc{LE SOBRE}, analyste développeur, qui m’a épaulé pour l’analyse et le développement en COBOL, et dans la découverte du système d’information du CM-CIC
-		\item Toute l’équipe Gestion de la Facturation, qui m’a cordialement accueilli, aidé et a répondu à toutes mes questions
-	\end{itemize}
+	%Remerciements
 
   
   
 \section{Conclusion}
 
 
-		Ce stage a été, malgré un rythme irrégulier, extrêmement formateur. \\
-		
-		
-		Du point de vue technique, j'ai aperçu le fonctionnement d'un grand systême fonctionnant sur des mainframes avec IBM System z. 
-		En outre j'ai discerné les différences d'un site intranet avec un site internet, en particulier au niveau des utilisateurs et de leurs habitudes. Mon application web intranet a donc dû afficher 
-		le même design, et les éléments graphiques ont du être agencé exactement comme sur les autres pages de l'intranet, avec la même signification, pour ne pas perturber les utilisateurs, et faciliter leur navigation.
-		J'ai aussi beaucoup appris au niveau de l'ergonomie d'un site web, qui est cruciale pour l'expérience utilisateur, surtout dans le contexte d'une application métier qui a vocation a être utilisée
-		le plus simplement et rapidement possible. Le but est de gagner en productivité et cela repose en grande partie sur l'ergonomie .\\
-		De même des choses nouvelles pour moi ont été les conventions de codage et la structure type d'un programme instaurées par l'entreprise.
-		
-		
-		Au niveau des langages utilisées, le COBOL et ses écueils ont été une totale découverte pour moi, tandis que le C\# a été une semi-découverte puisque je n'en avais jamais fait directement mais 
-		j'avais déjà programmé avec des langages ressemblants (C, C++, Java).
-		Du point de vue des frameworks, cela a aussi été un apprentissage puisque j'ai utilisé un framework web interne (Devbooster) qui différait du framework web que je connaissais jusque-là: Symfony 2.
-		Un autre framework utilisé a été .Net, mais celui-ci était très bien documenté et facile à prendre en main donc celà n'a pas posé de problème.
-		
-		Un point qui m'a frappé et sur lequel l'accent a été porté durant mon stage est l'architecture, l'analyse et la documentation d'un projet. J'ai en effet eu la chance, en étant guidé, d'élaborer
-		l'architecture complète de mon application. L'analyse a aussi été une expérience nouvelle pour moi : lister les contraintes, les fonctionnalités de l'application, les algorithmes utilisés, apporter les solutions adéquates,
-		s'adapter aux changements indiqués par les utilisateurs; préparer ainsi en amont le développement a été des plus instructifs.\\
-		
-		
-		Mais la pierre angulaire de ce stage, qui m'a apporté le plus, a été l'enjeu de migration d'une application existante, ce qui ne s'apprend pas à l'école. En effet, j'ai dû trouver le bon équilibre
-		entre le contentement des utilisateurs, la conservation des fonctionnalités existantes sans dégradation et l'apport de nouvelles fonctionnalités, sans avoir de documentation tout à fait explicite.
-		Certains points ont donc nécessité une recherche dans le code COBOL et SQL existant, notamment l'algorithme de détermination du bimestre de facturation,et la structure de la base de données.
-		
-		
-		D'un point de vue moins technique, c'était mon souhait de faire l'expérience d'une très grande entreprise et découvrir le monde de la banquassurance et ce stage a été parfait sur ces deux points.
-		En effet, j'ai expérimenté les contraintes spécifiques à ce domaine (sécurité, fiabilité, robustesse, normes de qualité, délais etc), le fonctionnement d'une grosse entreprise (outils de reporting et monitoring,
-		habilitations, etc) et l'informatique de gestion.
-		
-		En conclusion, l'apport de ce stage est inestimable tant pour mes compétences informatiques que pour mon orientation et mon parcours dans le monde du travail.
-	
-	
+		%Conclusion
 
 % \appendix
 \section{Annexes}
-	\subsection{Captures d'écran de l'application existante}
-	\newpage
-		\begin{figure}[h!]
-			\caption{Le menu principal}
-			\centering
-%				\includegraphics[width=12cm]{ftl_menu.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La liste des liaisons louées}
-			\centering
-%				\includegraphics[width=12cm]{ftl_liste_liaisons.png} 
-		\end{figure}
-		
-		\begin{figure}[h!]
-			\caption{La modification d'une liaison}
-			\centering
-%				\includegraphics[width=12cm]{ftl_modif_liaison.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La liste des comptes}
-			\centering
-%				\includegraphics[width=12cm]{ftl_liste_comptes.png} 
-		\end{figure} 
-
-		\begin{figure}[h!]
-			\caption{La génération de la facturation}
-			\centering
-%				\includegraphics[width=12cm]{ftl_facturation.png} 
-		\end{figure} 
-			
-		
-		\newpage
-		
-		
-		\subsection{Captures d'écran de l'application web}
-		\newpage
-		\begin{figure}[h!]
-			\caption{La liste des liaisons (écran d'accueil)}
-			\centering
-%				\includegraphics[width=12cm]{liste_liaisons.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La liste des liaisons après une génération de facturation réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_liaisons_factu_ok.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La liste des liaisons après une modification de liaison réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_liaisons_modif_ok.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La liste des liaisons après une recherche de liaisons réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_liaisons_recherche_ok.png} 
-		\end{figure}
-		
-		\begin{figure}[h!]
-			\caption{La liste des liaisons après une suppression de liaison réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_liaisons_suppr_ok.png} 
-		\end{figure} 
-
-		\begin{figure}[h!]
-			\caption{Le détail d'une liaison}
-			\centering
-%				\includegraphics[width=12cm]{detail_liaison.png} 
-		\end{figure}
-			
-
-		
-		\begin{figure}[h!]
-			\caption{La génération de la facturation}
-			\centering
-%				\includegraphics[width=12cm]{facturation.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La modification d'une liaison}
-			\centering
-%				\includegraphics[width=12cm]{formulaire_liaison.png} 
-		\end{figure} 
-		
-		
-		
-		\begin{figure}[h!]
-			\caption{La suppression d'une liaison}
-			\centering
-%				\includegraphics[width=12cm]{supprimer_liaison.png} 
-		\end{figure}
-		
-			
-		\begin{figure}[h!]
-			\caption{La liste des comptes}
-			\centering
-%				\includegraphics[width=12cm]{liste_comptes.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La liste des comptes après une création de compte réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_comptes_creat_ok.png} 
-		\end{figure}
-		
-		\begin{figure}[h!]
-			\caption{La liste des comptes après une modification de compte réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_comptes_modif_ok.png} 
-		\end{figure} 
-		\clearpage
-		\begin{figure}[h!]
-			\caption{La liste des comptes après une suppression de compte réussie}
-			\centering
-%				\includegraphics[width=12cm]{liste_comptes_suppr_ok.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La modification d'un compte}
-			\centering
-%				\includegraphics[width=12cm]{modif_compte.png} 
-		\end{figure} 
-		
-		\begin{figure}[h!]
-			\caption{La suppression d'un compte}
-			\centering
-%				\includegraphics[width=12cm]{supprimer_compte.png} 
-		\end{figure} 
 	
+		\subsection{Captures d'écran}
+		\newpage
+		%Captures d'écran
 	
 	
 	\subsection{Bibliographie}
 	
-		\begin{description}		
-				\item[Cobol] \hfill \\
-					\begin{itemize}
-						\item IBM Formation technique, Cours DA510F Support élève, Sixième édition Octobre 2002, Référence IBM-ZRF2-7595-P6
-						\item IBM Formation technique, Cours DA510F Guide d'exercices, Cinquième édition Octobre 2002, Référence IBM-ZRF2-7596-P6
-						\item \url{ibm.com/fr/formation}
-						\item \url{ibm.com/training/global}
-						\item documentation interne(portail pixis)
-					\end{itemize}
-					
-				\item[C\#] \hfill \\
-					\begin{itemize}
-						\item \url{www.dotnetperls.com}
-						\item \url{msdn.microsoft.com/fr-fr/library}
-					\end{itemize}
-
-				\item[Devbooster] \hfill \\
-					Documentation interne (portail Pixis).
-		\end{description}
+		%Bibliographie
 
 		
 	\subsection{Glossaire}
-		\begin{description} 
-			\item[.Net] \hfill \\
-				Framework en langage C\# développé par Microsoft, qui fournit notamment des structures de données,
-				des interfaces utilisateurs, des accès aux bases de données et des composants pour le développement web.
-			\item[Ajax] \hfill \\
-				  Asynchronous JavaScript and Xml. Technique de développement web utilisée pour rafraîchir partiellement
-				  une page web suite à une action de l'utilisateur.
-			\item[C] \hfill \\
-				Langage de programmation impératif réputé pour ses performances.
-			\item[C\#] \hfill \\
-				Langage de programmation orienté objet développé par Microsoft.
-			\item[C++] \hfill \\
-				Langage de programmation orienté objet et impératif réputé pour ses performances.
-			\item[Clause Copy] \hfill \\
-				Programme COBOL où sont définies des variables globales utilisées par d'autres programmes COBOL.
-				L'échange de données entre ces programmes se fait par la lecture/écriture de ces variables dans la Clause Copy.		
-			\item[Cobol] \hfill \\
-				 COmmon Business-Oriented Language. Un des premiers langages de programmation, utilisé dans les domaines de la finance, gestion, et de l'administration.
-				 Il est utilisé pour édicter les règles métier et effectuer les traitements.
-			\item[DB2] \hfill \\
-				Base de données relationnelle développée par IBM, accessible au moyen de requêtes SQL.
-			\item[Devbooster] \hfill \\
-				Framework interne à EI pour développer des applications Web, basé sur le modèle MVC. La Vue est développée en Xaml, le Modèle en Xml et les Contrôleurs en C\#.
-			\item[Framework] \hfill \\
-				Ensemblede composants (classes, librairies) réutilisables dans d'autres programmes.
-			\item[Host]  \hfill \\
-				Désigne les mainframes.
-			\item[HTML] \hfill \\
-				HyperText Markup Language. Langage utilisé dans la création de pages web.
-			\item[IHM] \hfill \\
-				Interface Homme-Machine. Terme employé pour décrire la partie d'une application qui est visible par l'utilisateur et par laquelle il intéragit avec ladite application.
-			\item[Java] \hfill \\
-				Langage orienté objet développé par Sun Microsystems.
-			\item[Javascript] \hfill \\
-				Langage de script notamment utilisé en développement web, côté client mais aussi côté serveur.
-			\item[LTNV] \hfill \\
-				Format d'échange de données interne à EI.
-			\item[Mainframe] \hfill \\
-				Abréviation de "Mainframe Computer". Ordinateurs produits par IBM, surtout utilisés par des grosses entreprises et gouvernements,
-				ayant des besoins critiques en termes de resources et de robustesse. Ils disposent notamment de composants redondants pour éviter la perte de données et assurer la continuité de l'activité.
-			\item[Pixis] \hfill \\
-				Portail de documentation situé sur l'intranet du Crédit Mutuel.
-			\item[PSB] \hfill \\
-				 Un programme C auto-généré qui fait tous les appels aux sous-programmes COBOL. Propre à EI.
-			\item[SQL] \hfill \\
-				Structured Query Language. Langage utilisé pour la manipulation de données stockées en base de données.
-			\item[System z] \hfill \\
-				Famille de mainframes proposés par IBM. "z" signifie "zero downtime".
-			\item[TWEB] \hfill \\
-				Un programme COBOL qui vérifie que la requête provenant du web est bien formée.
-			\item[Webfarm] \hfill \\
-				Cluster de serveurs destinés à héberger des sites Web et à répondre à un nombre élevé de requêtes.
-			\item[Xaml] \hfill \\
-				Extensible Application Markup Language. Dialecte Xml développé par Microsoft utilisé pour décrire l'Interface Homme-Machine.
-			\item[Xml] \hfill \\
-				Extensible Markup Language. Langage descriptif définissant un format d'échange de données compréhensible par l'humain et par la machine.
-			\item[z/Os] \hfill \\
-				Systême d'exploitation 64 bits produit par IBM, utilisé sur les mainframes.
-			\end{description}
+		%Glossaire
 		
 \end{document}
 
