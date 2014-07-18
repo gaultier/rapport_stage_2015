@@ -18,7 +18,7 @@
 \geometry{rmargin=2.5cm, lmargin=2.5cm, hmargin=2cm, bmargin=2cm}
 \pagestyle{plain}
 \usepackage[pdftex]{thumbpdf}
-\definecolor{vert}{rgb}{0.25,0.65,0.04}
+%\definecolor{vert}{rgb}{0.25,0.65,0.04}
 \usepackage[pdftex,
     bookmarks         = true,
     bookmarksnumbered = true,
@@ -26,7 +26,7 @@
     pdfstartview      = FitH,
     pdfpagelayout     = SinglePage,
     colorlinks        = true,
-    linkcolor	      = vert,
+    linkcolor	      = black,
     pdfborder         = {0 0 0}
     ]{hyperref}
 \usepackage[pdftex]{graphicx}
@@ -100,77 +100,59 @@ André \textsc{Schaaf},\\[0.5cm]
   }
 }
 \newpage
-
+\textit{\normalsize Dans toute la suite du rapport, l'<<Observatoire>> désigne l'<<Observatoire astronomique de Strasbourg>>
+et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 \setlength{\columnseprule}{0.5pt}
 \tableofcontents
 
 \newpage
 
-\textit{\normalsize Dans toute la suite du rapport, l'<<Observatoire>> désigne l'<<Observatoire astronomique de Strasbourg>>
-et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
-
-\section{Remerciements}
-
-	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici. 
-
-	\begin{itemize}
-		\item Caroline \textsc{SCHIPPERS}, mon maître de stage, qui a réussi malgré son emploi du temps chargé à m’accompagner et me guider tout au long de mon projet
-		\item Fabrice \textsc{WENDLING}, analyste développeur, qui m’a beaucoup appris sur le développement web au sein du Framework Devbooster
-		\item Orian \textsc{LE SOBRE}, analyste développeur, qui m’a épaulé pour l’analyse et le développement en COBOL, et dans la découverte du système d’information du CM-CIC
-		\item Toute l’équipe Gestion de la Facturation, qui m’a cordialement accueilli, aidé et a répondu à toutes mes questions
-	\end{itemize}
-
-  
 \section{Introduction}
 
-	Le Crédit Mutuel est une banque, mais aussi une compagnie d'assurances, un opérateur téléphonique, un groupe de presse, et un des plus gros acteurs économiques d'Alsace. 
-	Ce groupe international a aussi et surtout la particuliarité dans le monde français de la banquassurance d'assurer lui-même le développement de ses outils informatiques. 
-	Toutes ces caractéristiques et cette dernière singularité se sont couplées avec mon désir de découvrir à la fois l'univers si débattu de la banque et de la finance, et à la fois le domaine de l'informatique de gestion.
-	Pour toutes ces raisons, j'ai choisi d'effectuer ce stage où étaient présentes des technologies jeunes (Framework web, Framework .Net) et traditionnelles (COBOL), avec l'enjeu de la 
-	migration d'une application console existante en application web, le tout dans un contexte d'internationalisation et de mise au normes des outils du groupe.
-	C'est ainsi que mon stage s'est exécuté au sein du service Gestion de la Facturation de EI Développement du 17 juin au %TODO% 6 septembre sous la houlette de Caroline \textsc{SCHIPPERS},
-	mon maître de stage, chef d'équipe de ce service.
+	L'Observatoire est un établissement de recherche et d'enseignement centré sur l'astronomie, mais c'est aussi un 
+	centre de données astronomiques et un centre d'observation réputés mondialement. Il représente la continuité entre
+	l'ancien et le nouveau car il dispose d'un riche patrimoine mais est aussi à la pointe de la recherche.  \\
+	De plus l'Observatoire est le parfait exemple de l'informatique au service d'autres spécialités scientifiques,
+	à la fois dans le domaine de l'expertise, mais aussi sous un aspect éducatif.\\
+	Pour toutes ces raisons, j'ai choisi d'effectuer mon stage de deuxième année au sein de l'Observatoire,
+	au contact de technologies émergentes à savoir l'Oculus Rift et le rendu graphique 3D moderne.
 
-\section{Présentation de l'entreprise}
+\section{Présentation de l'observatoire}
 
-	\subsection{CM-CIC}
-	
-		Le Crédit Mutuel est fondé en 1882 en Alsace-Lorraine encore allemande à cette époque. 
-		Son but est alors d’organiser des prêts pour financer les moyens nécessaires à l’agriculture à partir des économies et de la responsabilité de tous les villageois (appelés sociétaires).
-		Ses fondements, qui restent valables aujourd'hui, sont alors instaurés:
+	\subsection{Histoire}
+		L'Observatoire a été fondé en 1881 sur l'initiative de l'empereur Guillaume II, l'Alsace étant allemande
+		à cette époque.\\
+		Il est constitué de trois bâtiments : une Grande Coupole, un bâtiment des salles méridiennes avec deux coupoles,
+		et un bâtiment à usage de bureau et de résidence.\\
+		La Grande Coupole en fer, de 9,2 mètres de diamètre et pesant 34 tonnes2, contient le Grand Réfracteur,
+		une lunette de 48,7 cm d'ouverture et 7 m de focale, construite en 1877, la plus grande d'Europe
+		au moment de son installation et aujourd'hui (2008) la troisième de France en taille.\\
+		Il dispose également d’un riche patrimoine d’instruments et d’ouvrage anciens.
 		
-		\begin{itemize}
-			\item Crédits accordés uniquement aux sociétaires
-			\item Responsabilité solidaire des sociétaires
-			\item Organisation démocratique (1 homme = 1 voix)
-			\item Libre adhésion
-			\item Bénévolat des administrateurs
-			\item Circonscriptions géographiques limitées
-			\item Excédant financier non distribué et réserves impartageables
-		\end{itemize}
+	\subsection{Centre de données astronomiques de Strasbourg (CDS)}
+	
+		Le CDS est à la fois une équipe de recherche et un Service d’Observation.
+		Les services de bases de données (SIMBAD, Vizier) et de visualisation (ALADIN) développés par le CDS
+		sont utilisés par l’ensemble de la communauté astronomique mondiale. \\
+		Celui-ci est l'un des acteurs majeurs du développement de l'Observatoire Virtuel International en astronomie.
+		Fin 2008, le CDS a été labellisé TGIR (Très Grande Infrastructure de Recherche) par le Ministère de l'Enseignement Supérieur et de la Recherche, 
+		reconfirmé comme Infrastructure de Recherche en 2012, ce qui le range au même niveau que des infrastructures internationales
+		comme l’European Southern Observatory ou RENATER à l’échelon national.
 
-		Son histoire se prolonge sans discontinuité dans les années 1970, période à laquelle est ouvert le site du Wacken, et où sont fondées les assurances Crédit Mutuel.
-		En 1978 est créé Euro Information Développement (EID), holding informatique du groupe, qui compte aujourd’hui environ 1600 salariés, sans compter les nombreux prestataires externes.
-		L’étape suivante est l’acquisition du Crédit Industriel et Commercial (CIC) en 1998. 
-		Puis suivant une politique d’expansion et de diversification, le groupe acquiert des banques étrangères (Targobank), des groupes de presse (DNA, Le Républicain Lorrain) et même des groupes de téléphonie (NRJ Mobile).
-		Le Crédit Mutuel-CIC est aujourd’hui un groupe international fort de 78 000 salariés, sans compter les prestataires externes (à titre de comparaison, le groupe Microsoft compte 97 000 employés).
-
-	\subsection{EI}
+	\subsection{Equipe de recherche Galaxies}
 	
-		EI est la filiale informatique du groupe CM-CIC. Sa mission est de développer les outils informatiques nécessaires au bon fonctionnement du groupe. Elle compte environ 1500 salariés 
-		(sans compter les prestataires externes) et dispose de plusieurs filiales spécialisées: EI Développement (qui m'a accueilli) et EI Production.
+		L’équipe <<Galaxies>> étudie la formation et l’évolution des galaxies et de notre Galaxie 
+		au travers de leurs populations stellaires et de la dynamique des étoiles et de la matière noire. \\
+		Elle est impliquée dans la préparation de la mission satellitaire astrométrique Gaia de l’Agence Spatiale Européenne 
+		dont le lancement est prévu en 2012 et dans le grand relevé cinématique RAVE. 
 	
-	\subsection{Le service Gestion de la facturation} 
+	\subsection{Equipe de recherche Hautes Énergies} 
 	
-		Le service d'EI Développement qui m’a accueilli est le service de la Gestion de la Facturation sur le site Schutzenberger au 18, Rue des Contades, Schiltigheim.
-		Ses missions sont les suivantes :
-		
-		\begin{itemize}
-			\item Développement d’outils pour la facturation des services du groupe (Presse, Téléphonie, Service Facturation, sociétés diverses)
-			\item Support des utilisateurs ayant l’usage des outils qu’ils ont développés
-			\item Maintenance et migration des anciens outils\\
-		\end{itemize}
-		Il est constitué de 5 internes et 4 prestataires externes et est dirigé par Caroline \textsc{SCHIPPERS}, mon maître de stage.
+		L’équipe <<Hautes Énergies>> s’intéresse aux sources galactiques et extragalactiques émettrices en rayons X,
+		objets compacts (étoiles à neutron, naines blanches, etc.) et noyaux actifs de galaxies.\\
+		Elle est impliquée dans le SSC-XMM, un consortium international de laboratoires sélectionné par l’ESA
+		et labellisé par l’INSU comme Service d’Observation, qui est en charge de fournir des catalogues complets
+		de sources X observées par le satellite XMM-Newton à la communauté internationale. 
 
 \section{Mon stage}
 
@@ -434,7 +416,21 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			
 			Il est à noter que l'écosystême COBOL ne suit pas le modèle middleware mais le modèle programme appellant- programme apppelé avec stockage des informations de retour dans des variables globales situées dans
 			des programmes COBOL dédiés (appelés Clause Copy).
-		
+
+			
+\section{Remerciements}
+
+	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici. 
+
+	\begin{itemize}
+		\item Caroline \textsc{SCHIPPERS}, mon maître de stage, qui a réussi malgré son emploi du temps chargé à m’accompagner et me guider tout au long de mon projet
+		\item Fabrice \textsc{WENDLING}, analyste développeur, qui m’a beaucoup appris sur le développement web au sein du Framework Devbooster
+		\item Orian \textsc{LE SOBRE}, analyste développeur, qui m’a épaulé pour l’analyse et le développement en COBOL, et dans la découverte du système d’information du CM-CIC
+		\item Toute l’équipe Gestion de la Facturation, qui m’a cordialement accueilli, aidé et a répondu à toutes mes questions
+	\end{itemize}
+
+  
+  
 \section{Conclusion}
 
 
