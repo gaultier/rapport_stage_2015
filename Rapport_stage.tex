@@ -9,6 +9,7 @@
 \usepackage{textcomp}
 \usepackage{fancyhdr}
 \usepackage{geometry}
+\usepackage{eurosym}
 % \usepackage{titling}
 %\usepackage{makeidx}
 % \usepackage[maxfloats=50]{morefloats}
@@ -158,23 +159,29 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 	\subsection{Objectif}	
 	
-		L’objectif de ce stage est la migration de l’outil existant en interface web. 
-		Il se fait dans le contexte de la Convergence 2014, qui consiste à migrer tous les outils existants de EI en interface web, à les internationaliser et à les mettre aux normes
-		(normes internes CM-CIC et ISO9001). La date butoir de cette convergence est fixée à 2014. Cette Convergence 2014 s’inscrit dans le contexte plus large d’expansion du groupe CM-CIC 
-		à l’international et de volonté d’exporter les outils internes au groupe chez d’autres entreprises.\\
+		L’objectif de ce stage est centré autour de l'Oculus Rift et est double:
+		\begin{itemize}
+		 \item Intégration de l'Oculus Rift à une simulation 3D du système solaire existante
+		 \item Développement d'un programme de visualisation 3D  d'étoiles avec intégration de l'Oculus Rift
+		\end{itemize}
+
 	
-	\subsection{L'existant}
-	
-		L’application existante est un programme compilé écrit en COBOL. Il est exécuté sur les serveurs de EI (host) et l’utilisateur intéragit avec lui grâce à une session distante telnet via une console sur son bureau.
-		Son objectif est de gérer des liaisons louées où transitent des informations, à la manière de lignes téléphoniques, à des entreprises. 
-		Chaque liaison est associée à un compte de facturation, et un compte de facturation peut avoir plusieurs liaisons louées associées. \\
-		L’utilisateur (en général le service facturation) saisit les données utiles à la facturation de ces liaisons louées (montants mensuels, qualité de la ligne, etc.), et ce de façon bimensuelle. 
-		Lorsque la saisie est complète l’utilisateur génère un fichier de facturation qui est envoyé au programme principal de facturation. C’est donc un outil périphérique à ce dernier. \\ 
-		Les données sont stockées dans une base SQL DB2. Le programme COBOL exécute des requêtes SQL vers cette base afin d’obtenir les données.
-		Il n’y a aucune vérification d’habilitation à consulter/modifier les données. Le programme est accessible à tous. La seule restriction est l’environnement dans lequel le programme tourne (environnement de test pour un stagiaire par exemple, environnement de production pour une personne du service de facturation).
-		Le programme a été développé en 1999 et a subi des modifications jusqu’à 2007. Il est entièrement écrit en COBOL.
-		Il est organisé en un programme principal qui fait appel à des sous-programmes au nombre de 5 (sans compter les appels aux programmes génériques de EI, pour connaitre la date par exemple, qui sont utilisés par tous les programmes du groupe). 
-	
+	\subsection{L'Oculus Rift}
+		
+		L'Oculus Rift est un masque de réalité virtuelle, développé par \emph{Oculus VR}, une entreprise 
+		basée en Californie et rachetée par \emph{Facebook} en mars 2014 pour  2 milliards \$. \\
+		L'Oculus Rift a été initialement financé via une plateforme de financement collaboratif, \emph{Kickstarter},
+		et a levé 91 millions \$ à cette occasion. \\
+		Il permet une immersion  réaliste dans une scène en trois dimensions, en donnant l'impression d'y être physiquement
+		présent, et crée ainsi une nouvelle expérience
+		utilisateur. \\
+		De plus, son prix est relativement peu élevé (350 \$, environ 300 \euro), ce qui le rend accessible au grand public. \\
+		Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionel, dans des domaines aussi variés
+		que la simulation scientifique, le divertissement, l'éducation, \ldots.
+		
+		La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
+		version du masque, le \emph{DK1}, tandis que la deuxième version, le \emph{DK2} a été distribuée à partir d'août 2014.
+		
 
 	\subsection{Les nouvelles fonctionnalités}
 	
