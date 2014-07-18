@@ -1,4 +1,4 @@
-\documentclass[a4paper,french,8pt]{article}
+\documentclass[a4paper,french,12pt]{article}
 \usepackage{babel,amssymb,amsmath}
 \usepackage[utf8]{inputenc}
 \usepackage{array,colortbl}
@@ -15,6 +15,7 @@
 % \usepackage[maxfloats=50]{morefloats}
 % \usepackage{hyperref}
 \usepackage{ulem}
+ 
 \usepackage{epigraph}
 \geometry{rmargin=2.5cm, lmargin=2.5cm, hmargin=2cm, bmargin=2cm}
 \pagestyle{plain}
@@ -30,7 +31,7 @@
     linkcolor	      = black,
     pdfborder         = {0 0 0}
     ]{hyperref}
-\usepackage[pdftex]{graphicx}
+\usepackage{graphicx}
 
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
@@ -161,27 +162,66 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 		L’objectif de ce stage est centré autour de l'Oculus Rift et est double:
 		\begin{itemize}
-		 \item Intégration de l'Oculus Rift à une simulation 3D du système solaire existante
+		 \item Intégration de l'Oculus Rift à une simulation 3D du système solaire existante,
 		 \item Développement d'un programme de visualisation 3D  d'étoiles avec intégration de l'Oculus Rift
 		\end{itemize}
 
 	
 	\subsection{L'Oculus Rift}
 		
-		L'Oculus Rift est un masque de réalité virtuelle, développé par \emph{Oculus VR}, une entreprise 
-		basée en Californie et rachetée par \emph{Facebook} en mars 2014 pour  2 milliards \$. \\
-		L'Oculus Rift a été initialement financé via une plateforme de financement collaboratif, \emph{Kickstarter},
-		et a levé 91 millions \$ à cette occasion. \\
-		Il permet une immersion  réaliste dans une scène en trois dimensions, en donnant l'impression d'y être physiquement
-		présent, et crée ainsi une nouvelle expérience
-		utilisateur. \\
-		De plus, son prix est relativement peu élevé (350 \$, environ 300 \euro), ce qui le rend accessible au grand public. \\
-		Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionel, dans des domaines aussi variés
-		que la simulation scientifique, le divertissement, l'éducation, \ldots.
-		
-		La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
-		version du masque, le \emph{DK1}, tandis que la deuxième version, le \emph{DK2} a été distribuée à partir d'août 2014.
-		
+		\subsubsection{Aperçu}
+		  L'Oculus Rift est un masque de réalité virtuelle, développé par \emph{Oculus VR}, une entreprise 
+		  basée en Californie et rachetée par \emph{Facebook} en mars 2014 pour  2 milliards \$.
+		  L'Oculus Rift a été initialement financé via une plateforme de financement collaboratif, \emph{Kickstarter},
+		  et a levé 91 millions \$ à cette occasion. \\
+		  Il permet une immersion  réaliste dans une scène en trois dimensions, en donnant l'impression d'y être physiquement
+		  présent, et crée ainsi une nouvelle expérience
+		  utilisateur. \\
+		  De plus, son prix est relativement peu élevé (350 \$, environ 300 \euro), ce qui le rend accessible au grand public. \\
+		  Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionel, dans des domaines aussi variés
+		  que la simulation scientifique, le divertissement, l'éducation, \ldots.
+		  
+		  La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
+		  version du masque, le \emph{DK1}, tandis que la deuxième version, le \emph{DK2} a été distribuée à partir d'août 2014.
+		  
+		  \begin{figure}[h!]
+		    \centering
+		      \includegraphics[width=0.3\textwidth]{dk1.jpg}
+		    \caption{L'Oculus Rift (DK1)}
+		  \end{figure}
+		  
+		  \subsubsection{Fonctionnement}
+		  
+			\paragraph{Matériel} ~\\
+		    
+				L'Oculus Rift est composé de:\\
+			      
+				\begin{itemize}
+				\item Un écran 60 Hz d'une résolution de $1280*800$
+				\item Deux lentilles (une pour chaque oeil),
+				\item Un gyroscope à 3 axes pour mesurer l'accélération angulaire,
+				\item Un magnétomètre à 3 axes pour mesurer les champs magnétiques,
+				\item Un accéloromètre à 3 axes pour mesurer l'accélération, y compris gravitationnelle
+				\item Un port USB
+				\item Un port HDMI
+				\end{itemize} ~
+			       
+				Il est à noter que la résolution de l'écran est à diviser par deux, chaque oeil voyant seulement
+				une moitié de l'écran, la résolution effective est donc de $640*800$.
+		    
+			\paragraph{Logiciel} ~\\
+			    L'utilisation de l'Oculus Rift s'effectue au moyen de son SDK, qui permet:\\
+			    
+			    \begin{itemize}
+			     \item D'accéder aux différents capteurs,
+			     \item D'accéder aux propriétés du masque (distance inter-pupillaire, hauteur des yeux, \ldots),
+			     \item D'appliquer les <<filtres>> au rendu graphique afin d'avoir un rendu réaliste
+			    \end{itemize} ~
+			    
+			    Le SDK est écrit en C++ et possède une API en C.
+			    Pour mon stage, j'ai utilisé la version 2.5 puis la version 0.3.2.
+			
+
 
 	\subsection{Les nouvelles fonctionnalités}
 	
