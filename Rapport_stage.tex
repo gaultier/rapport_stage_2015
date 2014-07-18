@@ -32,7 +32,7 @@
     pdfborder         = {0 0 0}
     ]{hyperref}
 \usepackage{graphicx}
-
+\usepackage[ruled]{algorithm2e}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 % \hypersetup{
@@ -210,6 +210,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 				une moitié de l'écran, la résolution effective est donc de $640*800$.
 		    
 			\paragraph{Logiciel} ~\\
+			  
 			    L'utilisation de l'Oculus Rift s'effectue au moyen de son SDK, qui permet:\\
 			    
 			    \begin{itemize}
@@ -223,7 +224,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			
 			\paragraph{Théorie} ~\\
 			
-			    L'Oculus Rift exige que la scène soit rendue graphiquement en <<split-screen stéréo>>, 
+			    L'Oculus Rift exige que la scène soit rendue graphiquement en <<split-screen stereo>>, 
 			    c'est-à-dire avec l'écran divisé en deux verticalement, la partie gauche réservée à l'oeil gauche
 			    et la partie droite à l'oeil droit.
 			    
@@ -237,35 +238,81 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    l'image pour fournir un champ de vision très large, pour améliorer l'immersion.
 			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distortion
 			    en coussinets si les <<filtres>>, dont nous parleront plus tard,
-			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.
+			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.\\
 			    
 			     \begin{figure}[h!]
 			      \centering
-				\includegraphics[width=0.4\textwidth]{pincushion_distortion.png}
-			      \caption{Distortion en coussinets (<<pincushion distortion>>)}
-			    \end{figure}
+				\includegraphics[width=3cm]{pincushion_distortion.png}
+			      \caption{Distortion en coussinets (<<pincushion distortion>>)}\par\medskip
 			    
+
 			    Pour contrebalancer cette distortion, le programme doit, comme énoncé plus haut, appliquer
 			    un effet post-rendu. Il s'agit d'une distortion égale et opposée, appelée distortion en 
-			    barillets.
+			    barillets.\par\bigskip
 			    
-			     \begin{figure}[h!]
+			     {
 			      \centering
-				\includegraphics[width=0.4\textwidth]{pincushion_distortion.png}
+				\includegraphics[width=3cm]{barrel_distortion.png}
 			      \caption{Distortion en barillets (<<barrel distortion>>)}
-			    \end{figure}
+			     }\par\medskip
 			    
 			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
-			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles.
+			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles.\par\bigskip
 			    
-			     \begin{figure}[h!]
+			   {
 			      \centering
-				\includegraphics[width=0.4\textwidth]{chromatic_aberration.jpg}
+				\includegraphics[width=4cm]{chromatic_aberration.jpg}
 			      \caption{Aberration chromatique (<<chromatic abberration>>)}
-			    \end{figure}
+			   }
+			    \end{figure}  ~ \\
 			    
 			    
 			\paragraph{Pratique} ~\\
+			
+			    Pour le développeur, ces éléments théoriques sont gérés de manière interne par le SDK Oculus.
+			    
+			    Pour une application qui fait un rendu graphique, la programme est typiquement de
+			    la forme:\\
+			    
+			    \begin{algorithm}[H]
+			      initialization of the graphic resources\;
+			      fill the scene with graphic objects\;
+			      \While{the application is running}{
+				process the user input\;
+				update the objects in the scene\;
+				render the objects in the scene\;
+			      }
+			      release the graphic resources\;
+			      \caption{Application de rendu graphique}
+			    \end{algorithm} ~\\
+			    
+			    
+			    Un programme qui fait un rendu Oculus exclusivement aura pour sa part la forme suivante:\\
+			    
+			    \begin{algorithm}[H]
+			      initialization of the graphic resources\;
+			      initialization of the Oculus SDK\;
+			      fill the scene with graphic objects\;
+			      \While{the application is running}{
+				process the Oculus input\;
+				update the objects in the scene\;
+				\For{each eye}{
+				  translate the camera by the inter-pupillary distance\;
+				  apply the Oculus distortion effects\;
+				  render the objects in the scene\;
+				  }
+			      }
+			      release the Oculus SDK\;
+			      release the graphic resources\;
+			      \caption{Application de rendu graphique}
+			    \end{algorithm} ~\\
+			    
+			    Plus précisément, l'opération <<apply the Oculus distortion effects>> se fait de façon graphique
+			    au moyen de shaders, qui sont des programmes qui appliquent des transformations à chaque pixel de l'image.
+			    
+			    
+			    Les applications que j'ai développées au sein de mon stage peuvent fournir le rendu normal 
+			    et le rendu Oculus, selon l'option spécifiée.
 
 	\subsection{Les nouvelles fonctionnalités}
 	
