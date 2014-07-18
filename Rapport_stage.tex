@@ -221,7 +221,51 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Le SDK est écrit en C++ et possède une API en C.
 			    Pour mon stage, j'ai utilisé la version 2.5 puis la version 0.3.2.
 			
-
+			\paragraph{Théorie} ~\\
+			
+			    L'Oculus Rift exige que la scène soit rendue graphiquement en <<split-screen stéréo>>, 
+			    c'est-à-dire avec l'écran divisé en deux verticalement, la partie gauche réservée à l'oeil gauche
+			    et la partie droite à l'oeil droit.
+			    
+			    La distance inter-pupillaire est la distance entre les deux yeux. Elle varie d'un individu
+			    à l'autre mais elle est en moyenne de 65 mm. Cette distance est importante dans le procédé 
+			    de rendu car ce dernier consiste à rendre graphiquement la scène deux fois, une fois pour
+			    chaque oeil, en translatant la caméra de la distance inter-pupillaire entre les deux rendus.
+			    C'est ce qui contribue à créer l'effet stéréoscopique, ce qui crée l'impression d'immersion.
+			
+			    Un autre aspect à prendre en compte est la présence des lentilles. Ces dernières agrandissent
+			    l'image pour fournir un champ de vision très large, pour améliorer l'immersion.
+			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distortion
+			    en coussinets si les <<filtres>>, dont nous parleront plus tard,
+			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.
+			    
+			     \begin{figure}[h!]
+			      \centering
+				\includegraphics[width=0.4\textwidth]{pincushion_distortion.png}
+			      \caption{Distortion en coussinets (<<pincushion distortion>>)}
+			    \end{figure}
+			    
+			    Pour contrebalancer cette distortion, le programme doit, comme énoncé plus haut, appliquer
+			    un effet post-rendu. Il s'agit d'une distortion égale et opposée, appelée distortion en 
+			    barillets.
+			    
+			     \begin{figure}[h!]
+			      \centering
+				\includegraphics[width=0.4\textwidth]{pincushion_distortion.png}
+			      \caption{Distortion en barillets (<<barrel distortion>>)}
+			    \end{figure}
+			    
+			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
+			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles.
+			    
+			     \begin{figure}[h!]
+			      \centering
+				\includegraphics[width=0.4\textwidth]{chromatic_aberration.jpg}
+			      \caption{Aberration chromatique (<<chromatic abberration>>)}
+			    \end{figure}
+			    
+			    
+			\paragraph{Pratique} ~\\
 
 	\subsection{Les nouvelles fonctionnalités}
 	
