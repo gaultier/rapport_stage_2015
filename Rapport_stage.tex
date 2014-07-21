@@ -329,6 +329,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Pour une application qui fait un rendu graphique, la programme est typiquement de
 			    la forme:\\
 			    
+			    \label{mainloop_normal}
 			    \begin{algorithm}[H]
 			      initialize the graphic resources\;
 			      fill the scene with graphic objects\;
@@ -346,7 +347,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    
 			    
 			    Un programme qui fait un rendu Oculus exclusivement aura pour sa part la forme suivante:\\
-			    
+			    \label{mainloop_oculus}
 			    \begin{algorithm}[H]
 			      initialize the graphic resources\;
 			      initialize the Oculus SDK\;
@@ -670,7 +671,43 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    Pour finir, j'ai utilisé le déboggeur gdb.
 	    
 	  \subsubsection{Design Patterns}
-	  
+	    Les design patterns sont des motifs de programmation, des <<façons de faire>> que l'on retrouve régulièrement 
+	    pour résoudre des problèmes bien connus. Ce ne sont pas des <<tours de magie>> ou des  <<gadgets à la mode>>,
+	    mais des solutions pratiques à mettre en place quand le besoin s'en fait sentir, ou pour améliorer le code.
+	    
+	    Pendant ce stage, j'ai utilisé plusieurs design patterns. Voici lesquels et pourquoi:
+	    
+	    \begin{description}
+	     \item [NullObject pattern]~\\
+		Ce design pattern sert à gérer élégamment la situation où l'on a un ensemble d'objets à gérer dont certains sont
+		nuls. Plutôt que d'écrire des dizaine de conditions pour vérifier si l'on peut bien effectuer telle ou telle action
+		afin d'éviter une segmentation fault, la variable sur laquelle nous sommes en train de travailler étant nulle,
+		ce pattern propose de travailler avec une classe générique. De cette dernière hérite(nt) la ou les classe(s) dont nous nous
+		servons en pratique dans notre programme, et une classe <<NullObject>> dont le corps des méthodes sont vides (ou
+		adaptées selon la situation).
+		Ainsi au lieu de travailler avec des pointeurs nuls, on travaille avec de vrais objets, inoffensifs lorsque
+		l'on intéragit avec eux, grâce au polymorphisme.\\
+		
+		Dans mon cas, j'ai travaillé avec la classe <<GraphicObject>>, dont héritent les classes <<Cube>>, <<Plane>>, \ldots,
+		mais aussi <<NullGraphicObject>>.
+		Ainsi dans ma boucle de rendu, je pouvais afficher tous mes objets de la scène, sans avoir peur que certaines parties
+		de l'Octree soient vides et que cela occasionne un plantage.
+		
+	    \item [Singleton pattern]~\\
+		Design pattern bien connu et parfois décrié, il permet de limiter le nombre d'instances d'un objet, typiquement
+		à 1.\\
+		
+		Je l'ai utilisé pour la classe Oculus, afin d'éviter de faire l'initialisation du SDK Oculus plusieurs fois.
+		
+	    \item [Game Loop pattern]~\\
+		Ce pattern décrit la boucle de rendu typique d'une application de rendu graphique.
+		
+		Je l'ai utilisé pour l'application de simulation, comme décrit ici~(\ref{mainloop_normal}) pour le rendu normal
+		et là~(\ref{mainloop_oculus}) pour le rendu Oculus.
+	    
+	    \end{description}
+
+	    
 	
 	\subsubsection{Architecture}
 	
