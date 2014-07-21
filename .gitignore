@@ -2,3 +2,5 @@
 *.log
 *.out
 *.aux
+Rapport*.png
+*.backup
