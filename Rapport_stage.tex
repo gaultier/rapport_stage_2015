@@ -234,7 +234,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  utilisateur. \\
 		  De plus, son prix est relativement peu élevé (350 \$, environ 300 \euro), ce qui le rend accessible au grand public. \\
 		  Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionel, dans des domaines aussi variés
-		  que la simulation scientifique, le divertissement, l'éducation, \ldots.
+		  que la simulation scientifique, le divertissement, l'éducation, \ldots
 		  
 		  La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
 		  version du masque, le \emph{DK1}, tandis que la deuxième version, le \emph{DK2} a été distribuée à partir d'août 2014.
@@ -416,7 +416,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		En effet, la totalité du rendu graphique dans l'application existante se fait avec le <<fixed pipeline>> 
 		d'OpenGL, c'est-à dire une suite d'opérations fixes de rendu. Cela consiste a faire un rendu graphique basé sur des
 		appels à des fonctions OpenGL qui fournissent des fonctionnalités bien pratiques, comme des transformations
-		matricielles, des lumières, \ldots. Cependant ces appels, typiques d'OpenGL 1.x et 2.x, 
+		matricielles, des lumières, \ldots Cependant ces appels, typiques d'OpenGL 1.x et 2.x, 
 		utilisent principalement le CPU et ont donc
 		été dépréciés pour des raisons de performances dans OpenGL 3.x et 4.x, au profit d'une programmation
 		<<tout shader>>. Les shaders sont des programmes appliquant des effets sur chaque pixel de l'image et qui
@@ -428,6 +428,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Le SDK Oculus utilise les shaders pour appliquer les effets graphiques mentionnés plus tôt (distortion, 
 		correction des aberrations, \ldots), et cela a créé quelques conflits au niveau du rendu graphique, 
 		avec le rendu existant n'utilisant pas ces shaders.
+		
+	     \paragraph{Échelles} ~\\
+	      
 		
 	    \subsubsection{Simulation}
 		\paragraph{Portabilité} ~\\
@@ -457,7 +460,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  Comme évoqué plus haut, j'ai travaillé sur des données avoisinant le million d'objets. Cela a posé
 		  principalement un problème de performances. En effet, c'est en travaillant avec de tels nombres que
 		  l'on se rend compte de la disparité CPU (processeur) / GPU (carte graphique).
-		  En effet, malgré un processeur avec 16 GB de RAM, le fait de parcourir tous les objets pour les afficher (une fois par frame),
+		  En effet, malgré un processeur avec 16 GB de RAM, le fait de parcourir tous les objets pour les afficher (une fois par frame, $\mathcal{O}(n)$),
 		  prenait plus de 16 millisecondes, nombre critique dans le domaine du rendu graphique, puisqu'il
 		  correspond au temps de rendu maximal d'une frame si l'on veut un rendu à 60 FPS (frame per seconds),
 		  ce qui fournit une expérience correcte pour l'utilisateur: $1000 ms / 60 = 16.666 ms$.
@@ -477,11 +480,11 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  
 		  \begin{description}
 		   \item [Travailler avec un seul objet graphique]~\\ Cela consiste à avoir un seul objet dans le programme qui 
-		   contient les coordonnées de tous les objets célestes. On boucle donc sur un seul objet et on envoie toute
+		   contient les coordonnées de tous les objets célestes. On <<boucle>> donc sur un seul objet et on envoie toute
 		   les positions des objets célestes en une seule fois comme s'il n'y avait q'un objet et la carte
 		   graphique fait tout le travail. Cela fonctionne mais est peu flexible (comment faire pour sélectionner
 		   un seul objet céleste pour afficher des informations à son sujet?) et on atteint les limites de la
-		   carte graphique pour un très grand nombre d'objets.
+		   carte graphique pour un très grand nombre d'objets. Cependant le CPU a un minimum de travail.
 		   
 		   \item [Octree]~\\ Un Octree est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
 		   d'un espace cubique, à la manière d'un quadtree en 2D, et permet de diviser notre scène en régions,
@@ -605,11 +608,11 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		   \item [Clang Static Analyzer]~\\
 		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang.
 		      
-		   \item [Git]
+		   \item [Git]~\\
 		      Logiciel de gestion de version.
 		      Licence GNU GPL v2.
 		      
-		   \item [Github]
+		   \item [Github]~\\
 		      Site web de stockage en ligne de projets open source via git.
 		   
 		  \end{description}
@@ -635,7 +638,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 		La sixième, septième et huitième semaine ont été axées sur le développement de mes deux projets.
 		
-		La neuvième et dixième semaines ont porté sur la rédaction de ce rapport et sur les possibles optimisations
+		La neuvième et dixième semaine ont porté sur la rédaction de ce rapport et sur les possibles optimisations
 		des deux projets.
 				
 		Je me suis toutefois formé tout au long de mon stage à OpenGL, notamment à propos
@@ -684,7 +687,57 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 		
 	\subsection{Glossaire}
-		%Glossaire
+		\begin{description}
+		
+		\item [API]~\\
+		    <<Application Programming Interface>>, interface de programmation. Ensemble normalisé de classes et de 
+		    fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels.
+		
+		\item [C] ~\\
+		    Langage de programmation impératif, procédural utilisé dans des applications ayant un besoin critique
+		    de performances.
+		    
+		 \item [C++] ~\\
+		    Langage de programmation mutliplateforme, multiparadigme, générique, compilé, largement utilisé
+		    dans les domaines scientifiques, industriels, de l'entreprise, de l'image, \ldots
+		 
+		 \item [CPU]~\\
+		    <<Central Processing Unit>>, processeur. 
+		    Composant de l'ordinateur qui exécute les instructions machine des programmes informatiques.
+		 
+		 \item [FPS] ~\\
+		      <<Frame Per Seconds>>, mesure de la fluidité du rendu graphique en images par seconde.
+		 
+		 \item [Frame]~\\
+		    Image rendue graphiquement par un programme, typiquement 60 fois par seconde.
+		    
+		 \item [Framework]~\\
+		    Ensemble cohérent de composants logiciels structurels.
+
+		 \item [GPU]~\\
+		    <<Graphics Processing Unit>>, processeur graphique.
+		    Circuit intégré présent sur une carte graphique et assurant les fonctions de calcul de l'affichage.
+		 
+		 \item [Oculus Rift]~\\
+		    Masque de réalité virtuelle fournissant une expérience d'immersion inédite.
+		    
+		 \item [Oculus VR]~\\
+		    Entreprise de réalité virtuelle fabriquant l'Oculus Rift.
+		    
+		 
+		 \item [SDK]~\\
+		    <<Software Develoment Kit>>, kit de développement. 
+		    Ensemble d'outils permettant aux développeurs de créer des applications de type défini.
+		    
+		 \item [Shader]~\\
+		     Programme informatique, utilisé en image de synthèse, 
+		     pour paramétrer une partie du processus de rendu réalisé par une carte graphique ou un moteur de rendu logiciel.
+		     Ils peuvent permettre de décrire l'absorption et la diffusion de la lumière, la texture à utiliser, 
+		     les réflexions et réfractions, l'ombrage, le déplacement de primitives 
+		     et des effets post-traitement. 
+
+		\end{description}
+
 		
 \end{document}
 
