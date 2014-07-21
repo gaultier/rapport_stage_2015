@@ -496,13 +496,70 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\subsection{Outils utilisés}
 
 		\subsubsection{Langages utilisés}
-			
-		
-
+		    Les deux projets sur lesquels j'ai travaillé ont été développés en C++, même si la quasi-totalité 
+		    du projet Skybot 3D est écrite en C, adapté pour pouvoir compiler en C++.
+		    Sur le deuxième projet, j'ai de plus mis en oeuvre des fonctionnalités nouvelles de C++, standardisées
+		    par la norme C++11 datant de 2011. On peut citer:
+		    \begin{itemize}
+		     \item Listes d'initialisation 
+		     \item Pointeur null <<nullptr>>
+		     \item Boucle for sur une plage de valeurs
+		     \item Référence sur une rvalue
+		     \item Outils de mesure du temps
+		     \item Mot-clé <<auto>>
+		    \end{itemize}
 	
 		\subsubsection{Bibliothèques utilisés}
+
+		  \begin{description}
+		   \item [OpenGL] ~\\
+		      OpenGL est une API multi-plateforme pour effectuer des rendus graphiques 2D et 3D.
+		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
+		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée  
+		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
+		      
+		      Je l'ai utilisée pour les deux projets.
+		      
+		   \item [SDL]~\\
+		      <<Simple DirectMedia Layer>> est une bibliothèque multi-plateforme donnant accès au système de fenêtrage,
+		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
+		      
+		   \item [GLUT]~\\
+		      <<OpenGL Utility Toolkit>> est l'équivalent de la SDL en plus restreint. Je m'en suis servi pour le 
+		      projet Skybot 3D via son implémentation open source <<freeglut>>.
+		      
+		   \item [glm]~\\
+		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
+		      Je l'ai utilisée pour le projet de simulation.
+		      
+		   \item [Oculus SDK]~\\
+		      Le SDK Oculus est l'interface de programmation permettant d'accéder à l'Oculus Rift et est fourni
+		      par Oculus VR (fabriquant de l'Oculus Rift). 
+		      Je me suis servi des versions 0.2.5 et 0.3.2.
+		      
+		  \end{description}
+
+		
 		
 		\subsubsection{Programmes utilisés}
+		  \begin{description}
+		   \item [QtCreator]~\\
+		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
+		   
+		   \item [Clang]~\\
+		      Compilateur/interface de compilation C/C++ open source développé par Google.
+		   
+		   \item [GCC]~\\
+		      <<GNU Compiler Collection>>, compilateur C/C++.
+		    
+		   \item [Valgrind]~\\
+		      Outil d'analyse dynamique (à l'exécution) de programme, pour notamment traquer les fuites de mémoire.
+		   
+		   \item [Clang Static Analyzer]~\\
+		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang.
+		   
+		  \end{description}
+
 		
 		
 	\subsection{Déroulement du stage}
@@ -519,9 +576,15 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			
 \section{Remerciements}
 
-	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici. 
+	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici: 
 
-	%Remerciements
+	\begin{itemize}
+	 \item André SCHAAF, mon maître de stage
+	 \item L'équipe Skybot 3D: Jérôme Berthier et Jonathan Normand
+	 \item Brad Davis, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift
+	 \item Nicolas Deparis et Romain Houpin, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D
+	\end{itemize}
+
 
   
   
