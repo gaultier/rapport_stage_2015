@@ -174,6 +174,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		en 3D à partir des données célestes de ces instituts. En pratique, c'est une simulation 3D du système solaire
 		où les échelles sont respectées. Il est encore en développement à la date d'écriture de ce document et
 		sa sortie est prévue pour fin 2014.
+		Il fonctionne sur toutes les distributions Linux et utilise OpenGL pour le rendu graphique.
 		
 		Mon travail a donc consisté en l'intégration du rendu Oculus dans cette application, tout en gardant
 		le rendu existant.
@@ -373,31 +374,135 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      
 		Une contrainte supplémentaire a été le conflit de langages: le programme existant est écrit en C, et le
 		SDK Oculus en C++, exigeant en conséquence un compilateur C++. 
-		C et C++ sont des langages proches de par leur origine et leur histoire, ils sont donc en grande partie 
-		compatibles. La majorité du code n'a donc pas posé de problème, mais certains motifs ont dû être modifiés,
-		notamment les conversions de types implicites, les arithmétiques de pointeurs et les pointeurs de fonctions
-		ont du être réécrits de manière idiomatique en C++.
+		C et C++ sont des langages proches de par leur origine et leur histoire, C++ étant issu de C, 
+		ils sont donc en grande partie compatibles. La majorité du code n'a donc pas posé de problème, 
+		mais certains motifs ont dû être modifiés, notamment les conversions de types implicites,
+		les arithmétiques de pointeurs et les pointeurs de fonctions ont du être réécrits de manière
+		idiomatique en C++.
 		
+	    \paragraph{Versions d'OpenGL} ~\\
 	    
+		Une contrainte additionnelle, et peut-être la plus importante, a été l'utilisation de différentes 
+		fonctionnalités d'OpenGL, appartenant à des versions différentes.
+		En effet, la totalité du rendu graphique dans l'application existante se fait avec le <<fixed pipeline>> 
+		d'OpenGL, c'est-à dire une suite d'opérations fixes de rendu. Cela consiste a faire un rendu graphique basé sur des
+		appels à des fonctions OpenGL qui fournissent des fonctionnalités bien pratiques, comme des transformations
+		matricielles, des lumières, \ldots. Cependant ces appels, typiques d'OpenGL 1.x et 2.x, 
+		utilisent principalement le CPU et ont donc
+		été dépréciés pour des raisons de performances dans OpenGL 3.x et 4.x, au profit d'une programmation
+		<<tout shader>>. Les shaders sont des programmes appliquant des effets sur chaque pixel de l'image et qui
+		sont éxecutés sur la carte graphique.
+		
+		Le développeur doit donc maintenant tout faire manuellement mais cela au profit des performances et de l'éventail
+		de possibilités, mais au détriment de la simplicité.
+		
+		Le SDK Oculus utilise les shaders pour appliquer les effets graphiques mentionnés plus tôt (distortion, 
+		correction des aberrations, \ldots), et cela a créé quelques conflits au niveau du rendu graphique, 
+		avec le rendu existant n'utilisant pas ces shaders.
 		
 	    \subsubsection{Simulation}
-	  \subsubsection{Portabilité}
-	  \subsubsection{Taille des données}
-	  \subsubsection{Existant}
+		\paragraph{Portabilité} ~\\
+		
+		
+		  Pour ce projet, il a été convenu dès le départ d'assurer la portabilité du programme, c'est-à-dire
+		  le fonctionnement multi-plateforme.
+		  
+		  Dans cette optique, j'ai choisi un langage fonctionnant sur n'importe quelle plateforme existante 
+		  (dès lors qu'il existe un compilateur adéquat), le C++, et
+		  des bibliothèques multi-plateformes, notamment pour le rendu graphique,
+		  pour permettre l'abstration d'une API spécifique à une plateforme donnée, en fournissant une API générique.
+		  Un exemple est l'utilisation de la SDL, une bibliothèque de fenêtrage, ou d'OpenGL, une API de rendu
+		  graphique.
+		  
+		  De plus, un soin particulier a été porté dans le développement à  l'évitement de l'introduction 
+		  de code spécifique à une plateforme donnée, par exemple en utilisant de façon maximale la libraire 
+		  standard du langage.
+		  
+		  
+		\paragraph{Taille des données} ~\\
+		
+		  Comme évoqué plus haut, j'ai travaillé sur des données avoisinant le million d'objets. Cela a posé
+		  principalement un problème de performances. En effet, c'est en travaillant avec de tels nombres que
+		  l'on se rend compte de la disparité CPU (processeur) / GPU (carte graphique).
+		  En effet, malgré un processeur avec 16 GB de RAM, le fait de parcourir tous les objets pour les afficher (une fois par frame),
+		  prenait plus de 16 millisecondes, nombre critique dans le domaine du rendu graphique, puisqu'il
+		  correspond au temps de rendu maximal d'une frame si l'on veut un rendu à 60 FPS (frame per seconds),
+		  ce qui fournit une expérience correcte pour l'utilisateur: $1000 ms / 60 = 16.666 ms$.
+		  
+		  En sus, comme j'ai travaillé avec cubes de données (corps celéstes dont les cooordonnées spatiales se trouvent toutes
+		  contenues dans un cube, typiquement de taille 64*64*64 ou 100*100*100), ce qui peut donner une boucle de rendu
+		  de complexité $\mathcal{O}(n^3)$, empirant alors le temps de rendu.
+		  
+		  De plus, il faut garder à l'esprit que l'objectif final est d'avoir un rendu Oculus valide. Or le
+		  SDK Oculus fait un double rendu (un pour chaque oeil), en appliquant des transformations matricielles
+		  pour chacun des rendus. Il est donc primordial d'avoir des FPS corrects dans le rendu graphique normal.
+		  
+		  Cependant, je me suis aperçu que la carte graphique ne rencontrait pas de problème de temps de rendu,
+		  gardant la plupart du temps un temps de rendu d'une frame inférieur à la milliseconde.
+		  
+		  Dès lors, plusieurs solutions se sont présentées:
+		  
+		  \begin{description}
+		   \item [Travailler avec un seul objet graphique]~\\ Cela consiste à avoir un seul objet dans le programme qui 
+		   contient les coordonnées de tous les objets célestes. On boucle donc sur un seul objet et on envoie toute
+		   les positions des objets célestes en une seule fois comme s'il n'y avait q'un objet et la carte
+		   graphique fait tout le travail. Cela fonctionne mais est peu flexible (comment faire pour sélectionner
+		   un seul objet céleste pour afficher des informations à son sujet?) et on atteint les limites de la
+		   carte graphique pour un très grand nombre d'objets.
+		   
+		   \item [Octree]~\\ Un Octree est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
+		   d'un espace cubique, à la manière d'un quadtree en 2D, et permet de diviser notre scène en régions,
+		   contenant elles-mêmes des sous-régions et ainsi de suite. On peut alors décider d'afficher seulement les
+		   régions voisines de notre position sans afficher les régions que l'on ne peut pas voir ou qui sont
+		   trop lointaines. C'est la solution que j'ai choisie car c'est la plus flexible et celle qui offre le
+		   plus de possibilités. A noter cependant que cela impose une taille de cube d'une puissance de deux.
+		   
+		   \begin{figure}
+			      \centering
+				\includegraphics[width=0.5\textwidth]{octree.png}
+			      \caption{Schématisation d'un octree}
+			       
+		    \end{figure} 
+		    
+		
+			       
+		\begin{figure} 
+			\centering
+				\includegraphics[width=0.4\textwidth]{octree2.jpg}
+			      \caption{Octree en action}
+		   
+		\end{figure}
+		   
+		 \end{description}
+
+		  
+		 On optimise alors le rendu à la fois sur le CPU (moins d'objets parcourus dans la boucle
+			       de rendu à chaque frame) et sur le GPU (moins de données envoyées et 
+			       rendues graphiquement à chaque frame).  
+		  		
+		
+		Initialement, mes objets étaient tous stockés dans un tableau que je parcourais à chaque frame pour les afficher.
+		Pour 1000 objets, j'avais une moyenne de 5 FPS. 
+		J'ai alors mis en place un Octree. J'ai eu alors des FPS variant entre 30 et 60 FPS, avec une moyenne de 55 FPS
+		(le rendu est limité à 60 FPS maximum
+		pour ne pas surcharger le CPU/GPU), quelque soit le nombre d'objets présents dans la scène, ce qui est acceptable.
+		En effet, l'Octree permet d'afficher un nombre moyen constant d'objets quelque soit notre position.
+		Avec un cube de taille 128*128*128 et 32768 objets, le temps de génération de l'Octree est d'environ 120s.
+		J'affiche l'octant (et donc tous les objets célestes se trouvant dans cet octant) où la caméra se trouve
+		et les 6 octants immédiatement voisins, avec une taille d'octant de 8.
+		Pour résumer, on sacrifie le temps de démarrage du programme au profit des performances à l'exécution.
 
 
 	\subsection{Outils utilisés}
-	
-		\subsubsection{Programmes utilisés}
-		
 
-		
 		\subsubsection{Langages utilisés}
 			
 		
 
 	
 		\subsubsection{Bibliothèques utilisés}
+		
+		\subsubsection{Programmes utilisés}
 		
 		
 	\subsection{Déroulement du stage}
