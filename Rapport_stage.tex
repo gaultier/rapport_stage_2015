@@ -172,13 +172,25 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Skybot 3D est un logiciel développé en C par l'institut de mécanique céleste et de calcul des éphémérides (IMCCE),
 		conjointement avec l'Observatoire de Paris et le CNRS. Son propos est de faire un rendu graphique réaliste
 		en 3D à partir des données célestes de ces instituts. En pratique, c'est une simulation 3D du système solaire
-		où les échelles sont respectées.
+		où les échelles sont respectées. Il est encore en développement à la date d'écriture de ce document et
+		sa sortie est prévue pour fin 2014.
 		
 		Mon travail a donc consisté en l'intégration du rendu Oculus dans cette application, tout en gardant
 		le rendu existant.
 		
-	      
 	    \subsubsection{Simulation}
+		Ce projet a consisté en la représentation 3D de données provenant du Centre de Données
+		de l'Observatoire, décrivant la taille, la position, l'âge et la densité de corps célestes.
+		Ces données sont stockées dans des fichiers texte ou binaires, pouvant contenir plusieurs millions
+		d'objets.
+		
+		J'ai eu la liberté de choisir les outils, le langage et les bibliothèques  externes utilisées dans ce programme,
+		n'ayant pas de base de code préexistante.
+		
+		
+		
+	      
+	    
 		
 	\subsection{L'Oculus Rift}
 		
@@ -350,6 +362,25 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 	\subsection{Contraintes}
 	
+	\subsubsection{Skybot 3D}
+	    \paragraph{Existant} ~\\
+	    
+		La contrainte principale pour le projet Skybot 3D a été de travailler avec du code existant non documenté.
+		En effet, j'ai eu accès à une version de développement non finalisée et non encore publiée. Cependant j'ai 
+		eu de riches échanges avec les développeurs par mail et vidéoconférence.
+		
+	    \paragraph{Langages} ~\\
+	      
+		Une contrainte supplémentaire a été le conflit de langages: le programme existant est écrit en C, et le
+		SDK Oculus en C++, exigeant en conséquence un compilateur C++. 
+		C et C++ sont des langages proches de par leur origine et leur histoire, ils sont donc en grande partie 
+		compatibles. La majorité du code n'a donc pas posé de problème, mais certains motifs ont dû être modifiés,
+		notamment les conversions de types implicites, les arithmétiques de pointeurs et les pointeurs de fonctions
+		ont du être réécrits de manière idiomatique en C++.
+		
+	    
+		
+	    \subsubsection{Simulation}
 	  \subsubsection{Portabilité}
 	  \subsubsection{Taille des données}
 	  \subsubsection{Existant}
