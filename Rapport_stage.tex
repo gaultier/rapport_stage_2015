@@ -434,11 +434,11 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 		
 		  Pour ce projet, il a été convenu dès le départ d'assurer la portabilité du programme, c'est-à-dire
-		  le fonctionnement multi-plateforme.
+		  le fonctionnement multiplateforme.
 		  
 		  Dans cette optique, j'ai choisi un langage fonctionnant sur n'importe quelle plateforme existante 
 		  (dès lors qu'il existe un compilateur adéquat), le C++, et
-		  des bibliothèques multi-plateformes, notamment pour le rendu graphique,
+		  des bibliothèques multiplateformes, notamment pour le rendu graphique,
 		  pour permettre l'abstration d'une API spécifique à une plateforme donnée, en fournissant une API générique.
 		  Un exemple est l'utilisation de la SDL, une bibliothèque de fenêtrage, ou d'OpenGL, une API de rendu
 		  graphique.
@@ -449,6 +449,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  
 		  Au final, j'ai uniquement travaillé sur Linux mais le code fonctionne selon toute probabilité sur 
 		  Windows et OSX, avec des drivers à jour, sur des versions relativement récentes de ces systèmes d'exploitation.
+		  
 		  
 		  
 		\paragraph{Taille des données} ~\\
@@ -545,32 +546,39 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 		  \begin{description}
 		   \item [OpenGL] ~\\
-		      <<Open Graphics Library>> est une API multi-plateforme pour effectuer des rendus graphiques 2D et 3D.
+		      <<Open Graphics Library>> est une API multiplateforme pour effectuer des rendus graphiques 2D et 3D.
 		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
 		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée  
 		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
 		      
 		      Je l'ai utilisée pour les deux projets.
+		      Pas de licence.
 		      
 		   \item [SDL]~\\
-		      <<Simple DirectMedia Layer>> est une bibliothèque multi-plateforme donnant accès au système de fenêtrage,
+		      <<Simple DirectMedia Layer>> est une bibliothèque multiplateforme donnant accès au système de fenêtrage,
 		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
+		      Licence zlib.
 		      
 		   \item [GLUT]~\\
 		      <<OpenGL Utility Toolkit>> est l'équivalent de la SDL en plus restreint. Je m'en suis servi pour le 
 		      projet Skybot 3D via son implémentation open source <<freeglut>>.
+		      Licence X-Consortium.
 		      
 		   \item [glm]~\\
 		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
 		      Je l'ai utilisée pour le projet de simulation.
+		      Licence MIT.
 		   
 		   \item [GLEW]~\\
-		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multi-plateforme de chargement des fonctionnalités d'OpenGL.
+		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multiplateforme de chargement des fonctionnalités d'OpenGL.
+		      Licence BSD modifiée.
 		      
 		   \item [Oculus SDK]~\\
 		      Le SDK Oculus est l'interface de programmation permettant d'accéder à l'Oculus Rift et est fourni
 		      par Oculus VR (fabriquant de l'Oculus Rift). 
 		      Je me suis servi des versions 0.2.5 et 0.3.2.
+		      Licence particulière mais analogue à une licence MIT, à ceci près qu'elle restreint les utilisations
+		      pouvant mettre en danger la vie ou la santé d'individus.
 		      
 		  \end{description}
 
@@ -580,28 +588,33 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  \begin{description}
 		   \item [QtCreator]~\\
 		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
+		      Licence LGPL.
 		   
 		   \item [Clang]~\\
 		      Compilateur/interface de compilation C/C++ open source développé par Google.
+		      Licence de l'Université de l'Illinois / licence  NCSA open source.
 		   
 		   \item [GCC]~\\
 		      <<GNU Compiler Collection>>, compilateur C/C++.
+		      Licence GNU GPL 3+.
 		    
 		   \item [Valgrind]~\\
 		      Outil d'analyse dynamique (à l'exécution) de programme, pour notamment traquer les fuites de mémoire.
+		      Licence GPL v2.
 		   
 		   \item [Clang Static Analyzer]~\\
 		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang.
 		      
 		   \item [Git]
 		      Logiciel de gestion de version.
+		      Licence GNU GPL v2.
 		      
 		   \item [Github]
 		      Site web de stockage en ligne de projets open source via git.
 		   
 		  \end{description}
 
-		
+		Tous ces outils sont open source et multiplateformes.
 		
 	\subsection{Déroulement du stage}
 	
