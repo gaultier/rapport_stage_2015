@@ -705,6 +705,27 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Je l'ai utilisé pour l'application de simulation, comme décrit ici~(\ref{mainloop_normal}) pour le rendu normal
 		et là~(\ref{mainloop_oculus}) pour le rendu Oculus.
 	    
+	    \item [Flyweight Pattern]~\\
+	       Ce pattern sert à améliorer les performances d'une application où sont présents de nombreux objets identiques,
+	       mis à part la valeur de certaines propriétés, et qui utilisent des ressources similaires.
+	       Au lieu que chaque objet possède une instance de la ressource, générant une perte de performances
+	       inutile, ce pattern propose de mettre en commun tout ce qui peut l'être. Chaque objet aura alors un pointeur
+	       vers la resource partagée. Ce partage est transparent pour l'application qui continue à utiliser les objets 
+	       comme bon lui semble, en utilisant les informations particulières de chaque objet.\\
+	       
+	       Dans mon cas, la simulation concerne des milliers voire des millions d'objets célestes. Dans les cas que j'ai
+	       rencontrés, il s'agissait toujours d'un seul type d'objet céleste, par exemple une étoile.
+	       Si l'on choisit de représenter une étoile par un modèle 3D, une sphère par exemple, et une
+	       texture plaquée sur cette sphère, et que l'on charge la resource <<texture>> à partir d'un fichier, il est inconcevable
+	       de lire ce fichier des millions de fois par seconde.
+	       On choisit alors de charger cette resource au démarrage du programme. On lit une fois et une seule le fichier.
+	       Chaque étoile possède un pointeur vers cette texture. 
+	       La seule différence entre les étoiles sont les informations contextuelles (position, densité, âge, \ldots).
+	       
+	       On peut alors faire le rendu sans problème de performances: au final, on fait une seule lecture de fichier, et
+	       l'on a une seule texture en mémoire, au lieu de milliers/millions auparavant.
+	       L'initialisation prend ainsi moins de temps et la libération mémoire également à la fin du programme.
+	    
 	    \end{description}
 
 	    
