@@ -614,6 +614,10 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		      
 		   \item [Github]~\\
 		      Site web de stockage en ligne de projets open source via git.
+		      
+		   \item [GDB]~\\
+		      <<GNU Project Debugger>>, le déboggeur standard sur Linux.
+		      Licence GNU GPL.
 		   
 		  \end{description}
 
@@ -647,10 +651,28 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 		
 	
-	\subsection{Bonnes pratiques de développement}
-			%Bonnes pratiques
+	\subsection{Développement}
 	
-	\subsection{Architecture}
+	  \subsubsection{Bonnes pratiques}
+	    Comme mentionné plus tôt, j'ai tout au long de mon stage versionné mon code avec git et Github, ce qui a
+	    permis de le partager facilement avec l'équipe Skybot 3D et André SCHAAF.
+	    
+	    De plus j'ai régulièrement utilisé des outils d'analyse statique et dynamique pour jauger de la qualité de
+	    mon code et l'améliorer.
+	    
+	    En sus, j'ai activé les options de compilation aidant dans cette tâche: <<-Wall>>, <<-Wextra>>, <<-Werror>>, \ldots
+	    
+	    J'ai également commenté de manière modérée mon code, et gardé une constance dans le nommage des variables,
+	    l'indentation du code, \ldots
+	    
+	    Enfin, j'ai utilisé deux compilateurs différents, clang et gcc, en comparant leurs performances,
+	    notamment avec les options d'optimisations <<-O1>>, <<-O2>>, <<-O3>>, <<-Ofast>>.
+	    Pour finir, j'ai utilisé le déboggeur gdb.
+	    
+	  \subsubsection{Design Patterns}
+	  
+	
+	\subsubsection{Architecture}
 	
   %Architecture de l'application
 
