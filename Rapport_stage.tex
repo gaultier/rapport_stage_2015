@@ -781,6 +781,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 	\subsection{Captures d'écran}
 		\FloatBarrier
+		\newpage
 		\begin{figure}
 			      \centering
 			      \includegraphics[width=1.0\textwidth]{skybot_normal_earth.png}
@@ -805,9 +806,12 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \caption{Visualisation du systême solaire dans Skybot 3D en vue Oculus}
 		\end{figure}
 		
-		
+	\newpage	
 	\subsection{Code source}
 	\FloatBarrier
+	<<Oculus.h>> est un fichier d'en-tête décrivant la classe Oculus. Il prend comme argument de template la scene
+	OpenGL générique que l'on veut afficher en mode Oculus. La seule contrainte est que cette scène fournisse 
+	la méthode <<render>>.
 	\lstinputlisting[language=C++]{Oculus.h}
 	
 	\subsection{Bibliographie}
@@ -867,6 +871,37 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 		\end{description}
 
-		
+	\subsection{Ressources}
+	  \begin{description}
+	   \item [Site web du créateur du langage C++]~\\
+	      \url{http://www.stroustrup.com/}
+	   \item [Conventions de code C++]~\\
+	      \url{http://www.stroustrup.com/JSF-AV-rules.pdf}
+	   \item [Site d'Oculus pour les développeurs]~\\
+	      \url{https://developer.oculusvr.com/}
+	   \item [Wiki officiel d'OpenGL]~\\
+	      \url{http://www.opengl.org/wiki/Main_Page}
+	   \item [Site web sur les design patterns]~\\
+	      \url{http://gameprogrammingpatterns.com/}
+	   \item [Blog sur le développement Oculus Rift]~\\
+	      \url{http://rifty-business.blogspot.fr}
+	   \item [Tutoriel C++]~\\
+	      \url{http://cpp.developpez.com/faq/cpp/}
+	   \item [Tutoriel OpenGL 3.x]~\\
+	      \url{http://tomdalling.com/blog/category/modern-opengl/}  
+	   \item [Site web de Skybot 3D]~\\
+	      \url{http://vo.imcce.fr/webservices/skybot3d}  
+	   \item [Site web de l'Observatoire]~\\
+	      \url{http://astro.unistra.fr/}  
+	   \item [Site web traitant du problème d'échelle et des grands nombres dans OpenGL]~\\
+	      \url{http://www.floatingorigin.com/}  
+	   \item [Autre tutoriel OpenGL 3.x]~\\
+	      \url{http://open.gl/}  
+	   \item [Oculus SDK]~\\
+	      \url{https://developer.oculusvr.com/?action=dl}  
+	  \end{description}
+
+	
+	
 \end{document}
 
