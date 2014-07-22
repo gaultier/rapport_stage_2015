@@ -12,6 +12,7 @@
 \usepackage{eurosym}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{placeins}
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
@@ -195,8 +196,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 		L’objectif de ce stage a été centré autour de l'Oculus Rift et a été double:
 		\begin{itemize}
-		 \item Intégration de l'Oculus Rift à une simulation 3D du système solaire existante,
-		 \item Développement d'un programme de visualisation 3D  d'étoiles avec intégration de l'Oculus Rift
+		 \item Intégration de l'Oculus Rift à une simulation 3D du système solaire existante (Skybot 3D),
+		 \item Développement d'un programme de visualisation 3D  d'objets célestes avec intégration de l'Oculus Rift (Simulation)
 		\end{itemize}
 		
 		J'ai donc travaillé sur deux projets distincts mais néanmoins complémentaires.
@@ -205,7 +206,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Skybot 3D est un logiciel développé en C par l'institut de mécanique céleste et de calcul des éphémérides (IMCCE),
 		conjointement avec l'Observatoire de Paris et le CNRS. Son propos est de faire un rendu graphique réaliste
 		en 3D à partir des données célestes de ces instituts. En pratique, c'est une simulation 3D du système solaire
-		où les échelles sont respectées. Il est encore en développement à la date d'écriture de ce document et
+		où les échelles sont respectées, avec gestion du temps. Il est encore en développement à la date d'écriture de ce document et
 		sa sortie est prévue pour fin 2014.
 		Il fonctionne sur toutes les distributions Linux et utilise OpenGL pour le rendu graphique.
 		
@@ -225,9 +226,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\subsection{L'Oculus Rift}
 		
 		\subsubsection{Aperçu}
-		  L'Oculus Rift est un masque de réalité virtuelle, développé par \emph{Oculus VR}, une entreprise 
-		  basée en Californie et rachetée par \emph{Facebook} en mars 2014 pour  2 milliards \$.
-		  L'Oculus Rift a été initialement financé via une plateforme de financement collaboratif, \emph{Kickstarter},
+		  L'Oculus Rift est un masque de réalité virtuelle, développé par Oculus VR, une entreprise 
+		  basée en Californie et rachetée par Facebook en mars 2014 pour  2 milliards \$.
+		  L'Oculus Rift a été initialement financé via une plateforme de financement collaboratif, Kickstarter,
 		  et a levé 91 millions \$ à cette occasion. \\
 		  Il permet une immersion  réaliste dans une scène en trois dimensions, en donnant l'impression d'y être physiquement
 		  présent, et crée ainsi une nouvelle expérience
@@ -237,7 +238,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  que la simulation scientifique, le divertissement, l'éducation, \ldots
 		  
 		  La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
-		  version du masque, le \emph{DK1}, tandis que la deuxième version, le \emph{DK2} a été distribuée à partir d'août 2014.
+		  version du masque, le DK1, tandis que la deuxième version, le DK2 a été distribuée à partir d'août 2014.
 		  
 		  \begin{figure}[h!]
 		    \centering
@@ -287,7 +288,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    à l'autre mais elle est en moyenne de 65 mm. Cette distance est importante dans le procédé 
 			    de rendu car ce dernier consiste à rendre graphiquement la scène deux fois, une fois pour
 			    chaque oeil, en translatant la caméra de la distance inter-pupillaire entre les deux rendus.
-			    C'est ce qui contribue à créer l'effet stéréoscopique, ce qui crée l'impression d'immersion.
+			    C'est ce qui contribue à créer l'effet stéréoscopique, ce qui engendre l'impression d'immersion.
 			
 			    Un autre aspect à prendre en compte est la présence des lentilles. Ces dernières agrandissent
 			    l'image pour fournir un champ de vision très large, pour améliorer l'immersion.
@@ -312,7 +313,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			     }\par\medskip
 			    
 			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
-			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles.\par\bigskip
+			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles et est
+			    bien connu dans le domaine de l'optique.\par\bigskip
 			    
 			   {
 			      \centering
@@ -342,10 +344,6 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \caption{Application de rendu graphique}
 			    \end{algorithm} ~\\
 			    
-			   
-			    
-			    
-			    
 			    Un programme qui fait un rendu Oculus exclusivement aura pour sa part la forme suivante:\\
 			    \label{mainloop_oculus}
 			    \begin{algorithm}[H]
@@ -368,7 +366,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Plus précisément, l'opération <<apply the Oculus distortion effects>> se fait de façon graphique
 			    au moyen de shaders, qui sont des programmes qui appliquent des transformations à chaque pixel de l'image.
 			    
-			    
+
 			    Nous avons alors le rendu suivant, pour une scène simple composée d'un cube texturé, d'un plan
 			    et d'une skybox rudimentaire, avec le même point de vue:
 			    
@@ -384,9 +382,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    \end{figure}
 			    \clearpage
 			    
-			    
-			    
-			    
+
 			    Les applications que j'ai développées au sein de mon stage peuvent fournir le rendu normal 
 			    et le rendu Oculus, selon l'option spécifiée.
 
@@ -396,7 +392,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\subsubsection{Skybot 3D}
 	    \paragraph{Existant} ~\\
 	    
-		La contrainte principale pour le projet Skybot 3D a été de travailler avec du code existant non documenté.
+		La contrainte principale pour le projet Skybot 3D a été de travailler avec du code existant non documenté,
+		de taille conséquente (3840 fichiers, 22863 lignes de code).
 		En effet, j'ai eu accès à une version de développement non finalisée et non encore publiée. Cependant j'ai 
 		eu de riches échanges avec les développeurs par mail et vidéoconférence.
 		
@@ -549,77 +546,69 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		\subsubsection{Bibliothèques utilisés}
 
 		  \begin{description}
-		   \item [OpenGL] ~\\
-		      <<Open Graphics Library>> est une API multiplateforme pour effectuer des rendus graphiques 2D et 3D.
-		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
-		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée  
-		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
-		      
-		      Je l'ai utilisée pour les deux projets.
-		      Pas de licence.
-		      
-		   \item [SDL]~\\
-		      <<Simple DirectMedia Layer>> est une bibliothèque multiplateforme donnant accès au système de fenêtrage,
-		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
-		      Licence zlib.
-		      
+		   \item [GLEW]~\\
+		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multiplateforme de chargement des fonctionnalités d'OpenGL.
+		      Licence BSD modifiée.
+		   \item [GLM]~\\
+		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
+		      Je l'ai utilisée pour le projet de simulation.
+		      Licence MIT.
 		   \item [GLUT]~\\
 		      <<OpenGL Utility Toolkit>> est l'équivalent de la SDL en plus restreint. Je m'en suis servi pour le 
 		      projet Skybot 3D via son implémentation open source <<freeglut>>.
 		      Licence X-Consortium.
-		      
-		   \item [glm]~\\
-		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
-		      Je l'ai utilisée pour le projet de simulation.
-		      Licence MIT.
-		   
-		   \item [GLEW]~\\
-		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multiplateforme de chargement des fonctionnalités d'OpenGL.
-		      Licence BSD modifiée.
-		      
+		   \item [Octree]~\\
+		      Une bibliothèque C++ implémentant les Octree.
+		      Licence GPL.
 		   \item [Oculus SDK]~\\
 		      Le SDK Oculus est l'interface de programmation permettant d'accéder à l'Oculus Rift et est fourni
 		      par Oculus VR (fabriquant de l'Oculus Rift). 
 		      Je me suis servi des versions 0.2.5 et 0.3.2.
 		      Licence particulière mais analogue à une licence MIT, à ceci près qu'elle restreint les utilisations
 		      pouvant mettre en danger la vie ou la santé d'individus.
-		      
+		   \item [OpenGL] ~\\
+		      <<Open Graphics Library>> est une API multiplateforme pour effectuer des rendus graphiques 2D et 3D.
+		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
+		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée  
+		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
+		      Je l'ai utilisée pour les deux projets.
+		      Pas de licence.
+		   \item [SDL]~\\
+		      <<Simple DirectMedia Layer>> est une bibliothèque multiplateforme donnant accès au système de fenêtrage,
+		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
+		      Licence zlib.      
 		  \end{description}
 
 		
 		
 		\subsubsection{Programmes utilisés}
-		  \begin{description}
-		   \item [QtCreator]~\\
-		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
-		      Licence LGPL.
-		   
+		  \begin{description}  
 		   \item [Clang]~\\
 		      Compilateur/interface de compilation C/C++ open source développé par Google.
 		      Licence de l'Université de l'Illinois / licence  NCSA open source.
-		   
+		  \item [Clang Static Analyzer]~\\
+		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang. 
+		  \item [CMake]~\\
+		      Outil multiplateforme 'aide à la compilation et de génération de Makefiles.
+		      Licence BSD.
 		   \item [GCC]~\\
 		      <<GNU Compiler Collection>>, compilateur C/C++.
-		      Licence GNU GPL 3+.
-		    
+		      Licence GNU GPL 3+.      
+		   item [GDB]~\\
+		      <<GNU Project Debugger>>, le déboggeur standard sur Linux.
+		      Licence GNU GPL.
+		   \item [Git]~\\
+		      Logiciel de gestion de version.
+		      Licence GNU GPL v2.    
+		   \item [Github]~\\
+		      Site web de stockage en ligne de projets open source via git.	      
+		    \item [QtCreator]~\\
+		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
+		      Licence LGPL.
+		      
 		   \item [Valgrind]~\\
 		      Outil d'analyse dynamique (à l'exécution) de programme, pour notamment traquer les fuites de mémoire.
 		      Licence GPL v2.
-		   
-		   \item [Clang Static Analyzer]~\\
-		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang.
-		      
-		   \item [Git]~\\
-		      Logiciel de gestion de version.
-		      Licence GNU GPL v2.
-		      
-		   \item [Github]~\\
-		      Site web de stockage en ligne de projets open source via git.
-		      
-		   \item [GDB]~\\
-		      <<GNU Project Debugger>>, le déboggeur standard sur Linux.
-		      Licence GNU GPL.
-		   
 		  \end{description}
 
 		Tous ces outils sont open source et multiplateformes.
@@ -725,6 +714,26 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	       On peut alors faire le rendu sans problème de performances: au final, on fait une seule lecture de fichier, et
 	       l'on a une seule texture en mémoire, au lieu de milliers/millions auparavant.
 	       L'initialisation prend ainsi moins de temps et la libération mémoire également à la fin du programme.
+	       
+	       En pratique, l'application de ce design pattern a permis de transformer un démarrage poussif (dizaines de secondes) avec 100 objets célestes,
+	       en un démarrage en moins de 3s pour 1000 objets.
+	    
+	    \item [RAII]~\\
+	      <<Resource Acquisition Is Initialization>>, l'acquisition de resources c'est leur initialisation.
+	      Ce pattern permet une gestion efficace et simple de la mémoire et est inhérent au C++.
+	      Il repose sur l'assurance fournie par le langage que le destructeur d'un objet sera appelé lorsque l'objet
+	      sort du bloc où il a été défini.
+	      Ainsi, lorsque l'on acquiert une resource, par exemple ouvrir un fichier, et que cette resource a besoin
+	      d'être libérée plus tard, par exemple fermer ce fichier, on peut automatiser ces deux actions en les plaçant
+	      à un endroit adéquat du code.
+	      
+	      En pratique, on fait l'acquisition dans le constructeur de l'objet utilisant/représentant la resource (d'où le nom), et 
+	      la libération dans le destructeur. Pour l'utilisateur de la classe ces opérations sont transparentes et il est
+	      assuré qu'elles seront exécutées.
+	      
+	      
+	      Pour ma part, j'ai utilisé ce pattern pour l'initialisation et la libération des resources graphiques et
+	      du SDK Oculus.
 	    
 	    \end{description}
 
@@ -755,10 +764,34 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 \section{Annexes}
 	
 	\subsection{Captures d'écran}
-		\newpage
-		%Captures d'écran
-	
+		\FloatBarrier
+		\begin{figure}
+			      \centering
+			      \includegraphics[width=1.0\textwidth]{skybot_normal_earth.png}
+			      \caption{Visualisation de la planète Terre dans Skybot 3D en vue normale}
+		\end{figure}
+		
+		\begin{figure}
+			      \centering
+			      \includegraphics[width=1.0\textwidth]{skybot_oculus_earth.png}
+			      \caption{Visualisation de la planète Terre dans Skybot 3D en vue Oculus}
+		\end{figure}
+		
+		\begin{figure}
+			      \centering
+			      \includegraphics[width=1.0\textwidth]{skybot_normal.png}
+			      \caption{Visualisation du systême solaire dans Skybot 3D en vue normale}
+		\end{figure}
+		
+		\begin{figure}
+			      \centering
+			      \includegraphics[width=1.0\textwidth]{skybot_oculus.png}
+			      \caption{Visualisation du systême solaire dans Skybot 3D en vue Oculus}
+		\end{figure}
+		
+		
 	\subsection{Code source}
+	\FloatBarrier
 	\lstinputlisting[language=C++]{Oculus.h}
 	
 	\subsection{Bibliographie}
