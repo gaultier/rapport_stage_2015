@@ -13,6 +13,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{placeins}
+\usepackage{mathtools}
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
@@ -685,8 +686,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    \begin{description}
 	     \item [NullObject pattern]~\\
 		Ce design pattern sert à gérer élégamment la situation où l'on a un ensemble d'objets à gérer dont certains sont
-		nuls. Plutôt que d'écrire des dizaine de conditions pour vérifier si l'on peut bien effectuer telle ou telle action
-		afin d'éviter une segmentation fault, la variable sur laquelle nous sommes en train de travailler étant nulle,
+		nuls, sans savoir lesquels à l'avance. Plutôt que d'écrire des dizaine de conditions pour vérifier si l'on peut bien effectuer telle ou telle action
+		afin d'éviter une segmentation fault, la variable sur laquelle nous sommes en train de travailler
+		étant nulle (c'est-à-dire ayant pour valeur le pointeur <<NULL>> ou <<nullptr>> en C++11),
 		ce pattern propose de travailler avec une classe générique. De cette dernière hérite(nt) la ou les classe(s) dont nous nous
 		servons en pratique dans notre programme, et une classe <<NullObject>> dont le corps des méthodes sont vides (ou
 		adaptées selon la situation).
@@ -694,7 +696,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		l'on intéragit avec eux, grâce au polymorphisme.\\
 		
 		Dans mon cas, j'ai travaillé avec la classe <<GraphicObject>>, dont héritent les classes <<Cube>>, <<Plane>>, \ldots,
-		mais aussi <<NullGraphicObject>>.
+		mais aussi <<NullGraphicObject>>, dont la méthode d'affichage ne faisait rien.
 		Ainsi dans ma boucle de rendu, je pouvais afficher tous mes objets de la scène, sans avoir peur que certaines parties
 		de l'Octree soient vides et que cela occasionne un plantage.
 		
@@ -702,7 +704,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Design pattern bien connu et parfois décrié, il permet de limiter le nombre d'instances d'un objet, typiquement
 		à 1.\\
 		
-		Je l'ai utilisé pour la classe Oculus, afin d'éviter de faire l'initialisation du SDK Oculus plusieurs fois.
+		Je l'ai utilisé pour la classe Oculus, afin d'éviter de faire l'initialisation (et la libération) du SDK Oculus plusieurs fois.
 		
 	    \item [Game Loop pattern]~\\
 		Ce pattern décrit la boucle de rendu typique d'une application de rendu graphique.
@@ -718,13 +720,14 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	       vers la resource partagée. Ce partage est transparent pour l'application qui continue à utiliser les objets 
 	       comme bon lui semble, en utilisant les informations particulières de chaque objet.\\
 	       
-	       Dans mon cas, la simulation concerne des milliers voire des millions d'objets célestes. Dans les cas que j'ai
+	       Dans ma situation, la simulation concerne des milliers voire des millions d'objets célestes. Dans les cas que j'ai
 	       rencontrés, il s'agissait toujours d'un seul type d'objet céleste, par exemple une étoile.
 	       Si l'on choisit de représenter une étoile par un modèle 3D, une sphère par exemple, et une
 	       texture plaquée sur cette sphère, et que l'on charge la resource <<texture>> à partir d'un fichier, il est inconcevable
-	       de lire ce fichier des millions de fois par seconde.
-	       On choisit alors de charger cette resource au démarrage du programme. On lit une fois et une seule le fichier.
-	       Chaque étoile possède un pointeur vers cette texture. 
+	       de lire ce fichier des millions de fois par seconde (à chaque rendu), ou même des millions de fois au démarrage du
+	       programme (initialisation des textures des objets célestes).
+	       On choisit alors de charger cette resource au démarrage du programme. On lit une et une seule fois le fichier.
+	       Chaque étoile possède un pointeur vers cette texture partagée. 
 	       La seule différence entre les étoiles sont les informations contextuelles (position, densité, âge, \ldots).
 	       
 	       On peut alors faire le rendu sans problème de performances: au final, on fait une seule lecture de fichier, et
@@ -732,7 +735,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	       L'initialisation prend ainsi moins de temps et la libération mémoire également à la fin du programme.
 	       
 	       En pratique, l'application de ce design pattern a permis de transformer un démarrage poussif (dizaines de secondes) avec 100 objets célestes,
-	       en un démarrage en moins de 3s pour 1000 objets.
+	       en un démarrage en environ 3s pour 1000 objets.
 	    
 	    \item [RAII]~\\
 	      <<Resource Acquisition Is Initialization>>, l'acquisition de resources c'est leur initialisation.
@@ -745,12 +748,82 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      
 	      En pratique, on fait l'acquisition dans le constructeur de l'objet utilisant/représentant la resource (d'où le nom), et 
 	      la libération dans le destructeur. Pour l'utilisateur de la classe ces opérations sont transparentes et il est
-	      assuré qu'elles seront exécutées.
+	      assuré qu'elles seront exécutées automatiquement.
 	      
 	      
 	      Pour ma part, j'ai utilisé ce pattern pour l'initialisation et la libération des resources graphiques et
 	      du SDK Oculus.
 	    
+	    \item [Data Locality]~\\
+	       Ce design pattern est un moyen d'optimiser les performances d'un programme en tirant parti du cache du CPU.
+	       
+	       En effet tous les CPU modernes disposent d'une certaine quantité de mémoire vive, la RAM, qui représentent
+	       plusieurs gigaoctets. Pour accélérer l'accès à cette mémoire, le CPU dispose d'un cache (plusieurs en réalité)
+	       de taille réduite (sur ma machine je dispose d'un Intel Core i5 cadencé à 3.2 GHz avec 4 coeurs et 6144 kB
+	       de cache), qui est en fait une zone mémoire à accès très rapide où sont stockées les informations dont l'accès est fréquent
+	       dans la RAM. On accélère ainsi les opérations les plus régulièrement effectuées: c'est la mise en cache (<<caching>>).
+	       
+	       Cependant, le polymorphisme impose en C++ l'usage de pointeurs (cas le plus fréquent) ou de références (cas particuliers. 
+	       Mais les pointeurs, par définition, pointent vers différentes zones mémoires.
+	       Ainsi, lorsque l'on veut afficher tous les objets de la scène, on parcoure la structure de données qui
+	       stocke les pointeurs sur tous ces objets et on les affiche un par un.
+	       
+	       Le problème est que contrairement au parcours d'un tableau de valeurs (non pointeurs), qui sont stockées
+	       contigument dans la mémoire, et sont donc particulièrement adaptées à la mise en cache, le fait de
+	       parcourir un tableau de pointeurs va silloner toute la RAM, et donc ne va pas du tout se prêter à la mise
+	       en cache. Le CPU va soit ne pas mettre ces variables (et les zones mémoires voisines) dans le cache, soit le faire
+	       et en conséquence changer la majeure partie du cache à chaque fois, ce qui n'est pas du tout optimal.
+	       On passe donc à côté d'un beau gain de performance: c'est le <<cache miss>>.
+	       
+	       Plus généralement, cette situation se produit dès lors qu'il y a un usage fréquent de pointeurs dans un 
+	       programme.
+	       
+	       Un autre point à considérer est la différence entre l'usage , dans une structure de donnée, du polymorphisme (plusieurs objets
+	       différents coexistent, héritant d'un objet commun) et l'usage d'un seul type d'objets.
+	       Dans le second cas, une méthode appelé par un objet est déterminée à la compilation (on sait quel est le type
+	       de l'objet puisqu'il n'y en a qu'un) tandis que dans le premier cas, elle est déterminée à l'exécution,
+	       ce qui peut engendrer une baisse de performances supplémentaires.
+	       
+	       Pour résumer, le polymorphisme apporte généricité et flexibilité, mais peut engendrer une baisse de 
+	       performances, alors que l'usage d'un seul type d'objets est plus rigide, mais peut améliorer les performances.
+	       
+	       
+	       Un dernier point à envisager est la différence de stockage des variables entre l'usage de pointeur sur variable
+	       et l'usage de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
+	       le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
+	       Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
+	       pour le programme à son lancement et sont fort différentes:
+	       
+	       Stack:
+	       \begin{itemize}
+	        \item Accès rapide
+	        \item Limitée en taille
+	        \item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
+	       \end{itemize}
+	       
+	       Heap:
+	       \begin{itemize}
+	        \item Accès plus lent
+	        \item Pas de limite de taille
+	        \item Pas de gestion automatique de l'espace (fragmentation)
+	       \end{itemize}
+	       
+	       La fragmentation est l'utilisation inefficace de l'espace mémoire. C'est un phénomène qui se produit lorsque sont effectuées de multiples allocations et
+	       désallocations de mémoire, engendrant alors une baisse de la capacité mémoire et/ou des performances.
+	       
+	       Ces allocations/désallocations ne sont pas non plus gratuites en termes de temps d'exécution, puisque
+	       elles font appel à un certain nombre de fonctions.
+
+
+	       Dans mon cas, j'ai donc transformé mon tableau de pointeurs sur objets célestes en un tableau d'objets célestes.
+	       Cela est rendu possible par le fait que je ne dispose que d'un seul type d'objet céleste dans ma simulation.
+	       De plus l'usage de pointeurs dans mon programme est majoritaire dans la partie génération et rendu d'objets célestes
+	       de part leur nombre.
+	       Cependant il est à noter que dans le cas d'un nombre très grand d'objets (de l'ordre du million), il est possible de dépasser
+	       la taille de la pile, créant alors un <<stack overflow>>.
+	       
+	       J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés ici: \ref{optimisations}.
+	     
 	    \end{description}
 
 	    
@@ -759,7 +832,81 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
   %Architecture de l'application
 
-  \subsection{Problèmes restants et optimisations}		
+  \subsection{Améliorations}		
+    \subsubsection{Optimisations}
+    
+      \begin{center}
+      
+	\label{optimisations}
+	\begin{tabular}{| c | c | c | c | c | p{4cm} |}
+	    \hline
+	    Stockage & Méthode & Nombre d'objets & Génération & FPS moyens & Remarques \\ \hline
+	    
+	    Tableau & Polymorphisme & 1024 & 3.7 s & 37.2  & array\\ \hline
+	    Tableau & Polymorphisme & 10000 & 38.2 s & 9.5  & array\\ \hline
+	    
+	    Tableau & Polymorphisme & 1024 & 3.6 s & 35.9  & vector, ajout avec push\_back \\ \hline
+	    
+	    Tableau & Polymorphisme & 10000 & 36.4 s & 9.6  & vector, ajout avec push\_back \\ \hline
+
+	    
+	    Tableau & Data locality & 1024 & 11 s & 35.6  & vector, ajout avec emplace\_back\\ \hline
+	    Tableau & Data locality & 1024 & 11 s & 34.6  & vector, ajout avec push\_back\\ \hline
+	    
+	    
+	    Tableau & Data locality & 1024 & 7.3 s & 34.2  & vector, ajout avec emplace\_back, réservation de la taille
+								    requise à l'avance\\ \hline
+	    Tableau & Data locality & 1024 & 7.2 s & 33.5  & vector, ajout avec push\_back, réservation de la taille
+								    requise à l'avance \\ \hline
+								    
+								    
+	    Tableau & Data locality & 10000 & 74.4 s & 9.2  & vector, ajout avec emplace\_back, réservation de la taille
+								    requise à l'avance\\ \hline								    
+	    Tableau & Data locality & 10000 & 71 s & 9.2  & vector, ajout avec push\_back, réservation de la taille
+								    requise à l'avance\\ \hline	
+								    
+								    
+	    Octree & Polymorphisme & 1024 & 3.6 s & 62.5 & \\ \hline
+	    Octree & Polymorphisme & 32768 & 120 s & 62.5 & \\ \hline
+	    
+	    \hline
+	\end{tabular}
+      \end{center}
+	
+	La structure <<vector>> est un tableau dynamique de la librairie standard. 
+	Sa méthode <<reserve>> permet de réserver une certaine taille à l'avance. Cela permet d'éviter, lors de l'ajout
+	d'un nouvel objet, que la zone mémoire que le vector occupe se révèle trop petite, et qu'il faille en
+	réallouer une nouvelle, en y déplaçant tous les éléments existants du vector. On voit que l'usage de cette méthode
+	fait gagner quelques secondes pour la génération de 1024 objets (on passe de 11s à 7s).
+	La structure <<array>> est un tableau statique de la librairie standard.
+	
+	On ne remarque cependant pas de différence majeure de performances entre ces deux structures de données.
+	
+	
+	
+	Les résultats sont surprenants: en effet, l'application de ce design pattern a ralenti les performances 
+	de l'application, en tout cas dans la partie génération, le rendu graphique restant inchangé avec 
+	       des FPS constants, au lieu de les améliorer.
+	       
+	       Cela s'explique par le fait que ce pattern améliore les performances d'applications ralenties par les 
+	       <<cache misses>>. Lors de l'analyse de l'application par un outil d'analyse de cache, Valgrind, il est
+	       apparu que seulement 0 à 2\% des accès au cache créaient des <<cache misses>>. Le problème de performances
+	       n'était donc pas dû à cela.
+	       
+	       Pourquoi alors les performances ne sont-elles pas restées constantes? En fait, au lieu de stocker dans notre
+	       structure de données un pointeur sur objet, qui prend typiquement 4 octets en mémoire, on stocke 
+	       l'ensemble de l'objets, c'est à dire dans mon cas 136 octets. En C++, le passage d'un argument
+	       à une fonction se fait par défaut par valeur, c'est à dire qu'il y a une copie de l'objet.
+	       On copie donc 136 octets (au lieu de 4 auparavant) à chaque fois que l'on ajoute un objet dans la structure de données, et ce 
+	       autant de fois qu'il y a d'objets. C'est ce qui ralentit la génération.
+	              
+	L'application du pattern Data Locality s'est donc révélé infructueux dans mon cas. Ce pattern reste cependant valide
+	dans le cas d'applications souffrant de problèmes de <<caches misses>> et de fragmentation.
+	
+	
+
+    
+    \subsubsection{Problèmes restants}
 	
 \section{Remerciements}
 
