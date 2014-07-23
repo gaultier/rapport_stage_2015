@@ -882,9 +882,15 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 	On ne remarque cependant pas de différence majeure de performances entre ces deux structures de données.
 	
+	Un autre point à noter est la croissance linéaire du temps de génération en fonction du nombre d'objets, ce qui
+	est prévisible étant donné que les structures de données array et vector sont de complexité linéaire pour le parcours
+	et l'ajout.
 	
+	Cependant l'évolution du nombre de FPS en fonction du nombre d'objets n'est pas linéaire: cela est probablement
+	dû au fonctionnement interne d'OpenGL.
 	
-	Les résultats sont surprenants: en effet, l'application de ce design pattern a ralenti les performances 
+	Les résultats de la comparaison entre usage du polymorphisme et usage du pattern data locality 
+	sont surprenants: en effet, l'application de ce design pattern a ralenti les performances 
 	de l'application, en tout cas dans la partie génération, le rendu graphique restant inchangé avec 
 	       des FPS constants, au lieu de les améliorer.
 	       
