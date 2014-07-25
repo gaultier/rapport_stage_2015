@@ -737,6 +737,24 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	       En pratique, l'application de ce design pattern a permis de transformer un démarrage poussif (dizaines de secondes) avec 100 objets célestes,
 	       en un démarrage en environ 3s pour 1000 objets.
 	    
+	    \item [Factory pattern]~\\
+	      Ce pattern permet typiquement de créer dynamiquement des instances d'objets différents, dont le type 
+	      n'est connu qu'à l'exécution (par exemple conséquence d'un choix utilisateur).
+	      Cependant il peut aussi être utilisé pour encapsuler la construction d'un objet derrière une interface
+	      qui cherche d'abord à savoir si cet objet existe déjà.
+	      
+	      Dans mon cas, je l'ai utilisé pour implémenter le groupe de textures partagées. En effet lorsqu'un nouvel
+	      objet graphique texturé est créé il fait une requête auprès de la fabrique de textures pour obtenir sa texture. La fabrique vérifie si la texture existe déjà en mémoire.
+	      Si oui elle renvoie un pointeur vers cette texture, sinon elle créé la texture correspondante, l'ajoute 
+	      au groupe de textures partagées, et finalement renvoie un pointeur vers cette texture nouvellement créée.
+	      
+	      L'avantage d'avoir une fabrique de textures est que cette dernière peut être utilisée par plusieurs classes
+	      différentes: dans mon cas la classe <<Crate>> (<<caisse>>, qui représente un cube texturé) et <<Plane>>, 
+	      (<<plan>>, qui représente un surface plane texturée) utilisent le groupe de textures partagées, et donc 
+	      font appel à la fabrique.
+	      Ainsi cette logique n'est pas inhérente à une classe et peut être utilisée partout dans le programme.
+	      De plus si deux classes différentes utilisent la même texture, une seule sera créée, et non deux.
+	    
 	    \item [RAII]~\\
 	      <<Resource Acquisition Is Initialization>>, l'acquisition de resources c'est leur initialisation.
 	      Ce pattern permet une gestion efficace et simple de la mémoire et est inhérent au C++.
