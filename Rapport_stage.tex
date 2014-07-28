@@ -544,6 +544,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		     \item Référence sur une rvalue
 		     \item Outils de mesure du temps
 		     \item Mot-clé <<auto>>
+		     \item Smart pointers
 		    \end{itemize}
 	
 		\subsubsection{Bibliothèques utilisés}
@@ -674,7 +675,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    
 	    Enfin, j'ai utilisé deux compilateurs différents, clang et gcc, en comparant leurs performances,
 	    notamment avec les options d'optimisations <<-O1>>, <<-O2>>, <<-O3>>, <<-Ofast>>.
-	    Pour finir, j'ai utilisé le déboggeur gdb.
+	    Pour finir, j'ai utilisé le déboggeur gdb et l'analyseur de mémoire Valgrind pour vérifier que mon application
+	    était exempte de fuites mémoires (mis à part celles provenant du SDK Oculus pour lesquelles je ne peux rien faire).
+	    
 	    
 	  \subsubsection{Design Patterns}
 	    Les design patterns sont des motifs de programmation, des <<façons de faire>> que l'on retrouve régulièrement 
@@ -699,6 +702,13 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		mais aussi <<NullGraphicObject>>, dont la méthode d'affichage ne faisait rien.
 		Ainsi dans ma boucle de rendu, je pouvais afficher tous mes objets de la scène, sans avoir peur que certaines parties
 		de l'Octree soient vides et que cela occasionne un plantage.
+		
+		
+		De la même façon, j'ai utilisé ce pattern pour gérer les deux modes de rendu. J'ai une classe <<GenericOculus>>,
+		dont héritent les classes <<NullOculus>>, dont les méthodes sont vides, et <<Oculus>>, où est implémenté
+		le rendu Oculus. Dans le mode normal, j'utilise la classe <<NullOculus>> qui ne fait rien, tandis qu'en mode
+		Oculus j'utilise la classe <<Oculus>>.
+
 		
 	    \item [Singleton pattern]~\\
 		Design pattern bien connu et parfois décrié, il permet de limiter le nombre d'instances d'un objet, typiquement
@@ -847,8 +857,26 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    
 	
 	\subsubsection{Architecture}
+	    \begin{figure}
+				  \centering
+				  \includegraphics[width=0.8\textwidth]{uml1.png}
+				  \caption{Diagramme de classe UML pour les objets graphiques}
+	    \end{figure}
+	    
+	    \begin{figure}
+			      \centering
+			      \includegraphics[width=0.6\textwidth]{uml2.png}
+			      \caption{Diagramme de classe UML pour la scène}
+	    \end{figure}
+	    
+	    \begin{figure}
+			      \centering
+			      \includegraphics[width=0.8\textwidth]{hierarchy3.png}
+			      \caption{Hiérarchie des classes}
+	    \end{figure}
 	
-  %Architecture de l'application
+	
+
 
   \subsection{Améliorations}		
     \subsubsection{Optimisations}
