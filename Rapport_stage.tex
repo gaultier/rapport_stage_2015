@@ -248,13 +248,13 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  
 		  La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
 		  version du masque, le DK1, tandis que la deuxième version, le DK2 a été distribuée à partir d'août 2014.
-		  
+		  \FloatBarrier
 		  \begin{figure}[h!]
 		    \centering
 		      \includegraphics[width=0.3\textwidth]{dk1.jpg}
 		    \caption{L'Oculus Rift (DK1)}
 		  \end{figure}
-		  
+		  \FloatBarrier
 		  \subsubsection{Fonctionnement}
 		  
 			\paragraph{Matériel} ~\\
@@ -304,13 +304,13 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distortion
 			    en coussinets si les <<filtres>>, dont nous parleront plus tard,
 			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.\\
-			    
+			    \FloatBarrier
 			    \begin{figure}[h!]
 			      \centering
 				\includegraphics[width=3cm]{pincushion_distortion.png}
 			      \caption{Distortion en coussinets (<<pincushion distortion>>)}\par\medskip
 			    
-
+			    \FloatBarrier
 			    Pour contrebalancer cette distortion, le programme doit, comme énoncé plus haut, appliquer
 			    un effet post-rendu. Il s'agit d'une distortion égale et opposée, appelée distortion en 
 			    barillets.\par\bigskip
@@ -320,11 +320,11 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 				\includegraphics[width=3cm]{barrel_distortion.png}
 			      \caption{Distortion en barillets (<<barrel distortion>>)}
 			    }\par\medskip
-			    
+			    \FloatBarrier
 			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
 			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles et est
 			    bien connu dans le domaine de l'optique.\par\bigskip
-			    
+			    \FloatBarrier
 			  {
 			      \centering
 				\includegraphics[width=4cm]{chromatic_aberration.jpg}
@@ -332,7 +332,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			  }
 			    \end{figure}  ~ \\
 			    
-			    
+			    \FloatBarrier
 			\paragraph{Pratique} ~\\
 			
 			    Pour le développeur, ces éléments théoriques sont gérés de manière interne par le SDK Oculus.
@@ -379,7 +379,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Nous avons alors le rendu suivant, pour une scène simple composée d'un cube texturé, d'un plan
 			    et d'une skybox rudimentaire, avec le même point de vue:
 			    
-			    \clearpage
+			    \FloatBarrier
 			    
 			    \begin{figure}
 			      \centering
@@ -391,7 +391,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    \end{figure}
 			    \clearpage
 			    
-
+			    \FloatBarrier
+			    
 			    Les applications que j'ai développées au sein de mon stage peuvent fournir le rendu normal 
 			    et le rendu Oculus, selon l'option spécifiée.
 
@@ -510,13 +511,13 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  régions voisines de notre position sans afficher les régions que l'on ne peut pas voir ou qui sont
 		  trop lointaines. C'est la solution que j'ai choisie car c'est la plus flexible et celle qui offre le
 		  plus de possibilités. A noter cependant que cela impose une taille de cube d'une puissance de deux.
-		  
+		  \FloatBarrier
 		  \begin{figure}
 			      \centering
 				\includegraphics[width=0.5\textwidth]{octree.png}
 			      \caption{Schématisation d'un octree}
 			      
-		    \end{figure} 
+		   \end{figure} 
 		    
 		
 			      
@@ -526,7 +527,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \caption{Octree en action}
 		  
 		\end{figure}
-		  
+		  \FloatBarrier
 		\end{description}
 
 		  
@@ -780,6 +781,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 	
 	\subsubsection{Architecture}
+	    \FloatBarrier
 	    \begin{figure}
 				  \centering
 				  \includegraphics[width=0.8\textwidth]{uml1.png}
@@ -803,7 +805,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      \includegraphics[width=0.3\textwidth]{files1.png}
 	      \caption{Hiérarchie des fichiers}
 	    \end{figure}
-
+	    \FloatBarrier
 
   \subsection{Améliorations - Optimisations}		
     \subsubsection{Structures de données - Data Locality}
@@ -1099,7 +1101,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \includegraphics[width=1.0\textwidth]{skybot_oculus.png}
 			      \caption{Visualisation du systême solaire dans Skybot 3D en vue Oculus}
 		\end{figure}
-		
+		\FloatBarrier
 	\newpage	
 	\subsection{Code source}
 	\FloatBarrier
@@ -1107,7 +1109,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	OpenGL générique que l'on veut afficher en mode Oculus. La seule contrainte est que cette scène fournisse 
 	la méthode <<render>>.
 	\lstinputlisting[language=C++]{Oculus.h}
-
+	\FloatBarrier
 		
 	\subsection{Glossaire}
 		\begin{description}
