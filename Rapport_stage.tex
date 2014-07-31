@@ -452,7 +452,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 	    \subsubsection{Simulation}
 		\paragraph{Portabilité} ~\\
-		
+		  \epigraph{I don’t care if it works on your machine!  We are not shipping your machine!}{Vidiu Platon}
 		
 		  Pour ce projet, il a été convenu dès le départ d'assurer la portabilité du programme, c'est-à-dire
 		  le fonctionnement multiplateforme.
@@ -552,6 +552,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 	\subsection{Déroulement du stage}
 	
+	   \epigraph{Premature optimization is the source of all evil}{Donald Knuth}
+	   
 		Mon stage s'est principalement déroulé en trois temps: formation, développement, optimisation.
 		
 		La première semaine a été consacrée à la découverte de l'Oculus Rift, l'essai de démos, et l'installation
@@ -582,6 +584,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 	  \subsubsection{Bonnes pratiques}
 	    \epigraph{Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live}{Martin Golding}
+	    \epigraph{Programs must be written for people to read, and only incidentally for machines to execute}{Arold Abelson}
 	    
 	    Comme mentionné plus tôt, j'ai tout au long de mon stage versionné mon code avec git et Github, ce qui a
 	    permis de le partager facilement avec l'équipe Skybot 3D et André SCHAAF.
@@ -590,6 +593,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    mon code et l'améliorer.
 	    
 	    En sus, j'ai activé les options de compilation aidant dans cette tâche: <<-Wall>>, <<-Wextra>>, <<-Werror>>, \ldots
+	    
+	    
 	    
 	    J'ai également entièrement documenté mon code avec l'outil dédié Doxygen, et gardé une constance dans le nommage des variables,
 	    l'indentation du code, \ldots
@@ -601,6 +606,10 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    
 	    
 	  \subsubsection{Design Patterns}
+	      \epigraph{Controlling complexity is the essence of computer programming}{Brian Kernighan}
+	      
+	      
+	      
 	    Les design patterns sont des motifs de programmation, des <<façons de faire>> que l'on retrouve régulièrement 
 	    pour résoudre des problèmes bien connus. Ce ne sont pas des <<tours de magie>> ou des  <<gadgets à la mode>>,
 	    mais des solutions pratiques à mettre en place quand le besoin s'en fait sentir, ou pour améliorer le code.
@@ -778,9 +787,11 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      et en ait tiré des conclusions suprenantes.
 	    
 	    \end{description}
-
+%“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
+%- Martin Fowler (author and speaker on software development)
 	
 	\subsubsection{Architecture}
+	\epigraph{Perfection [in design] is achieved, not when there is nothing more to add, but when there is nothing left to take away}{Antoine de Saint-Exupéry}
 	    \FloatBarrier
 	    \begin{figure}
 				  \centering
@@ -807,7 +818,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    \end{figure}
 	    \FloatBarrier
 
-  \subsection{Améliorations - Optimisations}		
+  \subsection{Améliorations - Optimisations}
+  
     \subsubsection{Structures de données - Data Locality}
     
       \begin{center}
@@ -888,6 +900,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	dans le cas d'applications souffrant de problèmes de <<caches misses>> et de fragmentation.
 	
       \subsubsection{Smart pointers (<<Pointeurs intelligents)}
+	\epigraph{You can either have software quality or you can have pointer arithmetic, but you cannot have both at the same time}{Bertrand Meyer}
+	
+  
 	Les smart pointers sont des objets de la librairies standard encapsulant les pointeurs.
 	En se basant sur la RAII (\ref{RAII}, paragraphe <<Design Pattern>>), ils permettent de s'assurer que les ressources mémoires allouées manuellement
 	seront bien libérées.
@@ -909,6 +924,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 
       \subsubsection{Logs}
+	\epigraph{There are two ways to write error-free programs; only the third one works}{Alan J. Perlis}
+      
 	Les logs sont l'affichage de messages de contrôle au cours du programme. Ils permettent de vérifier son exécution
 	et de détecter des bugs.
 	Après avoir utilisé des logs rudimentaires, je me suis intéressé aux bibliothèques de logs existantes, notamment Boost.Log .
@@ -1070,7 +1087,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 \section{Conclusion}
 
 
-		%Conclusion
+		
 
 % \appendix
 \section{Annexes}
@@ -1125,8 +1142,29 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \caption{Simulation en vue normale}
 		\end{figure}
 		\FloatBarrier
+		
+		Les images suivantes présentent l'application de simulation d'un cube de données d'objets célestes, 
+		organisés en un tableau simple.
+		
+		Les objets céleste sont modélisés par des cubes texturés de taille 1.
+		
+		\begin{figure}
+			      \centering
+			      \includegraphics[width=1.0\textwidth]{basic_normal.png}
+			      \caption{Simulation en vue normale}
+		\end{figure}
+		
+		\begin{figure}
+			      \centering
+			      \includegraphics[width=1.0\textwidth]{basic_oculus.png}
+			      \caption{Simulation en vue normale}
+		\end{figure}
+		\FloatBarrier
+		
 	\newpage	
 	\subsection{Code source}
+	\epigraph{Talk is cheap. Show me the code}{Linus Torvalds}
+	
 	\FloatBarrier
 	<<Oculus.h>> est un fichier d'en-tête décrivant la classe Oculus. Il prend comme argument de template la scene
 	OpenGL générique que l'on veut afficher en mode Oculus. La seule contrainte est que cette scène fournisse 
