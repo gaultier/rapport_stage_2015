@@ -50,7 +50,7 @@
 % \usepackage[maxfloats=50]{morefloats}
 % \usepackage{hyperref}
 \usepackage{ulem}
- 
+
 \usepackage{epigraph}
 \geometry{rmargin=2.5cm, lmargin=2.5cm, hmargin=2cm, bmargin=2cm}
 \pagestyle{plain}
@@ -131,7 +131,7 @@ André \textsc{Schaaf},\\[0.5cm]
   \centering
   {
     \vspace{3cm}
-    \epigraph{Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live}{Martin Golding}
+  
     \vspace{3cm}
     \epigraph{The road is long and in the end the journey is the destination}{Unknown}
   }
@@ -150,7 +150,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 	L'Observatoire est un établissement de recherche et d'enseignement centré sur l'astronomie, mais c'est aussi un 
 	centre de données astronomiques et un centre d'observation réputés mondialement. Il représente la continuité entre
-	l'ancien et le nouveau car il dispose d'un riche patrimoine mais est aussi à la pointe de la recherche.  \\
+	l'ancien et le nouveau car il dispose d'un riche patrimoine mais est aussi à la pointe de la recherche en astronomie.  \\
 	De plus l'Observatoire est le parfait exemple de l'informatique au service d'autres spécialités scientifiques,
 	à la fois dans le domaine de l'expertise, mais aussi sous un aspect éducatif.\\
 	Pour toutes ces raisons, j'ai choisi d'effectuer mon stage de deuxième année au sein de l'Observatoire,
@@ -163,14 +163,14 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		à cette époque.\\
 		Il est constitué de trois bâtiments : une Grande Coupole, un bâtiment des salles méridiennes avec deux coupoles,
 		et un bâtiment à usage de bureau et de résidence.\\
-		La Grande Coupole en fer, de 9,2 mètres de diamètre et pesant 34 tonnes2, contient le Grand Réfracteur,
+		La Grande Coupole en fer, de 9,2 mètres de diamètre et pesant 34 tonnes, contient le Grand Réfracteur,
 		une lunette de 48,7 cm d'ouverture et 7 m de focale, construite en 1877, la plus grande d'Europe
 		au moment de son installation et aujourd'hui (2008) la troisième de France en taille.\\
 		Il dispose également d’un riche patrimoine d’instruments et d’ouvrage anciens.
 		
 	\subsection{Centre de données astronomiques de Strasbourg (CDS)}
 	
-		Le CDS est à la fois une équipe de recherche et un Service d’Observation.
+		Le CDS est à la fois une équipe de recherche et un service d’observation.
 		Les services de bases de données (SIMBAD, Vizier) et de visualisation (ALADIN) développés par le CDS
 		sont utilisés par l’ensemble de la communauté astronomique mondiale. \\
 		Celui-ci est l'un des acteurs majeurs du développement de l'Observatoire Virtuel International en astronomie.
@@ -197,18 +197,24 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 	\subsection{Objectif}	
 	
-		L’objectif de ce stage a été centré autour de l'Oculus Rift et a été double:
+		L’objectif de ce stage a été centré autour de l'Oculus Rift et a été double:\\
+		
 		\begin{itemize}
-		 \item Intégration de l'Oculus Rift à une simulation 3D du système solaire existante (Skybot 3D),
-		 \item Développement d'un programme de visualisation 3D  d'objets célestes avec intégration de l'Oculus Rift (Simulation)
-		\end{itemize}
+		\item Intégration de l'Oculus Rift à une visualisation 3D du système solaire existante (Skybot 3D),
+		\item Développement d'un programme de simulation 3D  d'objets célestes avec intégration de l'Oculus Rift (Simulation)
+		\end{itemize}~
 		
 		J'ai donc travaillé sur deux projets distincts mais néanmoins complémentaires.
+		
+		Le but a donc été d'expérimenter en profondeur les possibilités de l'Oculus Rift, de développer 
+		les deux applications citées ci-dessus en tant que preuve de concept de l'utilisation de cette nouvelle technologie
+		dans le domaine de la simulation et de l'éducation, et enfin d'obtenir des performances et une expérience
+		utilisateur correctes. Ce fut donc un stage de recherche avec un rendu final concret.
 		
 	    \subsubsection{Skybot 3D}
 		Skybot 3D est un logiciel développé en C par l'institut de mécanique céleste et de calcul des éphémérides (IMCCE),
 		conjointement avec l'Observatoire de Paris et le CNRS. Son propos est de faire un rendu graphique réaliste
-		en 3D à partir des données célestes de ces instituts. En pratique, c'est une simulation 3D du système solaire
+		en 3D à partir des données célestes de ces instituts. En pratique, c'est une visualisation 3D du système solaire
 		où les échelles sont respectées, avec gestion du temps. Il est encore en développement à la date d'écriture de ce document et
 		sa sortie est prévue pour fin 2014.
 		Il fonctionne sur toutes les distributions Linux et utilise OpenGL pour le rendu graphique.
@@ -264,7 +270,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 				\item Un port USB
 				\item Un port HDMI
 				\end{itemize} ~
-			       
+			      
 				Il est à noter que la résolution de l'écran est à diviser par deux, chaque oeil voyant seulement
 				une moitié de l'écran, la résolution effective est donc de $640*800$.
 		    
@@ -273,9 +279,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    L'utilisation de l'Oculus Rift s'effectue au moyen de son SDK, qui permet:\\
 			    
 			    \begin{itemize}
-			     \item D'accéder aux différents capteurs,
-			     \item D'accéder aux propriétés du masque (distance inter-pupillaire, hauteur des yeux, \ldots),
-			     \item D'appliquer les <<filtres>> au rendu graphique afin d'avoir un rendu réaliste
+			    \item D'accéder aux différents capteurs,
+			    \item D'accéder aux propriétés du masque (distance inter-pupillaire, hauteur des yeux, \ldots),
+			    \item D'appliquer les <<filtres>> au rendu graphique afin d'avoir un rendu réaliste
 			    \end{itemize} ~
 			    
 			    Le SDK est écrit en C++ et possède une API en C.
@@ -299,7 +305,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    en coussinets si les <<filtres>>, dont nous parleront plus tard,
 			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.\\
 			    
-			     \begin{figure}[h!]
+			    \begin{figure}[h!]
 			      \centering
 				\includegraphics[width=3cm]{pincushion_distortion.png}
 			      \caption{Distortion en coussinets (<<pincushion distortion>>)}\par\medskip
@@ -309,21 +315,21 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    un effet post-rendu. Il s'agit d'une distortion égale et opposée, appelée distortion en 
 			    barillets.\par\bigskip
 			    
-			     {
+			    {
 			      \centering
 				\includegraphics[width=3cm]{barrel_distortion.png}
 			      \caption{Distortion en barillets (<<barrel distortion>>)}
-			     }\par\medskip
+			    }\par\medskip
 			    
 			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
 			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles et est
 			    bien connu dans le domaine de l'optique.\par\bigskip
 			    
-			   {
+			  {
 			      \centering
 				\includegraphics[width=4cm]{chromatic_aberration.jpg}
 			      \caption{Aberration chromatique (<<chromatic abberration>>)}
-			   }
+			  }
 			    \end{figure}  ~ \\
 			    
 			    
@@ -336,21 +342,21 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    
 			    \label{mainloop_normal}
 			    \begin{algorithm}[H]
-			      initialize the graphic resources\;
+			      initialize the graphic ressources\;
 			      fill the scene with graphic objects\;
 			      \While{the application is running}{
 				process the user input\;
 				update the objects in the scene\;
 				render the objects in the scene\;
 			      }
-			      release the graphic resources\;
+			      release the graphic ressources\;
 			      \caption{Application de rendu graphique}
 			    \end{algorithm} ~\\
 			    
 			    Un programme qui fait un rendu Oculus exclusivement aura pour sa part la forme suivante:\\
 			    \label{mainloop_oculus}
 			    \begin{algorithm}[H]
-			      initialize the graphic resources\;
+			      initialize the graphic ressources\;
 			      initialize the Oculus SDK\;
 			      fill the scene with graphic objects\;
 			      \While{the application is running}{
@@ -363,7 +369,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 				  }
 			      }
 			      release the Oculus SDK\;
-			      release the graphic resources\;
+			      release the graphic ressources\;
 			      \caption{Application de rendu graphique}
 			    \end{algorithm} ~\\
 			    Plus précisément, l'opération <<apply the Oculus distortion effects>> se fait de façon graphique
@@ -398,7 +404,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		La contrainte principale pour le projet Skybot 3D a été de travailler avec du code existant non documenté,
 		de taille conséquente (3840 fichiers, 22863 lignes de code).
 		En effet, j'ai eu accès à une version de développement non finalisée et non encore publiée. Cependant j'ai 
-		eu de riches échanges avec les développeurs par mail et vidéoconférence.
+		eu de riches échanges avec les développeurs par mail et vidéoconférence, et j'ai eu la chance
+		de les rencontrer à la fin du stage.
 		
 	    \paragraph{Langages} ~\\
 	      
@@ -421,7 +428,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		utilisent principalement le CPU et ont donc
 		été dépréciés pour des raisons de performances dans OpenGL 3.x et 4.x, au profit d'une programmation
 		<<tout shader>>. Les shaders sont des programmes appliquant des effets sur chaque pixel de l'image et qui
-		sont éxecutés sur la carte graphique.
+		sont exécutés sur la carte graphique.
 		
 		Le développeur doit donc maintenant tout faire manuellement mais cela au profit des performances et de l'éventail
 		de possibilités, mais au détriment de la simplicité.
@@ -430,8 +437,17 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		correction des aberrations, \ldots), et cela a créé quelques conflits au niveau du rendu graphique, 
 		avec le rendu existant n'utilisant pas ces shaders.
 		
-	     \paragraph{Échelles} ~\\
+	    \paragraph{Échelles} ~\\
+	      Skybot 3D est une simulation du système solaire et en tant que telle manipule des distances très grandes.
+	      Cela n'est pas gênant sauf lorsque deux distances très grandes sont multipliées entre elles, par exemple
+	      dans un calcul matriciel.
+	      Cela peut provoquer un <<overflow>> (<<dépassement>>), phénomène consistant en une variable ayant une valeur
+	      plus grande que ce que son type peut stocker en mémoire. Dans le meilleur des cas cela occasionne des 
+	      erreurs d'arrondis causant des tremblements de la caméra ou des objets, des effets de <<flashing>> et
+	      <<tearing>> dans le rendu, et dans le pire des cas un crash du programme.
 	      
+	      Dans mon cas, ce phénomène a provoqué un phénomène de <<cross-eye>> gênant pour l'utilisateur en mode
+	      Oculus (\ref{cross_eye}).
 		
 	    \subsubsection{Simulation}
 		\paragraph{Portabilité} ~\\
@@ -443,18 +459,19 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  Dans cette optique, j'ai choisi un langage fonctionnant sur n'importe quelle plateforme existante 
 		  (dès lors qu'il existe un compilateur adéquat), le C++, et
 		  des bibliothèques multiplateformes, notamment pour le rendu graphique,
-		  pour permettre l'abstration d'une API spécifique à une plateforme donnée, en fournissant une API générique.
+		  pour permettre l'abstraction d'une API spécifique à une plateforme donnée, en fournissant une API générique.
 		  Un exemple est l'utilisation de la SDL, une bibliothèque de fenêtrage, ou d'OpenGL, une API de rendu
 		  graphique.
 		  
 		  De plus, un soin particulier a été porté dans le développement à  l'évitement de l'introduction 
-		  de code spécifique à une plateforme donnée, par exemple en utilisant de façon maximale la libraire 
+		  de code spécifique à une plateforme donnée. Une solution a été l'utilisation maximale de la libraire 
 		  standard du langage.
+		  
+		  Enfin j'ai utilisé un outil de compilation multi-plateforme, qmake, qui permet de compiler le code
+		  sur plusieurs plateformes différentes automatiquement.
 		  
 		  Au final, j'ai uniquement travaillé sur Linux mais le code fonctionne selon toute probabilité sur 
 		  Windows et OSX, avec des drivers à jour, sur des versions relativement récentes de ces systèmes d'exploitation.
-		  
-		  
 		  
 		\paragraph{Taille des données} ~\\
 		
@@ -466,7 +483,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  correspond au temps de rendu maximal d'une frame si l'on veut un rendu à 60 FPS (frame per seconds),
 		  ce qui fournit une expérience correcte pour l'utilisateur: $1000 ms / 60 = 16.666 ms$.
 		  
-		  En sus, comme j'ai travaillé avec cubes de données (corps celéstes dont les cooordonnées spatiales se trouvent toutes
+		  En sus, comme j'ai travaillé avec cubes de données (corps célestes dont les cooordonnées spatiales se trouvent toutes
 		  contenues dans un cube, typiquement de taille 64*64*64 ou 100*100*100), ce qui peut donner une boucle de rendu
 		  de complexité $\mathcal{O}(n^3)$, empirant alors le temps de rendu.
 		  
@@ -480,43 +497,43 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  Dès lors, plusieurs solutions se sont présentées:
 		  
 		  \begin{description}
-		   \item [Travailler avec un seul objet graphique]~\\ Cela consiste à avoir un seul objet dans le programme qui 
-		   contient les coordonnées de tous les objets célestes. On <<boucle>> donc sur un seul objet et on envoie toute
-		   les positions des objets célestes en une seule fois comme s'il n'y avait q'un objet et la carte
-		   graphique fait tout le travail. Cela fonctionne mais est peu flexible (comment faire pour sélectionner
-		   un seul objet céleste pour afficher des informations à son sujet?) et on atteint les limites de la
-		   carte graphique pour un très grand nombre d'objets. Cependant le CPU a un minimum de travail.
-		   
-		   \item [Octree]~\\ Un Octree est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
-		   d'un espace cubique, à la manière d'un quadtree en 2D, et permet de diviser notre scène en régions,
-		   contenant elles-mêmes des sous-régions et ainsi de suite. On peut alors décider d'afficher seulement les
-		   régions voisines de notre position sans afficher les régions que l'on ne peut pas voir ou qui sont
-		   trop lointaines. C'est la solution que j'ai choisie car c'est la plus flexible et celle qui offre le
-		   plus de possibilités. A noter cependant que cela impose une taille de cube d'une puissance de deux.
-		   
-		   \begin{figure}
+		  \item [Travailler avec un seul objet graphique]~\\ Cela consiste à avoir un seul objet dans le programme qui 
+		  contient les coordonnées de tous les objets célestes. On <<boucle>> donc sur un seul objet et on envoie toute
+		  les positions des objets célestes en une seule fois comme s'il n'y avait q'un objet et la carte
+		  graphique fait tout le travail. Cela fonctionne mais est peu flexible (comment faire pour sélectionner
+		  un seul objet céleste pour afficher des informations à son sujet?) et on atteint les limites de la
+		  carte graphique pour un très grand nombre d'objets. Cependant le CPU a un minimum de travail.
+		  
+		  \item [Octree]~\\ Un Octree est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
+		  d'un espace cubique, à la manière d'un quadtree en 2D, et permet de diviser notre scène en régions,
+		  contenant elles-mêmes des sous-régions et ainsi de suite. On peut alors décider d'afficher seulement les
+		  régions voisines de notre position sans afficher les régions que l'on ne peut pas voir ou qui sont
+		  trop lointaines. C'est la solution que j'ai choisie car c'est la plus flexible et celle qui offre le
+		  plus de possibilités. A noter cependant que cela impose une taille de cube d'une puissance de deux.
+		  
+		  \begin{figure}
 			      \centering
 				\includegraphics[width=0.5\textwidth]{octree.png}
 			      \caption{Schématisation d'un octree}
-			       
+			      
 		    \end{figure} 
 		    
 		
-			       
+			      
 		\begin{figure} 
 			\centering
 				\includegraphics[width=0.4\textwidth]{octree2.jpg}
 			      \caption{Octree en action}
-		   
+		  
 		\end{figure}
-		   
-		 \end{description}
+		  
+		\end{description}
 
 		  
-		 On optimise alors le rendu à la fois sur le CPU (moins d'objets parcourus dans la boucle
-			       de rendu à chaque frame) et sur le GPU (moins de données envoyées et 
-			       rendues graphiquement à chaque frame).  
-		  		
+		On optimise alors le rendu à la fois sur le CPU (moins d'objets parcourus dans la boucle
+			      de rendu à chaque frame) et sur le GPU (moins de données envoyées et 
+			      rendues graphiquement à chaque frame).  
+				
 		
 		Initialement, mes objets étaient tous stockés dans un tableau que je parcourais à chaque frame pour les afficher.
 		Pour 1000 objets, j'avais une moyenne de 5 FPS. 
@@ -530,106 +547,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Pour résumer, on sacrifie le temps de démarrage du programme au profit des performances à l'exécution.
 
 
-	\subsection{Outils utilisés}
-
-		\subsubsection{Langages utilisés}
-		    Les deux projets sur lesquels j'ai travaillé ont été développés en C++, même si la quasi-totalité 
-		    du projet Skybot 3D est écrite en C, adapté pour pouvoir compiler en C++.
-		    Sur le deuxième projet, j'ai de plus mis en oeuvre des fonctionnalités nouvelles de C++, standardisées
-		    par la norme C++11 datant de 2011. On peut citer:
-		    \begin{itemize}
-		     \item Listes d'initialisation 
-		     \item Pointeur null <<nullptr>>
-		     \item Boucle for sur une plage de valeurs
-		     \item Référence sur une rvalue
-		     \item Outils de mesure du temps
-		     \item Mot-clé <<auto>>
-		     \item Smart pointers
-		    \end{itemize}
 	
-		\subsubsection{Bibliothèques utilisés}
-
-		  \begin{description}
-		   \item [GLEW]~\\
-		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multiplateforme de chargement des fonctionnalités d'OpenGL.
-		      Licence BSD modifiée.\\
-		      \url{http://glew.sourceforge.net/}
-		   \item [GLM]~\\
-		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
-		      Je l'ai utilisée pour le projet de simulation.
-		      Licence MIT.\\
-		      \url{http://glm.g-truc.net/0.9.5/index.html}
-		   \item [GLUT]~\\
-		      <<OpenGL Utility Toolkit>> est l'équivalent de la SDL en plus restreint. Je m'en suis servi pour le 
-		      projet Skybot 3D via son implémentation open source <<freeglut>>.
-		      Licence X-Consortium.\\
-		      \url{http://freeglut.sourceforge.net/} et \url{http://www.opengl.org/resources/libraries/glut/}
-		   \item [Octree]~\\
-		      Une bibliothèque C++ implémentant les Octree.
-		      Licence GPL.\\
-		      \url{http://nomis80.org/code/octree.html}
-		   \item [Oculus SDK]~\\
-		      Le SDK Oculus est l'interface de programmation permettant d'accéder à l'Oculus Rift et est fourni
-		      par Oculus VR (fabriquant de l'Oculus Rift). 
-		      Je me suis servi des versions 0.2.5 et 0.3.2.
-		      Licence particulière mais analogue à une licence MIT, à ceci près qu'elle restreint les utilisations
-		      pouvant mettre en danger la vie ou la santé d'individus.
-		   \item [OpenGL] ~\\
-		      <<Open Graphics Library>> est une API multiplateforme pour effectuer des rendus graphiques 2D et 3D.
-		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
-		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée  
-		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
-		      Je l'ai utilisée pour les deux projets.
-		      Pas de licence.\\
-		      \url{http://www.opengl.org/}
-		   \item [SDL]~\\
-		      <<Simple DirectMedia Layer>> est une bibliothèque multiplateforme donnant accès au système de fenêtrage,
-		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
-		      Licence zlib.\\
-		      \url{https://www.libsdl.org/}
-		  \end{description}
-
-		
-		
-		\subsubsection{Programmes utilisés}
-		  \begin{description}  
-		   \item [Clang]~\\
-		      Compilateur/interface de compilation C/C++ open source développé par Google.
-		      Licence de l'Université de l'Illinois / licence  NCSA open source.\\
-		      \url{http://clang.llvm.org/}
-		  \item [Clang Static Analyzer]~\\
-		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang. \\
-		      \url{http://clang-analyzer.llvm.org/scan-build.html}
-		  \item [CMake]~\\
-		      Outil multiplateforme 'aide à la compilation et de génération de Makefiles.
-		      Licence BSD.\\
-		      \url{http://www.cmake.org/}
-		   \item [GCC]~\\
-		      <<GNU Compiler Collection>>, compilateur C/C++.
-		      Licence GNU GPL 3+.\\
-		      \url{https://gcc.gnu.org/}
-		   item [GDB]~\\
-		      <<GNU Project Debugger>>, le déboggeur standard sur Linux.
-		      Licence GNU GPL.\\
-		      \url{http://www.gnu.org/software/gdb/}
-		   \item [Git]~\\
-		      Logiciel de gestion de version.
-		      Licence GNU GPL v2.\\
-		      \url{http://git-scm.com/}
-		   \item [Github]~\\
-		      Site web de stockage en ligne de projets open source via git.\\
-		      \url{https://github.com/}
-		    \item [QtCreator]~\\
-		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
-		      Licence LGPL.\\
-		      \url{http://qt-project.org/wiki/category:tools::qtcreator}
-		   \item [Valgrind]~\\
-		      Outil d'analyse dynamique (à l'exécution) de programme, pour notamment traquer les fuites de mémoire.
-		      Licence GPL v2.\\
-		      \url{http://valgrind.org/}
-		  \end{description}
-
-		Tous ces outils sont open source et multiplateformes.
 		
 	\subsection{Déroulement du stage}
 	
@@ -651,7 +569,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		La sixième, septième et huitième semaine ont été axées sur le développement de mes deux projets.
 		
 		La neuvième et dixième semaine ont porté sur la rédaction de ce rapport et sur les possibles optimisations
-		des deux projets.
+		des deux projets, ainsi que la refactorisation du code et la documentation complète.
 				
 		Je me suis toutefois formé tout au long de mon stage à OpenGL, notamment à propos
 		des différences entre les versions 1.x/2.x et 3.x/4.x, où la philosophie du <<tout shader>> a été introduite,
@@ -662,6 +580,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\subsection{Développement}
 	
 	  \subsubsection{Bonnes pratiques}
+	    \epigraph{Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live}{Martin Golding}
+	    
 	    Comme mentionné plus tôt, j'ai tout au long de mon stage versionné mon code avec git et Github, ce qui a
 	    permis de le partager facilement avec l'équipe Skybot 3D et André SCHAAF.
 	    
@@ -670,7 +590,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    
 	    En sus, j'ai activé les options de compilation aidant dans cette tâche: <<-Wall>>, <<-Wextra>>, <<-Werror>>, \ldots
 	    
-	    J'ai également commenté de manière modérée mon code, et gardé une constance dans le nommage des variables,
+	    J'ai également entièrement documenté mon code avec l'outil dédié Doxygen, et gardé une constance dans le nommage des variables,
 	    l'indentation du code, \ldots
 	    
 	    Enfin, j'ai utilisé deux compilateurs différents, clang et gcc, en comparant leurs performances,
@@ -687,16 +607,17 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    Pendant ce stage, j'ai utilisé plusieurs design patterns. Voici lesquels et pourquoi:
 	    
 	    \begin{description}
-	     \item [NullObject pattern]~\\
+	    \item [NullObject pattern]~\\
 		Ce design pattern sert à gérer élégamment la situation où l'on a un ensemble d'objets à gérer dont certains sont
-		nuls, sans savoir lesquels à l'avance. Plutôt que d'écrire des dizaine de conditions pour vérifier si l'on peut bien effectuer telle ou telle action
+		nuls, sans savoir lesquels à l'avance, ou sans vouloir vérifier à chaque utilisation. Plutôt que d'écrire des dizaine de conditions pour vérifier si l'on peut bien effectuer telle ou telle action
 		afin d'éviter une segmentation fault, la variable sur laquelle nous sommes en train de travailler
 		étant nulle (c'est-à-dire ayant pour valeur le pointeur <<NULL>> ou <<nullptr>> en C++11),
 		ce pattern propose de travailler avec une classe générique. De cette dernière hérite(nt) la ou les classe(s) dont nous nous
 		servons en pratique dans notre programme, et une classe <<NullObject>> dont le corps des méthodes sont vides (ou
 		adaptées selon la situation).
 		Ainsi au lieu de travailler avec des pointeurs nuls, on travaille avec de vrais objets, inoffensifs lorsque
-		l'on intéragit avec eux, grâce au polymorphisme.\\
+		l'on intéragit avec eux, grâce au polymorphisme.
+		Ce faisant on peut aussi élégamment activer/désactiver des services.\\
 		
 		Dans mon cas, j'ai travaillé avec la classe <<GraphicObject>>, dont héritent les classes <<Cube>>, <<Plane>>, \ldots,
 		mais aussi <<NullGraphicObject>>, dont la méthode d'affichage ne faisait rien.
@@ -709,7 +630,6 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		le rendu Oculus. Dans le mode normal, j'utilise la classe <<NullOculus>> qui ne fait rien, tandis qu'en mode
 		Oculus j'utilise la classe <<Oculus>>.
 
-		
 	    \item [Singleton pattern]~\\
 		Design pattern bien connu et parfois décrié, il permet de limiter le nombre d'instances d'un objet, typiquement
 		à 1.\\
@@ -723,38 +643,39 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		et là~(\ref{mainloop_oculus}) pour le rendu Oculus.
 	    
 	    \item [Flyweight Pattern]~\\
-	       Ce pattern sert à améliorer les performances d'une application où sont présents de nombreux objets identiques,
-	       mis à part la valeur de certaines propriétés, et qui utilisent des ressources similaires.
-	       Au lieu que chaque objet possède une instance de la ressource, générant une perte de performances
-	       inutile, ce pattern propose de mettre en commun tout ce qui peut l'être. Chaque objet aura alors un pointeur
-	       vers la resource partagée. Ce partage est transparent pour l'application qui continue à utiliser les objets 
-	       comme bon lui semble, en utilisant les informations particulières de chaque objet.\\
-	       
-	       Dans ma situation, la simulation concerne des milliers voire des millions d'objets célestes. Dans les cas que j'ai
-	       rencontrés, il s'agissait toujours d'un seul type d'objet céleste, par exemple une étoile.
-	       Si l'on choisit de représenter une étoile par un modèle 3D, une sphère par exemple, et une
-	       texture plaquée sur cette sphère, et que l'on charge la resource <<texture>> à partir d'un fichier, il est inconcevable
-	       de lire ce fichier des millions de fois par seconde (à chaque rendu), ou même des millions de fois au démarrage du
-	       programme (initialisation des textures des objets célestes).
-	       On choisit alors de charger cette resource au démarrage du programme. On lit une et une seule fois le fichier.
-	       Chaque étoile possède un pointeur vers cette texture partagée. 
-	       La seule différence entre les étoiles sont les informations contextuelles (position, densité, âge, \ldots).
-	       
-	       On peut alors faire le rendu sans problème de performances: au final, on fait une seule lecture de fichier, et
-	       l'on a une seule texture en mémoire, au lieu de milliers/millions auparavant.
-	       L'initialisation prend ainsi moins de temps et la libération mémoire également à la fin du programme.
-	       
-	       En pratique, l'application de ce design pattern a permis de transformer un démarrage poussif (dizaines de secondes) avec 100 objets célestes,
-	       en un démarrage en environ 3s pour 1000 objets.
+	      Ce pattern sert à améliorer les performances d'une application où sont présents de nombreux objets identiques,
+	      mis à part la valeur de certaines propriétés, et qui utilisent des ressources similaires.
+	      Au lieu que chaque objet possède une instance de la ressource, générant une perte de performances
+	      inutile, ce pattern propose de mettre en commun tout ce qui peut l'être. Chaque objet aura alors un pointeur
+	      vers la ressource partagée. Ce partage est transparent pour l'application qui continue à utiliser les objets 
+	      comme bon lui semble, en utilisant les informations particulières de chaque objet.\\
+	      
+	      Dans ma situation, la simulation concerne des milliers voire des millions d'objets célestes. Dans les cas que j'ai
+	      rencontrés, il s'agissait toujours d'un seul type d'objet céleste, par exemple une étoile.
+	      Si l'on choisit de représenter une étoile par un modèle 3D, une sphère par exemple, et une
+	      texture plaquée sur cette sphère, et que l'on charge la ressource <<texture>> à partir d'un fichier, il est inconcevable
+	      de lire ce fichier des millions de fois par seconde (à chaque rendu), ou même des millions de fois au démarrage du
+	      programme (initialisation des textures des objets célestes).
+	      On choisit alors de charger cette ressource une fois pour toute au démarrage. On lit une et une seule fois le fichier.
+	      Chaque étoile possède un pointeur vers cette texture partagée. 
+	      La seule différence entre les étoiles sont les informations contextuelles (position, densité, âge, \ldots).
+	      
+	      On peut alors faire le rendu sans problème de performances: au final, on fait une seule lecture de fichier, et
+	      l'on a une seule texture en mémoire, au lieu de milliers/millions auparavant.
+	      L'initialisation prend ainsi moins de temps et la libération mémoire également à la fin du programme.
+	      
+	      En pratique, l'application de ce design pattern a permis de transformer un démarrage poussif (dizaines de secondes) avec 100 objets célestes,
+	      en un démarrage en environ 3s pour 1000 objets.
 	    
 	    \item [Factory pattern]~\\
 	      Ce pattern permet typiquement de créer dynamiquement des instances d'objets différents, dont le type 
 	      n'est connu qu'à l'exécution (par exemple conséquence d'un choix utilisateur).
 	      Cependant il peut aussi être utilisé pour encapsuler la construction d'un objet derrière une interface
-	      qui cherche d'abord à savoir si cet objet existe déjà.
+	      qui fait des vérifications diverses à cette occasion.
 	      
 	      Dans mon cas, je l'ai utilisé pour implémenter le groupe de textures partagées. En effet lorsqu'un nouvel
-	      objet graphique texturé est créé il fait une requête auprès de la fabrique de textures pour obtenir sa texture. La fabrique vérifie si la texture existe déjà en mémoire.
+	      objet graphique texturé est créé, il fait une requête auprès de la fabrique de textures pour obtenir sa texture.
+	      La fabrique vérifie si la texture existe déjà en mémoire.
 	      Si oui elle renvoie un pointeur vers cette texture, sinon elle créé la texture correspondante, l'ajoute 
 	      au groupe de textures partagées, et finalement renvoie un pointeur vers cette texture nouvellement créée.
 	      
@@ -766,95 +687,95 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      De plus si deux classes différentes utilisent la même texture, une seule sera créée, et non deux.
 	    
 	    \item [RAII]~\\
-	      <<Resource Acquisition Is Initialization>>, l'acquisition de resources c'est leur initialisation.
+	      <<Resource Acquisition Is Initialization>>, l'acquisition de ressources c'est leur initialisation.
 	      Ce pattern permet une gestion efficace et simple de la mémoire et est inhérent au C++.
-	      Il repose sur l'assurance fournie par le langage que le destructeur d'un objet sera appelé lorsque l'objet
+	      Il repose sur l'assurance fournie par le langage que le destructeur d'un objet sera appelé lorsque l'on
 	      sort du bloc où il a été défini.
-	      Ainsi, lorsque l'on acquiert une resource, par exemple ouvrir un fichier, et que cette resource a besoin
+	      Ainsi, lorsque l'on acquiert une ressource, par exemple ouvrir un fichier, et que cette ressource a besoin
 	      d'être libérée plus tard, par exemple fermer ce fichier, on peut automatiser ces deux actions en les plaçant
 	      à un endroit adéquat du code.
 	      
-	      En pratique, on fait l'acquisition dans le constructeur de l'objet utilisant/représentant la resource (d'où le nom), et 
+	      En pratique, on fait l'acquisition dans le constructeur de l'objet utilisant/représentant la ressource (d'où le nom), et 
 	      la libération dans le destructeur. Pour l'utilisateur de la classe ces opérations sont transparentes et il est
 	      assuré qu'elles seront exécutées automatiquement.
 	      
 	      
-	      Pour ma part, j'ai utilisé ce pattern pour l'initialisation et la libération des resources graphiques et
+	      Pour ma part, j'ai utilisé ce pattern pour l'initialisation et la libération des ressources graphiques et
 	      du SDK Oculus.
 	    
 	    \item [Data Locality]~\\
-	       Ce design pattern est un moyen d'optimiser les performances d'un programme en tirant parti du cache du CPU.
-	       
-	       En effet tous les CPU modernes disposent d'une certaine quantité de mémoire vive, la RAM, qui représentent
-	       plusieurs gigaoctets. Pour accélérer l'accès à cette mémoire, le CPU dispose d'un cache (plusieurs en réalité)
-	       de taille réduite (sur ma machine je dispose d'un Intel Core i5 cadencé à 3.2 GHz avec 4 coeurs et 6144 kB
-	       de cache), qui est en fait une zone mémoire à accès très rapide où sont stockées les informations dont l'accès est fréquent
-	       dans la RAM. On accélère ainsi les opérations les plus régulièrement effectuées: c'est la mise en cache (<<caching>>).
-	       
-	       Cependant, le polymorphisme impose en C++ l'usage de pointeurs (cas le plus fréquent) ou de références (cas particuliers. 
-	       Mais les pointeurs, par définition, pointent vers différentes zones mémoires.
-	       Ainsi, lorsque l'on veut afficher tous les objets de la scène, on parcoure la structure de données qui
-	       stocke les pointeurs sur tous ces objets et on les affiche un par un.
-	       
-	       Le problème est que contrairement au parcours d'un tableau de valeurs (non pointeurs), qui sont stockées
-	       contigument dans la mémoire, et sont donc particulièrement adaptées à la mise en cache, le fait de
-	       parcourir un tableau de pointeurs va silloner toute la RAM, et donc ne va pas du tout se prêter à la mise
-	       en cache. Le CPU va soit ne pas mettre ces variables (et les zones mémoires voisines) dans le cache, soit le faire
-	       et en conséquence changer la majeure partie du cache à chaque fois, ce qui n'est pas du tout optimal.
-	       On passe donc à côté d'un beau gain de performance: c'est le <<cache miss>>.
-	       
-	       Plus généralement, cette situation se produit dès lors qu'il y a un usage fréquent de pointeurs dans un 
-	       programme.
-	       
-	       Un autre point à considérer est la différence entre l'usage , dans une structure de donnée, du polymorphisme (plusieurs objets
-	       différents coexistent, héritant d'un objet commun) et l'usage d'un seul type d'objets.
-	       Dans le second cas, une méthode appelé par un objet est déterminée à la compilation (on sait quel est le type
-	       de l'objet puisqu'il n'y en a qu'un) tandis que dans le premier cas, elle est déterminée à l'exécution,
-	       ce qui peut engendrer une baisse de performances supplémentaires.
-	       
-	       Pour résumer, le polymorphisme apporte généricité et flexibilité, mais peut engendrer une baisse de 
-	       performances, alors que l'usage d'un seul type d'objets est plus rigide, mais peut améliorer les performances.
-	       
-	       
-	       Un dernier point à envisager est la différence de stockage des variables entre l'usage de pointeur sur variable
-	       et l'usage de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
-	       le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
-	       Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
-	       pour le programme à son lancement et sont fort différentes:
-	       
-	       Stack:
-	       \begin{itemize}
-	        \item Accès rapide
-	        \item Limitée en taille
-	        \item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
-	       \end{itemize}
-	       
-	       Heap:
-	       \begin{itemize}
-	        \item Accès plus lent
-	        \item Pas de limite de taille
-	        \item Pas de gestion automatique de l'espace (fragmentation)
-	       \end{itemize}
-	       
-	       La fragmentation est l'utilisation inefficace de l'espace mémoire. C'est un phénomène qui se produit lorsque sont effectuées de multiples allocations et
-	       désallocations de mémoire, engendrant alors une baisse de la capacité mémoire et/ou des performances.
-	       
-	       Ces allocations/désallocations ne sont pas non plus gratuites en termes de temps d'exécution, puisque
-	       elles font appel à un certain nombre de fonctions.
+	      Ce design pattern est un moyen d'optimiser les performances d'un programme en tirant parti du cache du CPU.
+	      
+	      En effet tous les CPU modernes disposent d'une certaine quantité de mémoire vive, la RAM, qui représentent
+	      plusieurs Gigaoctets. Pour accélérer l'accès à cette mémoire, le CPU dispose d'un cache (plusieurs en réalité)
+	      de taille réduite (sur ma machine je dispose d'un Intel Core i5 cadencé à 3.2 GHz avec 4 coeurs et 6144 kB
+	      de cache), qui est en fait une zone mémoire à accès très rapide où sont stockées les informations dont l'accès est fréquent
+	      dans la RAM. On accélère ainsi les opérations les plus régulièrement effectuées: c'est la mise en cache (<<caching>>).
+	      
+	      Cependant, le polymorphisme impose en C++ l'usage de pointeurs (cas le plus fréquent) ou de références (cas particuliers. 
+	      Mais les pointeurs, par définition, pointent vers différentes zones mémoires.
+	      Ainsi, lorsque l'on veut afficher tous les objets de la scène, on parcoure la structure de données qui
+	      stocke les pointeurs sur tous ces objets et on les affiche un par un.
+	      
+	      Le problème est que contrairement au parcours d'un tableau de valeurs (non pointeurs), qui sont stockées
+	      contigument dans la mémoire, et sont donc particulièrement adaptées à la mise en cache, le fait de
+	      parcourir un tableau de pointeurs va silloner toute la RAM, et donc ne va pas du tout se prêter à la mise
+	      en cache. Le CPU va soit ne pas mettre ces variables (et les zones mémoires voisines) dans le cache, soit le faire
+	      et en conséquence changer la majeure partie du cache à chaque fois, ce qui n'est pas du tout optimal.
+	      On passe donc à côté d'un beau gain de performance: c'est le <<cache miss>>.
+	      
+	      Plus généralement, cette situation se produit dès lors qu'il y a un usage fréquent de pointeurs dans un 
+	      programme, et surtout le déréférencement de ces derniers.
+	      
+	      Un autre point à considérer est la différence entre l'utilisation , dans une structure de donnée, du polymorphisme (plusieurs objets
+	      différents coexistent, héritant d'un objet commun) et l'utilisation d'un seul type d'objets.
+	      Dans le second cas, une méthode appelé par un objet est déterminée à la compilation (on sait quel est le type
+	      de l'objet puisqu'il n'y en a qu'un) tandis que dans le premier cas, elle est déterminée à l'exécution,
+	      ce qui peut engendrer une baisse de performances supplémentaires.
+	      
+	      Pour résumer, le polymorphisme apporte généricité et flexibilité, mais peut engendrer une baisse de 
+	      performances, alors que l'usage d'un seul type d'objets est plus rigide, mais peut améliorer les performances.
+	      
+	      Un dernier point à envisager est la différence de stockage des variables entre l'utilisation de pointeurs sur variables
+	      et l'utilisation de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
+	      le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
+	      Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
+	      pour le programme à son lancement et sont fort différentes:
+	      
+	      Stack:
+	      \begin{itemize}
+		\item Accès rapide
+		\item Limitée en taille
+		\item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
+	      \end{itemize}
+	      
+	      Heap:
+	      \begin{itemize}
+		\item Accès plus lent
+		\item Pas de limite de taille
+		\item Pas de gestion automatique de l'espace (fragmentation)
+	      \end{itemize}
+	      
+	      La fragmentation est l'utilisation inefficace de l'espace mémoire. C'est un phénomène qui se produit lorsque 
+	      sont effectuées de multiples allocations et
+	      désallocations de mémoire, engendrant alors une baisse de la capacité mémoire et/ou des performances.
+	      
+	      Ces allocations/désallocations ne sont pas non plus gratuites en termes de temps d'exécution, puisque
+	      elles font appel à un certain nombre de fonctions.
 
 
-	       Dans mon cas, j'ai donc transformé mon tableau de pointeurs sur objets célestes en un tableau d'objets célestes.
-	       Cela est rendu possible par le fait que je ne dispose que d'un seul type d'objet céleste dans ma simulation.
-	       De plus l'usage de pointeurs dans mon programme est majoritaire dans la partie génération et rendu d'objets célestes
-	       de part leur nombre.
-	       Cependant il est à noter que dans le cas d'un nombre très grand d'objets (de l'ordre du million), il est possible de dépasser
-	       la taille de la pile, créant alors un <<stack overflow>>.
-	       
-	       J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés ici: \ref{optimisations}.
-	     
+	      Dans mon cas, j'ai donc transformé mon tableau de pointeurs sur objets célestes en un tableau d'objets célestes.
+	      Cela est rendu possible par le fait que je ne dispose que d'un seul type d'objet céleste dans ma simulation.
+	      De plus l'usage de pointeurs dans mon programme est majoritaire dans la partie génération et rendu d'objets célestes
+	      de part leur nombre.
+	      Cependant il est à noter que dans le cas d'un nombre très grand d'objets (de l'ordre du million), il est possible de dépasser
+	      la taille de la pile, créant alors un <<stack overflow>>.
+	      
+	      J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés ici: \ref{optimisations}
+	      et en ait tiré des conclusions suprenantes.
+	    
 	    \end{description}
 
-	    
 	
 	\subsubsection{Architecture}
 	    \begin{figure}
@@ -874,8 +795,12 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \includegraphics[width=0.8\textwidth]{hierarchy3.png}
 			      \caption{Hiérarchie des classes}
 	    \end{figure}
-	
-	
+	    
+	    \begin{figure}
+	      \centering
+	      \includegraphics[width=0.8\textwidth]{files.png}
+	      \caption{Hiérarchie des fichiers}
+	    \end{figure}
 
 
   \subsection{Améliorations}		
@@ -926,7 +851,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	fait gagner quelques secondes pour la génération de 1024 objets (on passe de 11s à 7s).
 	La structure <<array>> est un tableau statique de la librairie standard.
 	
-	On ne remarque cependant pas de différence majeure de performances entre ces deux structures de données.
+	On ne remarque cependant pas de différence majeure de performances entre ces deux structures de données une fois
+	que la taille nécessaire en mémoire est réservée initialement.
 	
 	Un autre point à noter est la croissance linéaire du temps de génération en fonction du nombre d'objets, ce qui
 	est prévisible étant donné que les structures de données array et vector sont de complexité linéaire pour le parcours
@@ -935,40 +861,166 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	Cependant l'évolution du nombre de FPS en fonction du nombre d'objets n'est pas linéaire: cela est probablement
 	dû au fonctionnement interne d'OpenGL.
 	
-	Les résultats de la comparaison entre usage du polymorphisme et usage du pattern data locality 
+	Les résultats de la comparaison entre usage du polymorphisme et usage du pattern Data Locality 
 	sont surprenants: en effet, l'application de ce design pattern a ralenti les performances 
 	de l'application, en tout cas dans la partie génération, le rendu graphique restant inchangé avec 
-	       des FPS constants, au lieu de les améliorer.
-	       
-	       Cela s'explique par le fait que ce pattern améliore les performances d'applications ralenties par les 
-	       <<cache misses>>. Lors de l'analyse de l'application par un outil d'analyse de cache, Valgrind, il est
-	       apparu que seulement 0 à 2\% des accès au cache créaient des <<cache misses>>. Le problème de performances
-	       n'était donc pas dû à cela.
-	       
-	       Pourquoi alors les performances ne sont-elles pas restées constantes? En fait, au lieu de stocker dans notre
-	       structure de données un pointeur sur objet, qui prend typiquement 4 octets en mémoire, on stocke 
-	       l'ensemble de l'objets, c'est à dire dans mon cas 136 octets. En C++, le passage d'un argument
-	       à une fonction se fait par défaut par valeur, c'est à dire qu'il y a une copie de l'objet.
-	       On copie donc 136 octets (au lieu de 4 auparavant) à chaque fois que l'on ajoute un objet dans la structure de données, et ce 
-	       autant de fois qu'il y a d'objets. C'est ce qui ralentit la génération.
-	              
+	      des FPS constants, au lieu de les améliorer.
+	      
+	      Cela s'explique par le fait que ce pattern améliore les performances d'applications ralenties par les 
+	      <<cache misses>>. Lors de l'analyse de l'application par un outil d'analyse de cache, Valgrind, il est
+	      apparu que seulement 0 à 2\% des accès au cache créaient des <<cache misses>>. Le problème de performances
+	      n'était donc pas dû à cela.
+	      
+	      Pourquoi alors les performances ne sont-elles pas restées constantes? En fait, au lieu de stocker dans notre
+	      structure de données un pointeur sur objet, qui prend typiquement 4 octets en mémoire, on stocke 
+	      l'ensemble de l'objets, c'est à dire dans mon cas 136 octets. En C++, le passage d'un argument
+	      à une fonction se fait par défaut par valeur, c'est à dire qu'il y a une copie de l'objet.
+	      On copie donc 136 octets (au lieu de 4 auparavant) à chaque fois que l'on ajoute un objet dans la structure de données, et ce 
+	      autant de fois qu'il y a d'objets. C'est ce qui ralentit la génération.
+		      
 	L'application du pattern Data Locality s'est donc révélé infructueux dans mon cas. Ce pattern reste cependant valide
 	dans le cas d'applications souffrant de problèmes de <<caches misses>> et de fragmentation.
 	
 	
 
     
-    \subsubsection{Problèmes restants}
+    \subsubsection{Problèmes restants - Fonctionnalités à améliorer}
+      \paragraph{Skybot 3D}~\\
+	\label{cross_eye}
+	Un problème handicapant restant dans Skybot 3D est la vue Oculus.
+	En effet cette dernière est fonctionnelle, mais souffre du phénomène de <<cross-eye>> (<<yeux croisés>>).
+	Cet effet est dû à une inversion du rendu entre les deux yeux: le rendu de l'oeil gauche se retrouve sur la moitié  droite sur
+	l'écran et vice-versa.
+	En conséquence, lorsque l'Oculus est équipé, les deux images provenant de chaque oeil ne se superposent pas
+	parfaitement pour le cerveau comme cela devrait être le cas: une impression de strabisme (fait de loucher ) se produit.
+
+	Malgré de nombreux efforts, ce phénomène est toujours en place et est probablement dû à une application erronnée
+	des matrices de tranformation.
 	
+      \paragraph{Simulation}~\\
+	Une fonctionnalité que je n'ai pas eu le temps d'implémenter pour la simulation est l'utilisation du joystick.
+	En effet la bibliothèque de fenêtrage utilisée, SDL, est capable de détecter un joystick, et ce dernier 
+	facilité l'immersion et le déplacement dans la scène avec l'Oculus Rift masquant le clavier.
+	
+	\subsection{Outils utilisés}
+
+		\subsubsection{Langages utilisés}
+		    Les deux projets sur lesquels j'ai travaillé ont été développés en C++, même si la quasi-totalité 
+		    du projet Skybot 3D est écrite en C, adapté pour pouvoir compiler en C++.
+		    Sur le deuxième projet, j'ai de plus mis en oeuvre des fonctionnalités nouvelles de C++, standardisées
+		    par la norme C++11 datant de 2011. On peut citer:\\
+		    
+		    \begin{itemize}
+		    \item Listes d'initialisation 
+		    \item Pointeur null <<nullptr>>
+		    \item Boucle for sur une plage de valeurs
+		    \item Référence sur une rvalue
+		    \item Outils de mesure du temps à haute précision
+		    \item Mot-clé <<auto>>
+		    \item Smart pointers (pointeur intelligents)
+		    \end{itemize}
+	
+		\subsubsection{Bibliothèques utilisées}
+
+		  \begin{description}
+		  \item [GLEW]~\\
+		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multiplateforme de chargement des fonctionnalités d'OpenGL.
+		      Licence BSD modifiée.\\
+		      \url{http://glew.sourceforge.net/}
+		  \item [GLM]~\\
+		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
+		      Je l'ai utilisée pour le projet de simulation.
+		      Licence MIT.\\
+		      \url{http://glm.g-truc.net/0.9.5/index.html}
+		  \item [GLUT]~\\
+		      <<OpenGL Utility Toolkit>> est l'équivalent de la SDL en plus restreint. Je m'en suis servi pour le 
+		      projet Skybot 3D via son implémentation open source <<freeglut>>.
+		      Licence X-Consortium.\\
+		      \url{http://freeglut.sourceforge.net/} et \url{http://www.opengl.org/ressources/libraries/glut/}
+		  \item [Octree]~\\
+		      Une bibliothèque C++ implémentant les Octree.
+		      Licence GPL.\\
+		      \url{http://nomis80.org/code/octree.html}
+		  \item [Oculus SDK]~\\
+		      Le SDK Oculus est l'interface de programmation permettant d'accéder à l'Oculus Rift et est fourni
+		      par Oculus VR (fabriquant de l'Oculus Rift). 
+		      Je me suis servi des versions 0.2.5 et 0.3.2.
+		      Licence particulière mais analogue à une licence MIT, à ceci près qu'elle restreint les utilisations
+		      pouvant mettre en danger la vie ou la santé d'individus.
+		  \item [OpenGL] ~\\
+		      <<Open Graphics Library>> est une API multiplateforme pour effectuer des rendus graphiques 2D et 3D.
+		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
+		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée  
+		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
+		      Je l'ai utilisée pour les deux projets.
+		      Pas de licence.\\
+		      \url{http://www.opengl.org/}
+		  \item [SDL]~\\
+		      <<Simple DirectMedia Layer>> est une bibliothèque multiplateforme donnant accès au système de fenêtrage,
+		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
+		      Licence zlib.\\
+		      \url{https://www.libsdl.org/}
+		  \end{description}
+
+		
+		
+		\subsubsection{Outils divers utilisés}
+		  \begin{description}  
+		  \item [Clang]~\\
+		      Compilateur/interface de compilation C/C++ open source développé par Google.
+		      Licence de l'Université de l'Illinois / licence  NCSA open source.\\
+		      \url{http://clang.llvm.org/}
+		  \item [Clang Static Analyzer]~\\
+		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang. \\
+		      \url{http://clang-analyzer.llvm.org/scan-build.html}
+		  \item [CMake]~\\
+		      Outil multiplateforme 'aide à la compilation et de génération de Makefiles.
+		      Licence BSD.\\
+		      \url{http://www.cmake.org/}
+		  \item [Doxygen]~\\
+		    Outil de documentation de projets informatiques et de code sources.
+		    Licence GPL\\
+		    \url{http://www.stack.nl/~dimitri/doxygen/}
+		  \item [GCC]~\\
+		      <<GNU Compiler Collection>>, compilateur C/C++.
+		      Licence GNU GPL 3+.\\
+		      \url{https://gcc.gnu.org/}
+		  item [GDB]~\\
+		      <<GNU Project Debugger>>, le déboggeur standard sur Linux.
+		      Licence GNU GPL.\\
+		      \url{http://www.gnu.org/software/gdb/}
+		  \item [Git]~\\
+		      Logiciel de gestion de version.
+		      Licence GNU GPL v2.\\
+		      \url{http://git-scm.com/}
+		  \item [Github]~\\
+		      Site web de stockage en ligne de projets open source via git.\\
+		      \url{https://github.com/}
+		  \item [Qmake]~\\
+		    Outil d'aide à la compilation multi-plateforme, semblable à Cmake.
+		    Licence LGPL.\\
+		    \url{http://qt-project.org/doc/qt-4.8/qmake-manual.html}
+		    \item [QtCreator]~\\
+		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
+		      Licence LGPL.\\
+		      \url{http://qt-project.org/wiki/category:tools::qtcreator}
+		  \item [Valgrind]~\\
+		      Outil d'analyse dynamique (à l'exécution) de programme, pour notamment traquer les fuites de mémoire.
+		      Licence GPL v2.\\
+		      \url{http://valgrind.org/}
+		  \end{description}
+
+		Tous ces outils sont open source et multiplateformes.
+		
 \section{Remerciements}
 
 	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici: 
 
 	\begin{itemize}
-	 \item André SCHAAF, mon maître de stage
-	 \item L'équipe Skybot 3D: Jérôme Berthier et Jonathan Normand
-	 \item Brad Davis, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift
-	 \item Nicolas Deparis et Romain Houpin, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D
+	\item André SCHAAF, mon maître de stage
+	\item L'équipe Skybot 3D: Jérôme Berthier et Jonathan Normand
+	\item Brad Davis, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift
+	\item Nicolas Deparis et Romain Houpin, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D
 	\end{itemize}
 
 \section{Conclusion}
@@ -1026,74 +1078,74 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		    Langage de programmation impératif, procédural utilisé dans des applications ayant un besoin critique
 		    de performances.
 		    
-		 \item [C++] ~\\
+		\item [C++] ~\\
 		    Langage de programmation mutliplateforme, multiparadigme, générique, compilé, largement utilisé
 		    dans les domaines scientifiques, industriels, de l'entreprise, de l'image, \ldots
-		 
-		 \item [CPU]~\\
+		
+		\item [CPU]~\\
 		    <<Central Processing Unit>>, processeur. 
 		    Composant de l'ordinateur qui exécute les instructions machine des programmes informatiques.
-		 
-		 \item [FPS] ~\\
+		
+		\item [FPS] ~\\
 		      <<Frame Per Seconds>>, mesure de la fluidité du rendu graphique en images par seconde.
-		 
-		 \item [Frame]~\\
+		
+		\item [Frame]~\\
 		    Image rendue graphiquement par un programme, typiquement 60 fois par seconde.
 		    
-		 \item [Framework]~\\
+		\item [Framework]~\\
 		    Ensemble cohérent de composants logiciels structurels.
 
-		 \item [GPU]~\\
+		\item [GPU]~\\
 		    <<Graphics Processing Unit>>, processeur graphique.
 		    Circuit intégré présent sur une carte graphique et assurant les fonctions de calcul de l'affichage.
-		 
-		 \item [Oculus Rift]~\\
+		
+		\item [Oculus Rift]~\\
 		    Masque de réalité virtuelle fournissant une expérience d'immersion inédite.
 		    
-		 \item [Oculus VR]~\\
+		\item [Oculus VR]~\\
 		    Entreprise de réalité virtuelle fabriquant l'Oculus Rift.
 		    
-		 
-		 \item [SDK]~\\
+		
+		\item [SDK]~\\
 		    <<Software Develoment Kit>>, kit de développement. 
 		    Ensemble d'outils permettant aux développeurs de créer des applications de type défini.
 		    
-		 \item [Shader]~\\
-		     Programme informatique, utilisé en image de synthèse, 
-		     pour paramétrer une partie du processus de rendu réalisé par une carte graphique ou un moteur de rendu logiciel.
-		     Ils peuvent permettre de décrire l'absorption et la diffusion de la lumière, la texture à utiliser, 
-		     les réflexions et réfractions, l'ombrage, le déplacement de primitives 
-		     et des effets post-traitement. 
+		\item [Shader]~\\
+		    Programme informatique, utilisé en image de synthèse, 
+		    pour paramétrer une partie du processus de rendu réalisé par une carte graphique ou un moteur de rendu logiciel.
+		    Ils peuvent permettre de décrire l'absorption et la diffusion de la lumière, la texture à utiliser, 
+		    les réflexions et réfractions, l'ombrage, le déplacement de primitives 
+		    et des effets post-traitement. 
 
 		\end{description}
 
 	\subsection{Ressources}
 	  \begin{description}
-	   \item [Site web du créateur du langage C++]~\\
+	  \item [Site web du créateur du langage C++]~\\
 	      \url{http://www.stroustrup.com/}
-	   \item [Conventions de code C++]~\\
+	  \item [Conventions de code C++]~\\
 	      \url{http://www.stroustrup.com/JSF-AV-rules.pdf}
-	   \item [Site d'Oculus pour les développeurs]~\\
+	  \item [Site d'Oculus pour les développeurs]~\\
 	      \url{https://developer.oculusvr.com/}
-	   \item [Wiki officiel d'OpenGL]~\\
+	  \item [Wiki officiel d'OpenGL]~\\
 	      \url{http://www.opengl.org/wiki/Main_Page}
-	   \item [Site web sur les design patterns]~\\
+	  \item [Site web sur les design patterns]~\\
 	      \url{http://gameprogrammingpatterns.com/}
-	   \item [Blog sur le développement Oculus Rift]~\\
+	  \item [Blog sur le développement Oculus Rift]~\\
 	      \url{http://rifty-business.blogspot.fr}
-	   \item [Tutoriel C++]~\\
+	  \item [Tutoriel C++]~\\
 	      \url{http://cpp.developpez.com/faq/cpp/}
-	   \item [Tutoriel OpenGL 3.x]~\\
+	  \item [Tutoriel OpenGL 3.x]~\\
 	      \url{http://tomdalling.com/blog/category/modern-opengl/}  
-	   \item [Site web de Skybot 3D]~\\
+	  \item [Site web de Skybot 3D]~\\
 	      \url{http://vo.imcce.fr/webservices/skybot3d}  
-	   \item [Site web de l'Observatoire]~\\
+	  \item [Site web de l'Observatoire]~\\
 	      \url{http://astro.unistra.fr/}  
-	   \item [Site web traitant du problème d'échelle et des grands nombres dans OpenGL]~\\
+	  \item [Site web traitant du problème d'échelle et des grands nombres dans OpenGL]~\\
 	      \url{http://www.floatingorigin.com/}  
-	   \item [Autre tutoriel OpenGL 3.x]~\\
+	  \item [Autre tutoriel OpenGL 3.x]~\\
 	      \url{http://open.gl/}  
-	   \item [Oculus SDK]~\\
+	  \item [Oculus SDK]~\\
 	      \url{https://developer.oculusvr.com/?action=dl}  
 	  \end{description}
 
