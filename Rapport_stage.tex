@@ -687,8 +687,10 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      De plus si deux classes différentes utilisent la même texture, une seule sera créée, et non deux.
 	    
 	    \item [RAII]~\\
+	      \label{RAII}
 	      <<Resource Acquisition Is Initialization>>, l'acquisition de ressources c'est leur initialisation.
 	      Ce pattern permet une gestion efficace et simple de la mémoire et est inhérent au C++.
+	      
 	      Il repose sur l'assurance fournie par le langage que le destructeur d'un objet sera appelé lorsque l'on
 	      sort du bloc où il a été défini.
 	      Ainsi, lorsque l'on acquiert une ressource, par exemple ouvrir un fichier, et que cette ressource a besoin
@@ -740,21 +742,21 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      et l'utilisation de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
 	      le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
 	      Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
-	      pour le programme à son lancement et sont fort différentes:
+	      pour le programme à son lancement et sont fort différentes:\\
 	      
 	      Stack:
 	      \begin{itemize}
 		\item Accès rapide
 		\item Limitée en taille
 		\item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
-	      \end{itemize}
+	      \end{itemize}~
 	      
 	      Heap:
 	      \begin{itemize}
 		\item Accès plus lent
 		\item Pas de limite de taille
 		\item Pas de gestion automatique de l'espace (fragmentation)
-	      \end{itemize}
+	      \end{itemize}~
 	      
 	      La fragmentation est l'utilisation inefficace de l'espace mémoire. C'est un phénomène qui se produit lorsque 
 	      sont effectuées de multiples allocations et
@@ -803,12 +805,14 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    \end{figure}
 
 
-  \subsection{Améliorations}		
-    \subsubsection{Optimisations}
+  \subsection{Améliorations - Optimisations}		
+    \subsubsection{Structures de données - Data Locality}
     
       \begin{center}
       
 	\label{optimisations}
+
+	
 	\begin{tabular}{| c | c | c | c | c | p{4cm} |}
 	    \hline
 	    Stockage & Méthode & Nombre d'objets & Génération & FPS moyens & Remarques \\ \hline
@@ -881,9 +885,47 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	L'application du pattern Data Locality s'est donc révélé infructueux dans mon cas. Ce pattern reste cependant valide
 	dans le cas d'applications souffrant de problèmes de <<caches misses>> et de fragmentation.
 	
+      \subsubsection{Smart pointers (<<Pointeurs intelligents)}
+	Les smart pointers sont des objets de la librairies standard encapsulant les pointeurs.
+	En se basant sur la RAII (\ref{RAII}, paragraphe <<Design Pattern>>), ils permettent de s'assurer que les ressources mémoires allouées manuellement
+	seront bien libérées.
+	De plus ils fournissent des fonctionnalités bien pratiques, comme le compte de pointeurs pointant sur la variable encapsulée,
+	 sorte de compte de références, pratique pour implémenter un groupe de ressources partagées: lorsque plus personne
+	 dans le programme n'utilise ces ressources, on les supprime, ou plutôt elles sont supprimées automatiquement.
+	 
+	C'est ce qui s'approche en C++ d'un garbage collector, à la différence que la norme du langage assure
+	à quel endroit du code le destructeur de l'objet sera appelé et que le développeur doit mettre en place manuellement
+	cette gestion <<automatisée>>, ou plutôt <<aidée>>,  de la mémoire.
+	 
+	L'utilisation de ces pointeurs intelligents est considérée dans le monde du développement C++ comme une bonne 
+	pratique et est encouragée. De plus il n'y a peu ou pas de baisse de performances par rapport à l'utilisation
+	de pointeurs nus (<<raw pointers>>, pointeurs traditionnels <<à la C>>).
+	
+	Cette optimisation ne vise donc pas les performances mais la maintenabilité, la sécurité et la stabilité du programme.
+	Au final, pour générer 1024 objets, la différence entre pointeurs nus et pointeurs intelligents est de 0.06 s,
+	et il n'y a aucune fuite mémoire. De plus le code est plus court et plus simple.
 	
 
-    
+      \subsubsection{Logs}
+	Les logs sont l'affichage de messages de contrôle au cours du programme. Ils permettent de vérifier son exécution
+	et de détecter des bugs.
+	Après avoir utilisé des logs rudimentaires, je me suis intéressé aux bibliothèques de logs existantes, notamment Boost.Log .
+	
+	Cependant, ces bibliothèques se sont révelées bien trop riches et complexes pour la taille de ce programme.
+	J'ai donc développé une classe simple de logs, qui offrent les fonctionnalités simples suivantes:
+	
+	\begin{itemize}
+	 \item Quatre niveaux de logs différents (trace, debug, info, error),
+	 \item Logs dans la console (activable/désactivable),
+	 \item Logs dans des fichiers <<.log>> et <<.err>> selon le niveau du log (activable/désactivable),
+	 \item Filtre des logs selon le niveau,
+	 \item Syntaxe simple
+	\end{itemize}~
+	
+	Cette amélioration n'est pas directement liée aux performances, mais vise à améliorer encore une fois la maintenabilité
+	et la stabilité du code.
+	Cependant, les performances de l'application bénéficient du fait que les logs soient désactivables en partie ou complètement, au choix.
+	
     \subsubsection{Problèmes restants - Fonctionnalités à améliorer}
       \paragraph{Skybot 3D}~\\
 	\label{cross_eye}
