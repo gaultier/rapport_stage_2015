@@ -1,7 +1,27 @@
 #ifndef OCULUS_H
 #define OCULUS_H
 
+/** @file
+ * @brief All Oculus related features live in here
+ * @author Philippe Gaultier
+ * @version 1.0
+ * @date 24/07/14
+ */
+
 #include <GL/glew.h>
+
+#include "Include/OVR/LibOVR/Include/OVR.h"
+#include "Include/OVR/LibOVR/Src/OVR_CAPI.h"
+#include "Include/OVR/LibOVR/Src/OVR_CAPI_GL.h"
+#include "Include/OVR/LibOVR/Src/Kernel/OVR_Math.h"
+#include "SDL2/SDL.h"
+#define GL3_PROTOTYPES 1
+#include "Include/GL3/gl3.h"
+#include "Include/glm/glm.hpp"
+#include "SDL2/SDL_syswm.h"
+#include "Utils.h"
+#include "Log.h"
+
 #include <iostream>
 //To ignore the asserts uncomment this line:
 //#define NDEBUG
@@ -9,29 +29,42 @@
 #include <cmath>
 #include <limits>
 #include <string>
+#include <memory>
 
-#include "Include/OVR/LibOVR/Include/OVR.h"
-#include "Include/OVR/LibOVR/Src/OVR_CAPI.h"
-#include "Include/OVR/LibOVR/Src/OVR_CAPI_GL.h"
-#include "Include/OVR/LibOVR/Src/Kernel/OVR_Math.h"
+/**
+ * @brief The GenericOculus class
+ */
+class GenericOculus
+{
+public:
+    virtual ~GenericOculus() {}
+    virtual void render() = 0;
 
-#include "SDL2/SDL.h"
+    virtual void getInput() {}
 
-#define GL3_PROTOTYPES 1
-#include "Include/GL3/gl3.h"
+    virtual bool isMoving();
 
-#include "Include/glm/glm.hpp"
+    virtual bool isUsingDebugHmd();
 
-#include "SDL2/SDL_syswm.h"
+    glm::vec3 dAngles() const;
+};
 
-#include "Utils.h"
 
 template<class T>
-class Oculus
+/**
+ * @brief The Oculus templated class
+ * @details It is a singleton to avoid initializing/releasing the Oculus SDK multiple times.
+ * The template argument is the type of the OpeGL scene we render.
+ */
+class Oculus: public GenericOculus
 {
-
 public:
-    Oculus(T * scene):
+    /**
+     * @brief Constructor
+     * @details Initializes the Oculus SDK, creates a debug Oculus Rift if none is connected, and starts the sensors.
+     * @param scene The OpenGL scene that contains the objects render
+     */
+    Oculus(T & scene):
         scene_ {scene},
         textureId_ {0},
         FBOId_ {0},
@@ -49,6 +82,7 @@ public:
     {
         //Oculus is a singleton and cannot be instanciated twice
         assert(!alreadyCreated);
+        logger->debug(logger->get() << "Oculus constructor" );
 
         ovr_Initialize();
 
@@ -62,8 +96,7 @@ public:
             //Cannot create the debug hmd
             assert(hmd_);
 
-
-             LOG("Using the debug Hmd", std::cout);
+            logger->debug(logger->get() << "Using the debug hmd");
         }
 
         ovrHmd_GetDesc(hmd_, &hmdDesc_);
@@ -91,8 +124,14 @@ public:
 
         Oculus::alreadyCreated = true;
     }
+
+    /**
+     * @brief Destructor
+     * @details Releases the Oculus SDK and the OpenGL resources required for the Oculus rendering
+     */
     ~Oculus()
     {
+        logger->debug(logger->get() << "Oculus destructor");
         glDeleteFramebuffers(1, &FBOId_);
         glDeleteTextures(1, &textureId_);
         glDeleteRenderbuffers(1, &depthBufferId_);
@@ -104,6 +143,9 @@ public:
         Oculus::alreadyCreated = false;
     }
 
+    /**
+     * @brief Renders the OpenGL scene with the Oculus effects
+     */
     void render()
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -143,22 +185,30 @@ public:
 
             glm::mat4 glmProj = Utils::ovr2glmMat(Proj.Transposed());
 
-            scene_->render(glmMV, glmProj);
+            scene_.render(glmMV, glmProj);
             Utils::GLGetError();
 
             ovrHmd_EndEyeRender(hmd_, eye, eyeRenderPose[eye], &eyeTexture_[eye].Texture);
         }
 
         ovrHmd_EndFrame(hmd_);
-
-
     }
 
+    /**
+     * @brief Tells if we are using a debug Oculus Rift
+     * @return true if no Oculus Rift is connected and we had to create a debug one, else false
+     */
     bool isUsingDebugHmd()
     {
         return usingDebugHmd_;
     }
 
+    /**
+     * @brief Tells if the Oculus Rift the moving
+     * @details It compares the current angular position with the previous angular position
+     * @return true if the Oculus Rift if moving, else false
+     */
+    using GenericOculus::isMoving;
     bool isMoving() const
     {
         bool res = false;
@@ -167,27 +217,24 @@ public:
             res = res && Utils::isEqual(angles_[i], dAngles_[i]);
         }
         return !res;
-
-    }
-
-    glm::vec3 dAngles() const
-    {
-        return dAngles_;
-    }
-
-    void setDAngles(const glm::vec3 &dAngles)
-    {
-        dAngles_ = dAngles;
     }
 
     glm::vec3 angles() const
     {
         return angles_;
     }
+
     void setAngles(const glm::vec3 &angles)
     {
         angles_ = angles;
     }
+
+    /**
+     * @brief Retrieves the values from the Oculus Rift sensors
+     * @details It gets the current angular position from the sensors and the prediction tool, and stores the old angular position.
+     * @warning The angles from the sensors are in radians and OpenGL expects angles in degrees, hence the required conversion
+     * @warning If no Oculus Rift is connected and we had to create a debug one, there are no values to be retrieved: We use the mouse position.
+     */
     void getInput()
     {
         glm::vec3 oldAngles = angles_;
@@ -203,31 +250,33 @@ public:
 
             dAngles_ = angles_ - oldAngles;
 
-            LOG("Angles: " +
-                    std::to_string(OVR::RadToDegree(angles_[0])) + ", " +
-                    std::to_string(OVR::RadToDegree(angles_[1])) + ", " +
-                    std::to_string(OVR::RadToDegree(angles_[2])) + " degrees"
-                    , std::cout);
-            LOG("Angles: " +
-                    std::to_string(angles_[0]) + ", " +
-                    std::to_string(angles_[1]) + ", " +
-                    std::to_string(angles_[2]) + " rad"
-                    , std::cout);
+            logger->debug(logger->get() << "Angles: "
+                        << OVR::RadToDegree(angles_[0]) << ", "
+                        << OVR::RadToDegree(angles_[1]) << ", "
+                        << OVR::RadToDegree(angles_[1]) << " degrees");
 
-            LOG("dAngles_: " +
-                    std::to_string(OVR::RadToDegree(dAngles_[0])) + ", " +
-                    std::to_string(OVR::RadToDegree(dAngles_[1])) + ", " +
-                    std::to_string(OVR::RadToDegree(dAngles_[2])) + " degrees"
-                    , std::cout);
+            logger->debug(logger->get() << "Angles: "
+                        << angles_[0] << ", "
+                        << angles_[1] << ", "
+                        << angles_[1] << " rad");
+
+            logger->debug(logger->get() << "DAngles: "
+                        << OVR::RadToDegree(dAngles_[0]) << ", "
+                        << OVR::RadToDegree(dAngles_[1]) << ", "
+                        << OVR::RadToDegree(dAngles_[1]) << " degrees");
         }
         else
         {
-            LOG("No input data (using debug Hmd)", std::cout);
+            logger->debug(logger->get() << "No input data (using debug hmd)");
         }
-
     }
 
 protected:
+    /**
+     * @brief Creates the OpenGL texture required for the Oculus rendering
+     * @details The Oculus rendering makes under the hood a double (for each eye) render to texture of the scene and then
+     * displays this texture to the screen, hence the big size of the texture.
+     */
     void initTexture()
     {
         // The texture we're going to render to...
@@ -241,8 +290,12 @@ protected:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
         Utils::GLGetError();
-
     }
+
+    /**
+     * @brief Creates the Frame Buffer Object needed for the Oculus rendering
+     * @details The Oculus rendering uses this FBO to send the texture to the graphic card
+     */
     void initFBO()
     {
         // We will do some offscreen rendering, setup FBO...
@@ -257,6 +310,10 @@ protected:
         glBindFramebuffer(GL_FRAMEBUFFER, FBOId_);
         Utils::GLGetError();
     }
+
+    /**
+     * @brief Creates the depth buffer needed for the Oculus rendering
+     */
     void initDepthBuffer()
     {
         glGenRenderbuffers(1, &depthBufferId_);
@@ -296,19 +353,26 @@ protected:
         Utils::GLGetError();
 
     }
+
+    /**
+     * @brief Sets some OpenGL states to adequate values for the Oculus rendering
+     * @warning The multisample value does not seem the be taken into account by the Oculus SDK as of yet
+     *  and the Oculus rendering seems unchanged
+     */
     void setOpenGLState()
     {
-        // Some state...
-
         glDisable(GL_TEXTURE_2D);
         glEnable(GL_DEPTH_TEST);
         if(multisampleEnabled_)
         {
             glEnable(GL_MULTISAMPLE);
         }
-
     }
 
+    /**
+     * @brief Sets the Oculus SDK configuration to adequate values for the Oculus rendering
+     * @warning The Windows and OSX modes have not been tested but should work just fine
+     */
     void setCfg()
     {
         cfg_.OGL.Header.API = ovrRenderAPI_OpenGL;
@@ -318,19 +382,23 @@ protected:
 
         SDL_SysWMinfo info;
         SDL_VERSION(&info.version);
-        SDL_bool infoRes = SDL_GetWindowWMInfo(scene_->getWindow(), &info);
+        SDL_bool infoRes = SDL_GetWindowWMInfo(scene_.window(), &info);
         //Cannot retrieve SDL window info
         assert(infoRes == SDL_TRUE);
 
-#if defined(OVR_OS_WIN32)
-        cfg.OGL.Window = info.info.win.window;
-#elif defined (OVR_OS_MAC)
-        cfg.OGL.Window = info.info.cocoa.window
-#elif defined(OVR_OS_LINUX)
-        cfg_.OGL.Win = info.info.x11.window;
-        cfg_.OGL.Disp = info.info.x11.display;
-#endif
+        #if defined(OVR_OS_WIN32)
+            cfg.OGL.Window = info.info.win.window;
+        #elif defined (OVR_OS_MAC)
+            cfg.OGL.Window = info.info.cocoa.window
+        #elif defined(OVR_OS_LINUX)
+            cfg_.OGL.Win = info.info.x11.window;
+            cfg_.OGL.Disp = info.info.x11.display;
+        #endif
     }
+
+    /**
+     * @brief Sets the Oculus SDK texture configuration to adequate values for the Oculus rendering
+     */
     void setEyeTexture()
     {
         eyeTexture_[0].OGL.Header.API = ovrRenderAPI_OpenGL;
@@ -347,12 +415,19 @@ protected:
         eyeTexture_[1].OGL.Header.RenderViewport.Pos.x = (textureSize_.w + 1) / 2;
 
     }
+
+    /**
+     * @brief Computes the texture size
+     * @details This computation depends on the window dimensions. The optimal dimensions are 1280*800, which is the Oculus
+     * resolution
+     * @warning Other resolutions and window resizing have not been tested but should work just fine
+     */
     void computeSizes()
     {
-        windowSize_.w = scene_->windowWidth();  //hmdDesc_.Resolution.w;
-        windowSize_.h = scene_->windowHeight(); //hmdDesc_.Resolution.h;
+        windowSize_.w = scene_.windowWidth();
+        windowSize_.h = scene_.windowHeight();
 
-        LOG("FoV: " + std::to_string(Utils::radToDegree(2 * atan(hmdDesc_.DefaultEyeFov[0].UpTan))), std::cout );
+        logger->debug(logger->get() << "Fov: " << Utils::radToDegree(2 * atan(hmdDesc_.DefaultEyeFov[0].UpTan)));
 
         textureSizeLeft_ = ovrHmd_GetFovTextureSize(hmd_, ovrEye_Left, hmdDesc_.DefaultEyeFov[0], 1.0f);
         textureSizeRight_ = ovrHmd_GetFovTextureSize(hmd_, ovrEye_Right, hmdDesc_.DefaultEyeFov[1], 1.0f);
@@ -361,39 +436,147 @@ protected:
 
     }
 
+    /**
+     * @brief Boolean that shows whether or not an instance has already been created
+     * @details Part of the Singleton Pattern
+     */
     static bool alreadyCreated;
 
-    T* scene_;
+    /**
+     * @brief The generic OpenGL scene
+     * @details Oculus is a templated class and its only argument is the type of \a scene. The only requirement is that scene
+     * has a method \a render, wich takes as argument the modelview matrix and the projection matrix.
+     */
+    T & scene_;
 
     //GL
+    /**
+     * @brief The id of the OpenGL texture used in the Oculus rendering
+     */
     GLuint textureId_;
+
+    /**
+     * @brief The id of the OpenGL Frame Buffer Object used in the Oculus rendering
+     */
     GLuint FBOId_;
+
+    /**
+     * @brief The id of the OpenGL depth buffer used in the Oculus rendering
+     */
     GLuint depthBufferId_;
 
     //OVR
+    /**
+     * @brief The Oculus Rift
+     * @details If no Oculus Rift is connected, a debug one is created. The last does not have proper sensors.
+     */
     ovrHmd hmd_;
-    ovrHmdDesc hmdDesc_;
-    ovrEyeRenderDesc eyeRenderDesc_[2];
-    ovrGLTexture eyeTexture_[2];
-    ovrFovPort eyeFov_[2];
-    ovrGLConfig cfg_;
-    ovrSizei windowSize_;
-    ovrSizei textureSizeLeft_;
-    ovrSizei textureSizeRight_;
-    ovrSizei textureSize_;
-    ovrFrameTiming frameTiming_;
-    ovrSensorState sensorState_;
-    glm::vec3 angles_;
-    glm::vec3 dAngles_;
-    int distortionCaps_;
-    bool usingDebugHmd_;
-    bool multisampleEnabled_;
 
+    /**
+     * @brief The description of the Oculus Rift
+     * @details Contains lots of values like inter-pupillary distance, resolution, etc
+     */
+    ovrHmdDesc hmdDesc_;
+
+    /**
+     * @brief The description of each eye
+     * @details Contains lots of values like dimensions, wether it is the left or right eye, etc.
+     */
+    ovrEyeRenderDesc eyeRenderDesc_[2];
+
+    /**
+     * @brief The texture of each eye
+     */
+    ovrGLTexture eyeTexture_[2];
+
+    /**
+     * @brief The Field of View of each eye
+     */
+    ovrFovPort eyeFov_[2];
+
+    /**
+     * @brief The configuration for the OpenGL Oculus rendering
+     */
+    ovrGLConfig cfg_;
+
+    /**
+     * @brief The dimensions of the window
+     */
+    ovrSizei windowSize_;
+
+    /**
+     * @brief The dimensions of the texture that the left eye can see
+     */
+    ovrSizei textureSizeLeft_;
+
+    /**
+     * @brief The dimensions of the texture that the right eye can see
+     */
+    ovrSizei textureSizeRight_;
+
+    /**
+     * @brief The dimensions of the texture overall
+     */
+    ovrSizei textureSize_;
+
+    /**
+     * @brief Time variable used by the sensor and the predication tool
+     */
+    ovrFrameTiming frameTiming_;
+
+    /**
+     * @brief The Oculus Rift sensors
+     */
+    ovrSensorState sensorState_;
+
+    /**
+     * @brief The Oculus Rift angular position
+     */
+    glm::vec3 angles_;
+
+    /**
+     * @brief The Oculus Rift angular position variation
+     */
+    glm::vec3 dAngles_;
+
+    /**
+     * @brief Flag used for the Oculus rendering configuration
+     */
+    int distortionCaps_;
+
+    /**
+     * @brief Boolean indicating if we are using a debug Oculus Rift
+     */
+    bool usingDebugHmd_;
+
+    /**
+     * @brief Boolean indicating if the Oculus rendering is multisampled
+     * @warning The Oculus SDK does not seem to take this variable into account as of yet
+     */
+    bool multisampleEnabled_;
 };
 
 template<class T>
 bool Oculus<T>::alreadyCreated = false;
 
+/**
+ * @brief The NullOculus class
+ * @details Part of the Null object pattern
+ */
+class NullOculus: public GenericOculus
+{
+public:
+    NullOculus();
 
+    ~NullOculus();
+
+    void render() {}
+};
+
+/**
+ * @brief nullOculus
+ * @details Implements the null object pattern
+ */
+extern std::unique_ptr<NullOculus> nullOculus;
 
 #endif
