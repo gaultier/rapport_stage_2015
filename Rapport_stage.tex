@@ -106,8 +106,8 @@ Philippe \textsc{Gaultier},\\[0.5cm]
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \huge
 \emph{Maître de stage:} \\
-André \textsc{Schaaf},\\[0.5cm]
-\Large enseignant-chercheur à l'Université de Strasbourg
+André \textsc{schaafff},\\[0.5cm]
+\Large Ingénieur de recherche au CNRS
 \end{flushright}
 \end{minipage}
 
@@ -149,7 +149,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 \section{Introduction}
 
 	L'Observatoire est un établissement de recherche et d'enseignement centré sur l'astronomie, mais c'est aussi un 
-	centre de données astronomiques et un centre d'observation réputés mondialement. Il représente la continuité entre
+	centre de données astronomiques réputé mondialement. Il représente la continuité entre
 	l'ancien et le nouveau car il dispose d'un riche patrimoine mais est aussi à la pointe de la recherche en astronomie.  \\
 	De plus l'Observatoire est le parfait exemple de l'informatique au service d'autres spécialités scientifiques,
 	à la fois dans le domaine de l'expertise, mais aussi sous un aspect éducatif.\\
@@ -165,7 +165,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		et un bâtiment à usage de bureau et de résidence.\\
 		La Grande Coupole en fer, de 9,2 mètres de diamètre et pesant 34 tonnes, contient le Grand Réfracteur,
 		une lunette de 48,7 cm d'ouverture et 7 m de focale, construite en 1877, la plus grande d'Europe
-		au moment de son installation et aujourd'hui (2008) la troisième de France en taille.\\
+		au moment de son installation et aujourd'hui (2014) la troisième de France en taille.\\
 		Il dispose également d’un riche patrimoine d’instruments et d’ouvrage anciens.
 		
 	\subsection{Centre de données astronomiques de Strasbourg (CDS)}
@@ -177,6 +177,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Fin 2008, le CDS a été labellisé TGIR (Très Grande Infrastructure de Recherche) par le Ministère de l'Enseignement Supérieur et de la Recherche, 
 		reconfirmé comme Infrastructure de Recherche en 2012, ce qui le range au même niveau que des infrastructures internationales
 		comme l’European Southern Observatory ou RENATER à l’échelon national.
+		
+		Le CDS est l'un des fondateurs de l'IVOA (<<International Virtual Observatory Alliance>>) qui travaille à
+		l'élaboration de standards d'interopérabilité pour les données astronomiques.
 
 	\subsection{Equipe de recherche Galaxies}
 	
@@ -197,18 +200,18 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 
 	\subsection{Objectif}	
 	
-		L’objectif de ce stage a été centré autour de l'Oculus Rift et a été double:\\
+		L’objectif de ce stage était centré autour de l'Oculus Rift et était double:\\
 		
-		\begin{itemize}
+		\begin{enumerate}
 		\item Intégration de l'Oculus Rift à une visualisation 3D du système solaire existante (Skybot 3D),
 		\item Développement d'un programme de simulation 3D  d'objets célestes avec intégration de l'Oculus Rift (Simulation)
-		\end{itemize}~
+		\end{enumerate}~
 		
 		J'ai donc travaillé sur deux projets distincts mais néanmoins complémentaires.
 		
 		Le but a donc été d'expérimenter en profondeur les possibilités de l'Oculus Rift, de développer 
 		les deux applications citées ci-dessus en tant que preuve de concept de l'utilisation de cette nouvelle technologie
-		dans le domaine de la simulation et de l'éducation, et enfin d'obtenir des performances et une expérience
+		dans le domaine de l'éducation et de la simulation, et enfin d'obtenir des performances et une expérience
 		utilisateur correctes. Ce fut donc un stage de recherche avec un rendu final concret.
 		
 	    \subsubsection{Skybot 3D}
@@ -243,7 +246,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  présent, et crée ainsi une nouvelle expérience
 		  utilisateur. \\
 		  De plus, son prix est relativement peu élevé (350 \$, environ 300 \euro), ce qui le rend accessible au grand public. \\
-		  Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionel, dans des domaines aussi variés
+		  Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionnel, dans des domaines aussi variés
 		  que la simulation scientifique, le divertissement, l'éducation, \ldots
 		  
 		  La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
@@ -285,7 +288,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    \end{itemize} ~
 			    
 			    Le SDK est écrit en C++ et possède une API en C.
-			    Pour mon stage, j'ai utilisé la version 2.5 puis la version 0.3.2.
+			    Pour mon stage, j'ai utilisé la version 0.2.5 puis la version 0.3.2.
 			
 			\paragraph{Théorie} ~\\
 			
@@ -301,24 +304,24 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			
 			    Un autre aspect à prendre en compte est la présence des lentilles. Ces dernières agrandissent
 			    l'image pour fournir un champ de vision très large, pour améliorer l'immersion.
-			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distortion
+			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distorsion
 			    en coussinets si les <<filtres>>, dont nous parleront plus tard,
 			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.\\
 			    \FloatBarrier
 			    \begin{figure}[h!]
 			      \centering
 				\includegraphics[width=3cm]{pincushion_distortion.png}
-			      \caption{Distortion en coussinets (<<pincushion distortion>>)}\par\medskip
+			      \caption{Distorsion en coussinets (<<pincushion distorsion>>)}\par\medskip
 			    
 			    \FloatBarrier
-			    Pour contrebalancer cette distortion, le programme doit, comme énoncé plus haut, appliquer
-			    un effet post-rendu. Il s'agit d'une distortion égale et opposée, appelée distortion en 
+			    Pour contrebalancer cette distorsion, le programme doit, comme énoncé plus haut, appliquer
+			    un effet post-rendu. Il s'agit d'une distorsion égale et opposée, appelée distorsion en 
 			    barillets.\par\bigskip
 			    
 			    {
 			      \centering
 				\includegraphics[width=3cm]{barrel_distortion.png}
-			      \caption{Distortion en barillets (<<barrel distortion>>)}
+			      \caption{Distorsion en barillets (<<barrel distorsion>>)}
 			    }\par\medskip
 			    \FloatBarrier
 			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
@@ -364,7 +367,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 				update the objects in the scene\;
 				\For{each eye}{
 				  translate the camera by the inter-pupillary distance\;
-				  apply the Oculus distortion effects\;
+				  apply the Oculus distorsion effects\;
 				  render the objects in the scene\;
 				  }
 			      }
@@ -372,7 +375,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      release the graphic ressources\;
 			      \caption{Application de rendu graphique}
 			    \end{algorithm} ~\\
-			    Plus précisément, l'opération <<apply the Oculus distortion effects>> se fait de façon graphique
+			    Plus précisément, l'opération <<apply the Oculus distorsion effects>> se fait de façon graphique
 			    au moyen de shaders, qui sont des programmes qui appliquent des transformations à chaque pixel de l'image.
 			    
 
@@ -393,7 +396,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    
 			    \FloatBarrier
 			    
-			    Les applications que j'ai développées au sein de mon stage peuvent fournir le rendu normal 
+			    Les applications que j'ai développées durant de mon stage peuvent fournir le rendu normal 
 			    et le rendu Oculus, selon l'option spécifiée.
 
 		
@@ -434,7 +437,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Le développeur doit donc maintenant tout faire manuellement mais cela au profit des performances et de l'éventail
 		de possibilités, mais au détriment de la simplicité.
 		
-		Le SDK Oculus utilise les shaders pour appliquer les effets graphiques mentionnés plus tôt (distortion, 
+		Le SDK Oculus utilise les shaders pour appliquer les effets graphiques mentionnés plus tôt (distorsion, 
 		correction des aberrations, \ldots), et cela a créé quelques conflits au niveau du rendu graphique, 
 		avec le rendu existant n'utilisant pas ces shaders.
 		
@@ -448,13 +451,13 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      <<tearing>> dans le rendu, et dans le pire des cas un crash du programme.
 	      
 	      Dans mon cas, ce phénomène a provoqué un phénomène de <<cross-eye>> gênant pour l'utilisateur en mode
-	      Oculus (\ref{cross_eye}).
+	      Oculus (cf paragraphe \ref{cross_eye}).
 		
 	    \subsubsection{Simulation}
 		\paragraph{Portabilité} ~\\
 		  \epigraph{I don’t care if it works on your machine!  We are not shipping your machine!}{Vidiu Platon}
 		
-		  Pour ce projet, il a été convenu dès le départ d'assurer la portabilité du programme, c'est-à-dire
+		  Pour ce projet, nous avons convenus dès le départ d'assurer la portabilité du programme, c'est-à-dire
 		  le fonctionnement multiplateforme.
 		  
 		  Dans cette optique, j'ai choisi un langage fonctionnant sur n'importe quelle plateforme existante 
@@ -464,7 +467,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  Un exemple est l'utilisation de la SDL, une bibliothèque de fenêtrage, ou d'OpenGL, une API de rendu
 		  graphique.
 		  
-		  De plus, un soin particulier a été porté dans le développement à  l'évitement de l'introduction 
+		  De plus, un soin particulier a été porté dans le développement à éviter l'introduction 
 		  de code spécifique à une plateforme donnée. Une solution a été l'utilisation maximale de la libraire 
 		  standard du langage.
 		  
@@ -484,7 +487,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  correspond au temps de rendu maximal d'une frame si l'on veut un rendu à 60 FPS (frame per seconds),
 		  ce qui fournit une expérience correcte pour l'utilisateur: $1000 ms / 60 = 16.666 ms$.
 		  
-		  En sus, comme j'ai travaillé avec cubes de données (corps célestes dont les cooordonnées spatiales se trouvent toutes
+		  En sus, comme j'ai travaillé avec des +cubes de données (corps célestes dont les cooordonnées spatiales se trouvent toutes
 		  contenues dans un cube, typiquement de taille 64*64*64 ou 100*100*100), ce qui peut donner une boucle de rendu
 		  de complexité $\mathcal{O}(n^3)$, empirant alors le temps de rendu.
 		  
@@ -559,19 +562,19 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		La première semaine a été consacrée à la découverte de l'Oculus Rift, l'essai de démos, et l'installation
 		des outils de développement.
 		
-		La deuxième et troisième semaine ont consisté à se former à l'Oculus SDK et OpenGL, et à tester la
+		Les deuxième et troisième semaines ont consisté à se former à l'Oculus SDK et OpenGL, et à tester la
 		faisabilité de l'intégration de l'Oculus Rift à un moteur de rendu 3D existant, Irrlicht. Malheureusement 
 		cela s'est révélé plus complexe que prévu et la décision a été prise d'utiliser OpenGL sans framework,
 		vu le temps imparti.
 		Cette période a aussi servi à se (re)former au C++. C'est un langage que j'avais déjà utilisé sur d'anciens
 		projets mais les nouveautés introduites par C++11 m'étaient inconnues.
 		
-		La quatrième et cinquième semaine ont été centrées sur le développement de programmes minimalistes mettant
+		Les quatrième et cinquième semaines ont été centrées sur le développement de programmes minimalistes mettant
 		en place OpenGL et l'intégration de l'Oculus Rift, et la découverte du code source de Skybot 3D.
 		
-		La sixième, septième et huitième semaine ont été axées sur le développement de mes deux projets.
+		Les sixième, septième et huitième semaines ont été axées sur le développement de mes deux projets.
 		
-		La neuvième et dixième semaine ont porté sur la rédaction de ce rapport et sur les possibles optimisations
+		Les neuvième et dixième semaines ont porté sur la rédaction de ce rapport et sur les possibles optimisations
 		des deux projets, ainsi que la refactorisation du code et la documentation complète.
 				
 		Je me suis toutefois formé tout au long de mon stage à OpenGL, notamment à propos
@@ -587,7 +590,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	    \epigraph{Programs must be written for people to read, and only incidentally for machines to execute}{Arold Abelson}
 	    
 	    Comme mentionné plus tôt, j'ai tout au long de mon stage versionné mon code avec git et Github, ce qui a
-	    permis de le partager facilement avec l'équipe Skybot 3D et André SCHAAF.
+	    permis de le partager facilement avec l'équipe Skybot 3D et André \textsc{schaaff}.
 	    
 	    De plus j'ai régulièrement utilisé des outils d'analyse statique et dynamique pour jauger de la qualité de
 	    mon code et l'améliorer.
@@ -660,7 +663,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      vers la ressource partagée. Ce partage est transparent pour l'application qui continue à utiliser les objets 
 	      comme bon lui semble, en utilisant les informations particulières de chaque objet.\\
 	      
-	      Dans ma situation, la simulation concerne des milliers voire des millions d'objets célestes. Dans les cas que j'ai
+	      Dans ma situation, la simulation concernait des milliers voire des millions d'objets célestes. Dans les cas que j'ai
 	      rencontrés, il s'agissait toujours d'un seul type d'objet céleste, par exemple une étoile.
 	      Si l'on choisit de représenter une étoile par un modèle 3D, une sphère par exemple, et une
 	      texture plaquée sur cette sphère, et que l'on charge la ressource <<texture>> à partir d'un fichier, il est inconcevable
@@ -783,7 +786,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      Cependant il est à noter que dans le cas d'un nombre très grand d'objets (de l'ordre du million), il est possible de dépasser
 	      la taille de la pile, créant alors un <<stack overflow>>.
 	      
-	      J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés ici: \ref{optimisations}
+	      J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés au paragraphe \ref{optimisations}
 	      et en ait tiré des conclusions suprenantes.
 	    
 	    \end{description}
@@ -810,6 +813,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \includegraphics[width=0.8\textwidth]{hierarchy3.png}
 			      \caption{Hiérarchie des classes}
 	    \end{figure}
+	    
+	    
 	    
 	    \begin{figure}
 	      \centering
@@ -864,8 +869,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	
 	La structure <<vector>> est un tableau dynamique de la librairie standard. 
 	Sa méthode <<reserve>> permet de réserver une certaine taille à l'avance. Cela permet d'éviter, lors de l'ajout
-	d'un nouvel objet, que la zone mémoire que le vector occupe se révèle trop petite, et qu'il faille en
-	réallouer une nouvelle, en y déplaçant tous les éléments existants du vector. On voit que l'usage de cette méthode
+	d'un nouvel objet, que la zone mémoire occupée par le <<vector>> se révèle trop petite, et qu'il faille en
+	réallouer une nouvelle, en y déplaçant tous les éléments existants du <<vector>>. On voit que l'usage de cette méthode
 	fait gagner quelques secondes pour la génération de 1024 objets (on passe de 11s à 7s).
 	La structure <<array>> est un tableau statique de la librairie standard.
 	
@@ -899,7 +904,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	L'application du pattern Data Locality s'est donc révélé infructueux dans mon cas. Ce pattern reste cependant valide
 	dans le cas d'applications souffrant de problèmes de <<caches misses>> et de fragmentation.
 	
-      \subsubsection{Smart pointers (<<Pointeurs intelligents)}
+      \subsubsection{Smart pointers (<<Pointeurs intelligents>>)}
 	\epigraph{You can either have software quality or you can have pointer arithmetic, but you cannot have both at the same time}{Bertrand Meyer}
 	
   
@@ -955,13 +960,43 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	En conséquence, lorsque l'Oculus est équipé, les deux images provenant de chaque oeil ne se superposent pas
 	parfaitement pour le cerveau comme cela devrait être le cas: une impression de strabisme (fait de loucher ) se produit.
 
-	Malgré de nombreux efforts, ce phénomène est toujours en place et est probablement dû à une application erronnée
+	Malgré de nombreux efforts et de multiples échanges avec l'équipe Skybot 3D, aucune solution n'a émergé de 
+	cette communication. Ce phénomène est donc toujours en place et est probablement dû à une application erronnée
 	des matrices de tranformation.
 	
       \paragraph{Simulation}~\\
 	Une fonctionnalité que je n'ai pas eu le temps d'implémenter pour la simulation est l'utilisation du joystick.
 	En effet la bibliothèque de fenêtrage utilisée, SDL, est capable de détecter un joystick, et ce dernier 
 	facilité l'immersion et le déplacement dans la scène avec l'Oculus Rift masquant le clavier.
+	
+	
+		
+\section{Remerciements}
+
+	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici: 
+
+	\begin{itemize}
+	\item André \textsc{schaaff}, mon maître de stage,
+	\item L'équipe Skybot 3D: Jérôme \textsc{Berthier} et Jonathan \textsc{Normand},
+	\item Brad \textsc{Davis}, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift
+	\item Nicolas \textsc{Deparis} et Romain \textsc{Houpin}, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D
+	\end{itemize}
+
+\section{Conclusion}
+
+
+	Ce stage de 10 semaines m'a apporté énormément. L'intérêt du stage était à la hauteur des défis rencontrés.
+	J'ai eu la chance d'expérimenter le travail collaboratif en participant à un gros projet existant, mais aussi 
+	de vivre un projet individuel avec une grande liberté, avec un sujet unique en son genre.
+	J'ai également pu approfondir mes connaissances sur des sujets génériques et réutilisables tels que le génie logiciel,
+	l'organisation d'un projet et la collaboration.
+	Je suis reconnaissant à l'Observatoire et à mon maître de stage de m'avoir fait confiance et donné cette chance.
+	
+	Au final, je finis ce stage satisfait de ce qui a été accompli et intéressé dans le future par les domaines abordés, 
+	tel que l'imagerie et le rendu 3D.
+	\newpage
+% \appendix
+\section{Annexes}
 	
 	\subsection{Outils utilisés}
 
@@ -1072,33 +1107,6 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  \end{description}
 
 		Tous ces outils sont open source et multiplateformes.
-		
-\section{Remerciements}
-
-	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici: 
-
-	\begin{itemize}
-	\item André SCHAAF, mon maître de stage
-	\item L'équipe Skybot 3D: Jérôme Berthier et Jonathan Normand
-	\item Brad Davis, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift
-	\item Nicolas Deparis et Romain Houpin, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D
-	\end{itemize}
-
-\section{Conclusion}
-
-
-	Ce stage de 10 semaines m'a apporté énormément. L'intéret du stage était à la hauteur des défis rencontrés.
-	J'ai eu la chance d'expérimenter le travail collaboratif en participant à un gros projet existant, mais aussi 
-	de vivre un projet individuel avec une grande liberté, avec un sujet unique en son genre.
-	J'ai également pu approfondir mes connaissances sur des sujets génériques et réutilisables tels que le génie logiciel,
-	l'organisation d'un projet et la collaboration.
-	Je suis reconnaissant à l'Observatoire et à mon maître de stage de m'avoir fait confiance et donné cette chance.
-	
-	Au final, je finis ce stage satisfait de ce qui a été accompli et intéressé dans le future par les domaines abordés, 
-	tel que l'imagerie et le rendu 3D.
-	\newpage
-% \appendix
-\section{Annexes}
 	
 	\subsection{Captures d'écran}
 		\FloatBarrier
