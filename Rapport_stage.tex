@@ -719,65 +719,12 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      du SDK Oculus.
 	    
 	    \item [Data Locality]~\\
+	      
 	      Ce design pattern est un moyen d'optimiser les performances d'un programme en tirant parti du cache du CPU.
-	      
-	      En effet tous les CPU modernes disposent d'une certaine quantité de mémoire vive, la RAM, qui représentent
-	      plusieurs Gigaoctets. Pour accélérer l'accès à cette mémoire, le CPU dispose d'un cache (plusieurs en réalité)
-	      de taille réduite (sur ma machine je dispose d'un Intel Core i5 cadencé à 3.2 GHz avec 4 coeurs et 6144 kB
-	      de cache), qui est en fait une zone mémoire à accès très rapide où sont stockées les informations dont l'accès est fréquent
-	      dans la RAM. On accélère ainsi les opérations les plus régulièrement effectuées: c'est la mise en cache (<<caching>>).
-	      
-	      Cependant, le polymorphisme impose en C++ l'usage de pointeurs (cas le plus fréquent) ou de références (cas particuliers. 
-	      Mais les pointeurs, par définition, pointent vers différentes zones mémoires.
-	      Ainsi, lorsque l'on veut afficher tous les objets de la scène, on parcoure la structure de données qui
-	      stocke les pointeurs sur tous ces objets et on les affiche un par un.
-	      
-	      Le problème est que contrairement au parcours d'un tableau de valeurs (non pointeurs), qui sont stockées
-	      contigument dans la mémoire, et sont donc particulièrement adaptées à la mise en cache, le fait de
-	      parcourir un tableau de pointeurs va silloner toute la RAM, et donc ne va pas du tout se prêter à la mise
-	      en cache. Le CPU va soit ne pas mettre ces variables (et les zones mémoires voisines) dans le cache, soit le faire
-	      et en conséquence changer la majeure partie du cache à chaque fois, ce qui n'est pas du tout optimal.
-	      On passe donc à côté d'un beau gain de performance: c'est le <<cache miss>>.
-	      
-	      Plus généralement, cette situation se produit dès lors qu'il y a un usage fréquent de pointeurs dans un 
-	      programme, et surtout le déréférencement de ces derniers.
-	      
-	      Un autre point à considérer est la différence entre l'utilisation , dans une structure de donnée, du polymorphisme (plusieurs objets
-	      différents coexistent, héritant d'un objet commun) et l'utilisation d'un seul type d'objets.
-	      Dans le second cas, une méthode appelé par un objet est déterminée à la compilation (on sait quel est le type
-	      de l'objet puisqu'il n'y en a qu'un) tandis que dans le premier cas, elle est déterminée à l'exécution,
-	      ce qui peut engendrer une baisse de performances supplémentaires.
-	      
-	      Pour résumer, le polymorphisme apporte généricité et flexibilité, mais peut engendrer une baisse de 
-	      performances, alors que l'usage d'un seul type d'objets est plus rigide, mais peut améliorer les performances.
-	      
-	      Un dernier point à envisager est la différence de stockage des variables entre l'utilisation de pointeurs sur variables
-	      et l'utilisation de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
-	      le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
-	      Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
-	      pour le programme à son lancement et sont fort différentes:\\
-	      
-	      Stack:
-	      \begin{itemize}
-		\item Accès rapide
-		\item Limitée en taille
-		\item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
-	      \end{itemize}~
-	      
-	      Heap:
-	      \begin{itemize}
-		\item Accès plus lent
-		\item Pas de limite de taille
-		\item Pas de gestion automatique de l'espace (fragmentation)
-	      \end{itemize}~
-	      
+	      	      
 	      La fragmentation est l'utilisation inefficace de l'espace mémoire. C'est un phénomène qui se produit lorsque 
 	      sont effectuées de multiples allocations et
 	      désallocations de mémoire, engendrant alors une baisse de la capacité mémoire et/ou des performances.
-	      
-	      Ces allocations/désallocations ne sont pas non plus gratuites en termes de temps d'exécution, puisque
-	      elles font appel à un certain nombre de fonctions.
-
 
 	      Dans mon cas, j'ai donc transformé mon tableau de pointeurs sur objets célestes en un tableau d'objets célestes.
 	      Cela est rendu possible par le fait que je ne dispose que d'un seul type d'objet céleste dans ma simulation.
@@ -788,6 +735,8 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	      
 	      J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés au paragraphe \ref{optimisations}
 	      et en ait tiré des conclusions suprenantes.
+	      
+	      Voir le paragraphe \ref{data_locality} pour plus de détails.
 	    
 	    \end{description}
 %“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
@@ -997,6 +946,63 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\newpage
 % \appendix
 \section{Annexes}
+	
+	\subsection{Design Pattern détaillés}
+	  \subsubsection{Data Locality}
+	  \label{data_locality}
+	      Tous les CPU modernes disposent d'une certaine quantité de mémoire vive, la RAM, qui représentent
+	      plusieurs Gigaoctets. Pour accélérer l'accès à cette mémoire, le CPU dispose d'un cache (plusieurs en réalité)
+	      de taille réduite (sur ma machine je dispose d'un Intel Core i5 cadencé à 3.2 GHz avec 4 coeurs et 6144 kB
+	      de cache), qui est en fait une zone mémoire à accès très rapide où sont stockées les informations dont l'accès est fréquent
+	      dans la RAM. On accélère ainsi les opérations les plus régulièrement effectuées: c'est la mise en cache (<<caching>>).
+	      
+	      Cependant, le polymorphisme impose en C++ l'usage de pointeurs (cas le plus fréquent) ou de références (cas particuliers. 
+	      Mais les pointeurs, par définition, pointent vers différentes zones mémoires.
+	      Ainsi, lorsque l'on veut afficher tous les objets de la scène, on parcoure la structure de données qui
+	      stocke les pointeurs sur tous ces objets et on les affiche un par un.
+	      
+	      Le problème est que contrairement au parcours d'un tableau de valeurs (non pointeurs), qui sont stockées
+	      contigument dans la mémoire, et sont donc particulièrement adaptées à la mise en cache, le fait de
+	      parcourir un tableau de pointeurs va silloner toute la RAM, et donc ne va pas du tout se prêter à la mise
+	      en cache. Le CPU va soit ne pas mettre ces variables (et les zones mémoires voisines) dans le cache, soit le faire
+	      et en conséquence changer la majeure partie du cache à chaque fois, ce qui n'est pas du tout optimal.
+	      On passe donc à côté d'un beau gain de performance: c'est le <<cache miss>>.
+	      
+	      Plus généralement, cette situation se produit dès lors qu'il y a un usage fréquent de pointeurs dans un 
+	      programme, et surtout le déréférencement de ces derniers.
+	      
+	      Un autre point à considérer est la différence entre l'utilisation , dans une structure de donnée, du polymorphisme (plusieurs objets
+	      différents coexistent, héritant d'un objet commun) et l'utilisation d'un seul type d'objets.
+	      Dans le second cas, une méthode appelé par un objet est déterminée à la compilation (on sait quel est le type
+	      de l'objet puisqu'il n'y en a qu'un) tandis que dans le premier cas, elle est déterminée à l'exécution,
+	      ce qui peut engendrer une baisse de performances supplémentaires.
+	      
+	      Pour résumer, le polymorphisme apporte généricité et flexibilité, mais peut engendrer une baisse de 
+	      performances, alors que l'usage d'un seul type d'objets est plus rigide, mais peut améliorer les performances.
+	      
+	      Un dernier point à envisager est la différence de stockage des variables entre l'utilisation de pointeurs sur variables
+	      et l'utilisation de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
+	      le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
+	      Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
+	      pour le programme à son lancement et sont fort différentes:\\
+	      
+	      Stack:
+	      \begin{itemize}
+		\item Accès rapide
+		\item Limitée en taille
+		\item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
+	      \end{itemize}~
+	      
+	      Heap:
+	      \begin{itemize}
+		\item Accès plus lent
+		\item Pas de limite de taille
+		\item Pas de gestion automatique de l'espace (fragmentation)
+	      \end{itemize}~
+	      
+	      Ces allocations/désallocations ne sont pas non plus gratuites en termes de temps d'exécution, puisque
+	      elles font appel à un certain nombre de fonctions.
+
 	
 	\subsection{Outils utilisés}
 
