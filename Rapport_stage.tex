@@ -14,7 +14,7 @@
 \usepackage{color}
 \usepackage{placeins}
 \usepackage{mathtools}
-\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygreen}{rgb}{0,0.4,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
@@ -24,7 +24,7 @@
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
-  commentstyle=\color{green},    % comment style
+  commentstyle=\color{mygreen},    % comment style
   deletekeywords={...},            % if you want to delete keywords from the given language
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
@@ -173,12 +173,11 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		Le CDS est à la fois une équipe de recherche et un service d’observation.
 		Les services de bases de données (SIMBAD, Vizier) et de visualisation (ALADIN) développés par le CDS
 		sont utilisés par l’ensemble de la communauté astronomique mondiale. \\
-		Celui-ci est l'un des acteurs majeurs du développement de l'Observatoire Virtuel International en astronomie.
 		Fin 2008, le CDS a été labellisé TGIR (Très Grande Infrastructure de Recherche) par le Ministère de l'Enseignement Supérieur et de la Recherche, 
 		reconfirmé comme Infrastructure de Recherche en 2012, ce qui le range au même niveau que des infrastructures internationales
 		comme l’European Southern Observatory ou RENATER à l’échelon national.
 		
-		Le CDS est l'un des fondateurs de l'IVOA (<<International Virtual Observatory Alliance>>) qui travaille à
+		Le CDS est l'un des fondateurs et des acteurs majeurs de l'IVOA (<<International Virtual Observatory Alliance>>) qui travaille à
 		l'élaboration de standards d'interopérabilité pour les données astronomiques.
 
 	\subsection{Equipe de recherche Galaxies}
@@ -186,7 +185,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		L’équipe <<Galaxies>> étudie la formation et l’évolution des galaxies et de notre Galaxie 
 		au travers de leurs populations stellaires et de la dynamique des étoiles et de la matière noire. \\
 		Elle est impliquée dans la préparation de la mission satellitaire astrométrique Gaia de l’Agence Spatiale Européenne 
-		dont le lancement est prévu en 2012 et dans le grand relevé cinématique RAVE. 
+		dont le lancement est lancée en décembre 2013 et dans le grand relevé cinématique RAVE. 
 	
 	\subsection{Equipe de recherche Hautes Énergies} 
 	
@@ -209,7 +208,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 		J'ai donc travaillé sur deux projets distincts mais néanmoins complémentaires.
 		
-		Le but a donc été d'expérimenter en profondeur les possibilités de l'Oculus Rift, de développer 
+		Le but était d'expérimenter en profondeur les possibilités de l'Oculus Rift, de développer 
 		les deux applications citées ci-dessus en tant que preuve de concept de l'utilisation de cette nouvelle technologie
 		dans le domaine de l'éducation et de la simulation, et enfin d'obtenir des performances et une expérience
 		utilisateur correctes. Ce fut donc un stage de recherche avec un rendu final concret.
@@ -305,26 +304,28 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			    Un autre aspect à prendre en compte est la présence des lentilles. Ces dernières agrandissent
 			    l'image pour fournir un champ de vision très large, pour améliorer l'immersion.
 			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distorsion
-			    en coussinets si les <<filtres>>, dont nous parleront plus tard,
+			    en coussinets (cf figure \ref{pincushion_distortion}) si les <<filtres>>, dont nous parleront plus tard,
 			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.\\
 			    \FloatBarrier
 			    \begin{figure}[h!]
 			      \centering
 				\includegraphics[width=3cm]{pincushion_distortion.png}
 			      \caption{Distorsion en coussinets (<<pincushion distorsion>>)}\par\medskip
+			      \label{pincushion_distortion}
 			    
 			    \FloatBarrier
 			    Pour contrebalancer cette distorsion, le programme doit, comme énoncé plus haut, appliquer
 			    un effet post-rendu. Il s'agit d'une distorsion égale et opposée, appelée distorsion en 
-			    barillets.\par\bigskip
+			    barillets (cf figure \ref{barrel_distortion}).\par\bigskip
 			    
 			    {
 			      \centering
 				\includegraphics[width=3cm]{barrel_distortion.png}
 			      \caption{Distorsion en barillets (<<barrel distorsion>>)}
+			      \label{barrel_distortion}
 			    }\par\medskip
 			    \FloatBarrier
-			    De plus, le programme doit corriger les aberrations chromatiques, qui consistent en un effet
+			    De plus, le programme doit corriger les aberrations chromatiques (cf figure \ref{chromatic_aberration}), qui consistent en un effet
 			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles et est
 			    bien connu dans le domaine de l'optique.\par\bigskip
 			    \FloatBarrier
@@ -332,6 +333,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \centering
 				\includegraphics[width=4cm]{chromatic_aberration.jpg}
 			      \caption{Aberration chromatique (<<chromatic abberration>>)}
+			      \label{chromatic_aberration}
 			  }
 			    \end{figure}  ~ \\
 			    
@@ -367,7 +369,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 				update the objects in the scene\;
 				\For{each eye}{
 				  translate the camera by the inter-pupillary distance\;
-				  apply the Oculus distorsion effects\;
+				  apply the Oculus distortion effects\;
 				  render the objects in the scene\;
 				  }
 			      }
@@ -405,9 +407,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\subsubsection{Skybot 3D}
 	    \paragraph{Existant} ~\\
 	    
-		La contrainte principale pour le projet Skybot 3D a été de travailler avec du code existant non documenté,
+		La contrainte principale pour le projet Skybot 3D était de travailler avec du code existant non documenté,
 		de taille conséquente (3840 fichiers, 22863 lignes de code).
-		En effet, j'ai eu accès à une version de développement non finalisée et non encore publiée. Cependant j'ai 
+		En effet, j'avais accès à une version de développement non finalisée et non encore publiée. Cependant j'ai 
 		eu de riches échanges avec les développeurs par mail et vidéoconférence, et j'ai eu la chance
 		de les rencontrer à la fin du stage.
 		
@@ -423,7 +425,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		
 	    \paragraph{Versions d'OpenGL} ~\\
 	    
-		Une contrainte additionnelle, et peut-être la plus importante, a été l'utilisation de différentes 
+		Une contrainte additionnelle, et peut-être la plus importante, était l'utilisation de différentes 
 		fonctionnalités d'OpenGL, appartenant à des versions différentes.
 		En effet, la totalité du rendu graphique dans l'application existante se fait avec le <<fixed pipeline>> 
 		d'OpenGL, c'est-à dire une suite d'opérations fixes de rendu. Cela consiste a faire un rendu graphique basé sur des
@@ -434,7 +436,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		<<tout shader>>. Les shaders sont des programmes appliquant des effets sur chaque pixel de l'image et qui
 		sont exécutés sur la carte graphique.
 		
-		Le développeur doit donc maintenant tout faire manuellement mais cela au profit des performances et de l'éventail
+		Le développeur doit donc maintenant tout faire manuellement, au profit des performances et de l'éventail
 		de possibilités, mais au détriment de la simplicité.
 		
 		Le SDK Oculus utilise les shaders pour appliquer les effets graphiques mentionnés plus tôt (distorsion, 
@@ -479,7 +481,9 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  
 		\paragraph{Taille des données} ~\\
 		
-		  Comme évoqué plus haut, j'ai travaillé sur des données avoisinant le million d'objets. Cela a posé
+		  Comme évoqué plus haut, j'ai travaillé sur des données avoisinant le million d'objets.
+		  Ces données proviennent de simulations à haute résolution de la réionisation de galaxies de la voie lactée.
+		  Cela a posé
 		  principalement un problème de performances. En effet, c'est en travaillant avec de tels nombres que
 		  l'on se rend compte de la disparité CPU (processeur) / GPU (carte graphique).
 		  En effet, malgré un processeur avec 16 GB de RAM, le fait de parcourir tous les objets pour les afficher (une fois par frame, $\mathcal{O}(n)$),
@@ -508,7 +512,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		  un seul objet céleste pour afficher des informations à son sujet?) et on atteint les limites de la
 		  carte graphique pour un très grand nombre d'objets. Cependant le CPU a un minimum de travail.
 		  
-		  \item [Octree]~\\ Un Octree est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
+		  \item [Octree]~\\ Un Octree (cf figure \ref{octree_action}) est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
 		  d'un espace cubique, à la manière d'un quadtree en 2D, et permet de diviser notre scène en régions,
 		  contenant elles-mêmes des sous-régions et ainsi de suite. On peut alors décider d'afficher seulement les
 		  régions voisines de notre position sans afficher les régions que l'on ne peut pas voir ou qui sont
@@ -528,6 +532,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			\centering
 				\includegraphics[width=0.4\textwidth]{octree2.jpg}
 			      \caption{Octree en action}
+			      \label{octree_action}
 		  
 		\end{figure}
 		  \FloatBarrier
@@ -927,8 +932,10 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 	\begin{itemize}
 	\item André \textsc{schaaff}, mon maître de stage,
 	\item L'équipe Skybot 3D: Jérôme \textsc{Berthier} et Jonathan \textsc{Normand},
-	\item Brad \textsc{Davis}, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift
-	\item Nicolas \textsc{Deparis} et Romain \textsc{Houpin}, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D
+	\item Brad \textsc{Davis}, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift,
+	\item Nicolas \textsc{Deparis} et Romain \textsc{Houpin}, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D,
+	\item Sébastien \textsc{Derriere}, astronome adjoint au CDS,
+	\item Pierre \textsc{Ocvirk}, astronome adjoint au CDS, qui nous a fourni les données de simulation et nous a apporté son expertise dans ce domaine
 	\end{itemize}
 
 \section{Conclusion}
@@ -1142,7 +1149,7 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 		\end{figure}
 		
 		\FloatBarrier
-		Les images suivantes présentent l'application de simulation d'un cube de données d'objets célestes, 
+		Les images suivantes (figures \ref{octree_normal} et \ref{octree_oculus}) présentent l'application de simulation d'un cube de données d'objets célestes, 
 		organisés en un Octree  de taille 128*128*128, divisé en octants de taille 8.
 		
 		Les objets céleste sont modélisés par des cubes texturés de taille 1.
@@ -1156,16 +1163,18 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \centering
 			      \includegraphics[width=1.0\textwidth]{octree_normal.png}
 			      \caption{Simulation en vue normale}
+			      \label{octree_normal}
 		\end{figure}
 		
 		\begin{figure}
 			      \centering
 			      \includegraphics[width=1.0\textwidth]{octree_oculus.png}
 			      \caption{Simulation en vue normale}
+			      \label{octree_oculus}
 		\end{figure}
 		\FloatBarrier
 		
-		Les images suivantes présentent l'application de simulation d'un cube de données d'objets célestes, 
+		Les images suivantes (figures \ref{basic_normal} et \ref{basic_oculus}) présentent l'application de simulation d'un cube de données d'objets célestes, 
 		organisés en un tableau simple.
 		
 		Les objets céleste sont modélisés par des cubes texturés de taille 1.
@@ -1174,12 +1183,14 @@ et l'<<Unistra>> ou l'<<UDS>> désignent l'<<Université de Strasbourg>>.}
 			      \centering
 			      \includegraphics[width=1.0\textwidth]{basic_normal.png}
 			      \caption{Simulation en vue normale}
+			      \label{basic_normal}
 		\end{figure}
 		
 		\begin{figure}
 			      \centering
 			      \includegraphics[width=1.0\textwidth]{basic_oculus.png}
 			      \caption{Simulation en vue normale}
+			      \label{basic_oculus}
 		\end{figure}
 		\FloatBarrier
 		
