@@ -157,80 +157,40 @@ Toto \textsc{titi},\\[0.5cm]
 \section{Présentation de EdgeLab}
 
 	\subsection{Histoire}
-		L'Observatoire a été fondé en 1881 sur l'initiative de l'empereur Guillaume II, l'Alsace étant allemande
-		à cette époque.\\
-		Il est constitué de trois bâtiments : une Grande Coupole, un bâtiment des salles méridiennes avec deux coupoles,
-		et un bâtiment à usage de bureau et de résidence.\\
-		La Grande Coupole en fer, de 9,2 mètres de diamètre et pesant 34 tonnes, contient le Grand Réfracteur,
-		une lunette de 48,7 cm d'ouverture et 7 m de focale, construite en 1877, la plus grande d'Europe
-		au moment de son installation et aujourd'hui (2014) la troisième de France en taille.\\
-		Il dispose également d’un riche patrimoine d’instruments et d’ouvrage anciens.
+		EdgeLab est fondée en ... en tant que filiale de l'entreprise de gestion de portefeuilles financiers Global Financial Products (GFP), suite à la demande de leurs clients d'un outil d'automatisation de gestion de portefeuilles et de calcul de risques pour ces derniers.
 
-	\subsection{Centre de données astronomiques de Strasbourg (CDS)}
+	Ainsi naît EdgeLab, éditeur logiciel pour le management du risque financier qui se positionne dans le domaine du Business to Business (B2B). Les premiers membres sont des docteurs en mathématiques qui conçoivent le moteur de calcul de risque, puis viennent des développeurs web pour l'application web qui permet aux clients d'intéragir avec ce moteur.	
+	
+	\subsection{Les équipes}
+			Aujourd'hui, EdgeLab est constitué d'une quinzaine de développeurs composant trois équipes à parts approximativement égales:
 
-		Le CDS est à la fois une équipe de recherche et un service d’observation.
-		Les services de bases de données (SIMBAD, Vizier) et de visualisation (ALADIN) développés par le CDS
-		sont utilisés par l’ensemble de la communauté astronomique mondiale. \\
-		Fin 2008, le CDS a été labellisé TGIR (Très Grande Infrastructure de Recherche) par le Ministère de l'Enseignement Supérieur et de la Recherche,
-		reconfirmé comme Infrastructure de Recherche en 2012, ce qui le range au même niveau que des infrastructures internationales
-		comme l’European Southern Observatory ou RENATER à l’échelon national.
+	\begin{itemize}
+	\item \'Equipe Quantitative: elle travaille sur le moteur de calcul de risque
+	\item \'Equipe Back-end: elle développe le back-end de l'application web
+	\item \'Equipe Front-end: elle développe le front-end de l'application web
+	\end{itemize}
 
-		Le CDS est l'un des fondateurs et des acteurs majeurs de l'IVOA (<<International Virtual Observatory Alliance>>) qui travaille à
-		l'élaboration de standards d'interopérabilité pour les données astronomiques.
+	\subsection{Clients}
 
-	\subsection{Equipe de recherche Galaxies}
+		Les clients d'EdgeLab sont des entreprises du secteur bancaire qui gèrent des instruments financiers et qui sont intéressées par des mesures de risque dans leur processus de décision. De plus, le volume de données et les montants associés requièrent l'association de l'automatisation logicielle et de la supervision par des humains de niveaux d'expertise divers.
+		
+	Cela inclut un large éventail d'entreprises allant des établissement bancaires aux gestionnaires de fortune, en passant par courtiers en bourse.
+	
+	Actuellement, l'application est utilisée par des clients de différentes organisations. 
 
-		L’équipe <<Galaxies>> étudie la formation et l’évolution des galaxies et de notre Galaxie
-		au travers de leurs populations stellaires et de la dynamique des étoiles et de la matière noire. \\
-		Elle est impliquée dans la préparation de la mission satellitaire astrométrique Gaia de l’Agence Spatiale Européenne
-		dont le lancement est lancée en décembre 2013 et dans le grand relevé cinématique RAVE.
-
-	\subsection{Equipe de recherche Hautes Énergies}
-
-		L’équipe <<Hautes Énergies>> s’intéresse aux sources galactiques et extragalactiques émettrices en rayons X,
-		objets compacts (étoiles à neutron, naines blanches, etc.) et noyaux actifs de galaxies.\\
-		Elle est impliquée dans le SSC-XMM, un consortium international de laboratoires sélectionné par l’ESA
-		et labellisé par l’INSU comme Service d’Observation, qui est en charge de fournir des catalogues complets
-		de sources X observées par le satellite XMM-Newton à la communauté internationale.
-
-\section{Mon stage}
+\section{Le stage}
 
 	\subsection{Objectif}
 
-		L’objectif de ce stage était centré autour de l'Oculus Rift et était double:\\
-
-		\begin{enumerate}
-		\item Intégration de l'Oculus Rift à une visualisation 3D du système solaire existante (Skybot 3D),
-		\item Développement d'un programme de simulation 3D  d'objets célestes avec intégration de l'Oculus Rift (Simulation)
-		\end{enumerate}~
-
-		J'ai donc travaillé sur deux projets distincts mais néanmoins complémentaires.
-
-		Le but était d'expérimenter en profondeur les possibilités de l'Oculus Rift, de développer
-		les deux applications citées ci-dessus en tant que preuve de concept de l'utilisation de cette nouvelle technologie
-		dans le domaine de l'éducation et de la simulation, et enfin d'obtenir des performances et une expérience
-		utilisateur correctes. Ce fut donc un stage de recherche avec un rendu final concret.
-
-	    \subsubsection{Skybot 3D}
-		Skybot 3D est un logiciel développé en C par l'institut de mécanique céleste et de calcul des éphémérides (IMCCE),
-		conjointement avec l'Observatoire de Paris et le CNRS. Son propos est de faire un rendu graphique réaliste
-		en 3D à partir des données célestes de ces instituts. En pratique, c'est une visualisation 3D du système solaire
-		où les échelles sont respectées, avec gestion du temps. Il est encore en développement à la date d'écriture de ce document et
-		sa sortie est prévue pour fin 2014.
-		Il fonctionne sur toutes les distributions Linux et utilise OpenGL pour le rendu graphique.
-
-		Mon travail a donc consisté en l'intégration du rendu Oculus dans cette application, tout en gardant
-		le rendu existant.
-
-	    \subsubsection{Simulation}
-		Ce projet a consisté en la représentation 3D de données provenant du Centre de Données
-		de l'Observatoire, décrivant la taille, la position, l'âge et la densité de corps célestes.
-		Ces données sont stockées dans des fichiers texte ou binaires, pouvant contenir plusieurs millions
-		d'objets.
-
-		J'ai eu la liberté de choisir les outils, le langage et les bibliothèques  externes utilisées dans ce programme,
-		n'ayant pas de base de code préexistante.
-
+		Ce stage était centré sur le produit proposé par EdgeLab à ses clients, l'application web, et l'objectif était multiple:
+		
+	\begin{itemize}
+		\item Développer de nouvelles fonctionnalités
+		\item Améliorer la qualité du code
+		\item Augmenter la couverture de tests
+		\item Simplifier le processus de déploiement
+		\item Moderniser et simplifier l'interface
+	\end{itemize}			
 
 	\subsection{L'Oculus Rift}
 
