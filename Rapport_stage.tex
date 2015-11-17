@@ -45,6 +45,44 @@
   tabsize=2,                       % sets default tabsize to 2 spaces
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
+% Taken from Lena Herrmann at 
+% http://lenaherrmann.net/2010/05/20/javascript-syntax-highlighting-in-the-latex-listings-package
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{white},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=none,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+
 % \usepackage{titling}
 %\usepackage{makeidx}
 % \usepackage[maxfloats=50]{morefloats}
@@ -213,7 +251,9 @@ Toto \textsc{titi},\\[0.5cm]
 	Au contraire, dans le contexte de la prévision et de l'analyse du risque à moyen ou long terme, et en tant qu'outil d'aide à la décision, cette fréquence est en fait suffisante.
 	 Si un événement perturbe les marchés, il faut simplement de nouveau effectuer le calcul de risque pour les mois ou années à venir, et réévaluer ses décisions stratégiques.
 	
-		\subsubsection{Front-end}
+		\subsubsection{Le projet front-end}
+		
+			\paragraph{AngularJS}
 
 		L'application front-end utilise le framework open-source AngularJS, initialement développé par Google.
 		Il permet d'organiser son project de manière cohérente, en séparant:
@@ -228,9 +268,61 @@ Toto \textsc{titi},\\[0.5cm]
 	
 	L'utilisation d'un framework bien connu est nécessaire, sinon indispensable, dans ce domaine assez peu structuré et évoluant très rapidement qu'est le développement front-end, ainsi que dans le contexte d'utilisation du très flexible et piégeux langage Javascript.
 	
-	De plus, un avantage majeur d'AngularJS comparé aux autres frameworks, est le fait qu'il ait été conçu avec les tests en tête. Il fournit de nombreuses aides pour tests son code, allant même jusqu'à proposer une libraire de tests d'intégration, chose inédite dans l'écosystème Javascript.
+	En sus, AngularJS automatise de nombreuses tâches indispensables à une expérience utilisateur riche: TODO
+	
+	De plus, un avantage majeur d'AngularJS comparé aux autres frameworks, est le fait qu'il ait été conçu avec les tests en tête. Il fournit de nombreuses aides pour tests son code, allant même jusqu'à proposer une librairie de tests d'intégration, chose inédite dans l'écosystème Javascript.
 	
 	Enfin, la communauté a travaillé dur pour procurer tout un assortiment de modules open sources pour répondre aux besoins courants du développement web.
+	
+	Ma contribution pour ce sujet a consisté à appliquer les conventions préconisées par la communauté (John Papa's style guide). Cette uniformisation du nommage, de l'indentation, et des pratiques a nécessité un refactoring du projet, chose représentant un défi particulier pour le langage dynamique, faiblement typé et manquant de réelles capacités orienté objet qu'est Javascript.
+	
+		\paragraph{Tests unitaires}
+			Un code non testé doit être considéré invalide jusqu'à preuve du contraire. Partant de ce constat, nous avons considérablement développé les tests unitaires existant, couvrant un nombre réduit de cas, passant ainsi de 250 à un millier de tests. 
+	En plus d'écrire des tests pour le code existant, ce qui a permis de mettre en lumière certains bugs, ou simplement de considérer certains cas pas forcément pris en compte, l'écriture de tests pour le nouveau code a été institutionnalisée. 
+	Cela a eu comme résultat visible des dizaines de fichiers couverts à 100\%, pour une moyenne de couverture du projet de 40\%, expliquée en partie par une minorité de fichiers ne possédant aucun tests.
+	
+	Enfin, cette décision a aussi porté ses fruits pour l'épineux sujet des régressions, qui consiste à une perte ou détérioration des fonctionnalités de l'application à la suite d'un changement. Sans tests, une régression passe souvent inaperçue jusqu'à ce qu'un utilisateur s'y heurte.
+	
+	Avec une bonne couverture de tests, c'est de l'histoire ancienne: le changement provoque l'échec d'un ou plusieurs tests qui étaient valides auparavant. Ainsi la régression est signalée instantanément au développeur, qui peut cerner son ampleur et la résoudre, tout cela avant qu'elle touche l'utilisateur final.
+	
+	Cerise sur le gâteau, lorsqu'un bug est détecté, il suffit au développeur d'ajouter le test correspondant, qui est invalide avant la résolution, et valide après. On s'assure ainsi que le bug a réellement disparu, et une éventuelle réapparition sera automatiquement détectée.
+	
+	\paragraph{Tests d'intégration}
+	Les tests d'intégration, ou end-to-end, consistent à tester toute la chaîne logicielle, simulant les action d'un utilisateur, afin de vérifier que chaque composant s'imbrique sans problème avec les autres. Ils complètent les tests unitaires car disposent d'une granularité plus grande et deux composants peuvent être unitairement valides tout en s'intégrant de façon invalide, dans le cas par exemple de données échangées sous un format différent pour les deux parties.
+	
+	Il est donc apparu comme indispensable de combler l'absence de tests d'intégration, surtout en disposant de la librairie Protractor mis à disposition par Angular dans cet objectif.
+	
+	Pour le front-end, les tests d'intégration consistent à automatiser les interactions d'un éventuel utilisateur: mouvement de souris, clics, scroll, etc... C'est un travail titanesque à l'échelle d'une application complexe, disposant de multiples pages, avec de très nombreuses possibilités.
+	Pourtant, partant du principe énoncé par Lao-Tseu, "Un voyage d'un millier de lieues commence par un premier pas", nous avons entamé ce gros chantier, et écrit de nombreux tests d'intégrations.
+	
+	L'énorme avantage d'un test d'intégration de ce genre est qu'il permet d'écrire des scénarios. Par example, pour l'authentification d'un utilisateur, on peut écrire le scénario correspondant, en explorant plusieurs cas se produisant en réalité:
+
+	\begin{itemize}
+		\item J'entre une mauvaise combinaison d'email/mot de passe
+		\item Je n'entre rien dans les champs, je clique directement sur "Login"
+		\item J'entre la bonne combinaison d'email/mot de passe, puis je me déconnecte
+		\item ...
+	\end{itemize} ~\\
+	
+	Le code suivant illustre le premier cas: ~\\
+	
+	\begin{lstlisting}[caption=Testing the login with Protractor]
+	it('should not change page if the login fails', function() {
+      nameInput.sendKeys('toto@edgelab.ch');
+      passwordInput.sendKeys('toto');
+
+      loginButton.click();
+
+      expect(isLoggedIn()).toBe(false);
+    });
+	\end{lstlisting}
+		
+		
+	Ainsi, ils remplacent les tests manuels, fastidieux, et non-exhaustifs que le développeur est amené à faire à longueur de journée dans son navigateur.
+	
+	Pour leur exécution, ces tests tournent dans un vrai navigateur, collant ainsi au plus près à la réalité. Encore mieux, au même titre que les tests unitaires, on peut les exécuter dans une multitude de navigateurs et de versions différentes d'un même navigateur, détectant ainsi une éventuelle régression dans une version spécifique d'un navigateur spécifique.
+	
+	
 				
 
 	\subsection{Contraintes}
