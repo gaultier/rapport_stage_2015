@@ -147,7 +147,7 @@ Toto \textsc{titi},\\[0.5cm]
 
 \section{Introduction}
 
-	La Suisse fait partie des leaders mondiaux du secteur financier, et dispose d'un statut particulier en Europe: elle fait partie de l'espace Schengen mais pas de l'Union Européenne, ainsi disposant d'un certain exotisme, comme une monnaie et une légilsation spécifique, tout en offrant certaines facilités pour les formalités administratives aux travailleurs européens, notamment français.
+	La Suisse fait partie des leaders mondiaux du secteur financier, et dispose d'un statut particulier en Europe: elle fait partie de l'espace Schengen mais pas de l'Union Européenne, ainsi disposant d'un certain exotisme, comme une monnaie et une législation spécifique, tout en offrant certaines facilités pour les formalités administratives aux travailleurs européens, notamment français.
 	
 	
 	Lausanne, quatrième ville de Suisse, est particulièrement attrayante de part son emplacement, au bord du lac Léman, et son investissement dans l'éducation supérieure, particulièrement en mathématiques et en informatique, de rang mondial.
@@ -159,7 +159,7 @@ Toto \textsc{titi},\\[0.5cm]
 	\subsection{Histoire}
 		EdgeLab est fondée en ... en tant que filiale de l'entreprise de gestion de portefeuilles financiers Global Financial Products (GFP), suite à la demande de leurs clients d'un outil d'automatisation de gestion de portefeuilles et de calcul de risques pour ces derniers.
 
-	Ainsi naît EdgeLab, éditeur logiciel pour le management du risque financier qui se positionne dans le domaine du Business to Business (B2B). Les premiers membres sont des docteurs en mathématiques qui conçoivent le moteur de calcul de risque, puis viennent des développeurs web pour l'application web qui permet aux clients d'intéragir avec ce moteur.	
+	Ainsi naît EdgeLab, éditeur logiciel pour le management du risque financier qui se positionne dans le domaine du Business to Business (B2B). Les premiers membres sont des docteurs en mathématiques qui conçoivent le moteur de calcul de risque, puis viennent des développeurs web pour l'application web qui permet aux clients d’interagir avec ce moteur.	
 	
 	\subsection{Les équipes}
 			Aujourd'hui, EdgeLab est constitué d'une quinzaine de développeurs composant trois équipes à parts approximativement égales:
@@ -211,152 +211,27 @@ Toto \textsc{titi},\\[0.5cm]
 	
 	\`A l'heure du trading haute fréquence, de l'ordre de la milliseconde, l'actualisation des données quotidienne peut ne pas sembler être assez. 
 	Au contraire, dans le contexte de la prévision et de l'analyse du risque à moyen ou long terme, et en tant qu'outil d'aide à la décision, cette fréquence est en fait suffisante.
-	 Si un évènement perturbe les marchés, il faut simplement de nouveau effectuer le calcul de risque pour les mois ou années à venir, et reévaluer ses décisions stratégiques.
+	 Si un événement perturbe les marchés, il faut simplement de nouveau effectuer le calcul de risque pour les mois ou années à venir, et réévaluer ses décisions stratégiques.
 	
-		\subsubsection{Fonctionnement}
+		\subsubsection{Front-end}
 
-			\paragraph{Matériel} ~\\
-
-				L'Oculus Rift est composé de:\\
-
-				\begin{itemize}
-				\item Un écran 60 Hz d'une résolution de $1280*800$
-				\item Deux lentilles (une pour chaque oeil),
-				\item Un gyroscope à 3 axes pour mesurer l'accélération angulaire,
-				\item Un magnétomètre à 3 axes pour mesurer les champs magnétiques,
-				\item Un accéloromètre à 3 axes pour mesurer l'accélération, y compris gravitationnelle
-				\item Un port USB
-				\item Un port HDMI
-				\end{itemize} ~
-
-				Il est à noter que la résolution de l'écran est à diviser par deux, chaque oeil voyant seulement
-				une moitié de l'écran, la résolution effective est donc de $640*800$.
-
-			\paragraph{Logiciel} ~\\
-
-			    L'utilisation de l'Oculus Rift s'effectue au moyen de son SDK, qui permet:\\
-
-			    \begin{itemize}
-			    \item D'accéder aux différents capteurs,
-			    \item D'accéder aux propriétés du masque (distance inter-pupillaire, hauteur des yeux, \ldots),
-			    \item D'appliquer les <<filtres>> au rendu graphique afin d'avoir un rendu réaliste
-			    \end{itemize} ~
-
-			    Le SDK est écrit en C++ et possède une API en C.
-			    Pour mon stage, j'ai utilisé la version 0.2.5 puis la version 0.3.2.
-
-			\paragraph{Théorie} ~\\
-
-			    L'Oculus Rift exige que la scène soit rendue graphiquement en <<split-screen stereo>>,
-			    c'est-à-dire avec l'écran divisé en deux verticalement, la partie gauche réservée à l'oeil gauche
-			    et la partie droite à l'oeil droit.
-
-			    La distance inter-pupillaire est la distance entre les deux yeux. Elle varie d'un individu
-			    à l'autre mais elle est en moyenne de 65 mm. Cette distance est importante dans le procédé
-			    de rendu car ce dernier consiste à rendre graphiquement la scène deux fois, une fois pour
-			    chaque oeil, en translatant la caméra de la distance inter-pupillaire entre les deux rendus.
-			    C'est ce qui contribue à créer l'effet stéréoscopique, ce qui engendre l'impression d'immersion.
-
-			    Un autre aspect à prendre en compte est la présence des lentilles. Ces dernières agrandissent
-			    l'image pour fournir un champ de vision très large, pour améliorer l'immersion.
-			    Cependant ce procédé déforme l'image de façon significative, ce qui créerait une distorsion
-			    en coussinets (cf figure \ref{pincushion_distortion}) si les <<filtres>>, dont nous parleront plus tard,
-			    n'étaient pas appliqués au niveau logiciel au rendu graphique de l'application.\\
-			    \FloatBarrier
-			    \begin{figure}[h!]
-			      \centering
-				\includegraphics[width=3cm]{pincushion_distortion.png}
-			      \caption{Distorsion en coussinets (<<pincushion distorsion>>)}\par\medskip
-			      \label{pincushion_distortion}
-
-			    \FloatBarrier
-			    Pour contrebalancer cette distorsion, le programme doit, comme énoncé plus haut, appliquer
-			    un effet post-rendu. Il s'agit d'une distorsion égale et opposée, appelée distorsion en
-			    barillets (cf figure \ref{barrel_distortion}).\par\bigskip
-
-			    {
-			      \centering
-				\includegraphics[width=3cm]{barrel_distortion.png}
-			      \caption{Distorsion en barillets (<<barrel distorsion>>)}
-			      \label{barrel_distortion}
-			    }\par\medskip
-			    \FloatBarrier
-			    De plus, le programme doit corriger les aberrations chromatiques (cf figure \ref{chromatic_aberration}), qui consistent en un effet
-			    d'arc en ciel aux contours des objets. Cet effet est causé par les lentilles et est
-			    bien connu dans le domaine de l'optique.\par\bigskip
-			    \FloatBarrier
-			  {
-			      \centering
-				\includegraphics[width=4cm]{chromatic_aberration.jpg}
-			      \caption{Aberration chromatique (<<chromatic abberration>>)}
-			      \label{chromatic_aberration}
-			  }
-			    \end{figure}  ~ \\
-
-			    \FloatBarrier
-			\paragraph{Pratique} ~\\
-
-			    Pour le développeur, ces éléments théoriques sont gérés de manière interne par le SDK Oculus.
-
-			    Pour une application qui fait un rendu graphique, la programme est typiquement de
-			    la forme:\\
-
-			    \label{mainloop_normal}
-			    \begin{algorithm}[H]
-			      initialize the graphic ressources\;
-			      fill the scene with graphic objects\;
-			      \While{the application is running}{
-				process the user input\;
-				update the objects in the scene\;
-				render the objects in the scene\;
-			      }
-			      release the graphic ressources\;
-			      \caption{Application de rendu graphique}
-			    \end{algorithm} ~\\
-
-			    Un programme qui fait un rendu Oculus exclusivement aura pour sa part la forme suivante:\\
-			    \label{mainloop_oculus}
-			    \begin{algorithm}[H]
-			      initialize the graphic ressources\;
-			      initialize the Oculus SDK\;
-			      fill the scene with graphic objects\;
-			      \While{the application is running}{
-				process the Oculus input\;
-				update the objects in the scene\;
-				\For{each eye}{
-				  translate the camera by the inter-pupillary distance\;
-				  apply the Oculus distortion effects\;
-				  render the objects in the scene\;
-				  }
-			      }
-			      release the Oculus SDK\;
-			      release the graphic ressources\;
-			      \caption{Application de rendu graphique}
-			    \end{algorithm} ~\\
-			    Plus précisément, l'opération <<apply the Oculus distorsion effects>> se fait de façon graphique
-			    au moyen de shaders, qui sont des programmes qui appliquent des transformations à chaque pixel de l'image.
-
-
-			    Nous avons alors le rendu suivant, pour une scène simple composée d'un cube texturé, d'un plan
-			    et d'une skybox rudimentaire, avec le même point de vue:
-
-			    \FloatBarrier
-
-			    \begin{figure}
-			      \centering
-				\includegraphics[width=1.0\textwidth]{scene_normal4.png}
-			      \caption{Scène OpenGL simple avec le rendu normal}
-
-				\includegraphics[width=1.0\textwidth]{scene_oculus4.png}
-			      \caption{Scène OpenGL simple avec le rendu Oculus}
-			    \end{figure}
-			    \clearpage
-
-			    \FloatBarrier
-
-			    Les applications que j'ai développées durant de mon stage peuvent fournir le rendu normal
-			    et le rendu Oculus, selon l'option spécifiée.
-
+		L'application front-end utilise le framework open-source AngularJS, initialement développé par Google.
+		Il permet d'organiser son project de manière cohérente, en séparant:
+		
+		\begin{itemize}
+		\item Vues: l'interface avec laquelle l'utilisateur intéragit
+		\item Contrôleurs: la logique des vues et la gestion des événements
+		\item Services: les fonctionnalités génériques utilisées dans les contrôleurs
+		\item Directives: les petits composants réutilisables (par exemple un datetimepicker sur un formulaire)
+		\item Configuration
+	\end{itemize}	
+	
+	L'utilisation d'un framework bien connu est nécessaire, sinon indispensable, dans ce domaine assez peu structuré et évoluant très rapidement qu'est le développement front-end, ainsi que dans le contexte d'utilisation du très flexible et piégeux langage Javascript.
+	
+	De plus, un avantage majeur d'AngularJS comparé aux autres frameworks, est le fait qu'il ait été conçu avec les tests en tête. Il fournit de nombreuses aides pour tests son code, allant même jusqu'à proposer une libraire de tests d'intégration, chose inédite dans l'écosystème Javascript.
+	
+	Enfin, la communauté a travaillé dur pour procurer tout un assortiment de modules open sources pour répondre aux besoins courants du développement web.
+				
 
 	\subsection{Contraintes}
 
