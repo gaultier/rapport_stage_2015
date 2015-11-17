@@ -215,10 +215,8 @@ Toto \textsc{titi},\\[0.5cm]
 	Cela inclut un large éventail d'entreprises allant des établissement bancaires aux gestionnaires de fortune, en passant par courtiers en bourse.
 	
 	Actuellement, l'application est utilisée par des clients de différentes organisations. 
-
-\section{Le stage}
-
-	\subsection{Objectif}
+	
+	\subsection{Objectif du stage}
 
 		Ce stage était centré sur le produit proposé par EdgeLab à ses clients, l'application web, et les objectif étaient multiples, dans plusieurs domaines:
 		
@@ -231,12 +229,14 @@ Toto \textsc{titi},\\[0.5cm]
 		\item Moderniser et simplifier l'interface
 	\end{itemize}			
 
-	\subsection{L'application}
-		  L'application web est un projet de grande taille pour les standards du web: environ un millier de fichiers et 15000 lignes de code source. 
+\section{L'application}
+
+			  L'application web est un projet de grande taille pour les standards du web: environ un millier de fichiers et 15000 lignes de code source. 
 		  C'est en effet une application client lourd qui suit les standards du web moderne et utilise les outils les plus récents: HTML5, CSS3, et la majorité de la logique en Javascript. Le serveur fournit en fait seulement une API, au même titre que l'API Facebook ou Twitter.
 		  Le rendu de pages se fait côté client, de même qu'une partie des calculs financiers, utilisant les capacités des navigateurs modernes au maximum, tout cela dans le but de rendre l'expérience utilisateur plus agréable, fluide et de minimiser les rechargements complets de page, ainsi que les échanges de données réseau, premier facteur de latence.
 
-		\subsubsection{Architecture}
+
+	\subsection{Architecture}
 		
 		L'architecture est assez simple et suit le modèle d'une entreprise comme Google. L'idée est d'utiliser l'outil le plus adapté à la tâche.
 		Ainsi, le serveur web (back-end) est développé en Java 8 et utilise le framework réputé pour le développement web en entreprise, Spring.
@@ -250,10 +250,10 @@ Toto \textsc{titi},\\[0.5cm]
 	\`A l'heure du trading haute fréquence, de l'ordre de la milliseconde, l'actualisation des données quotidienne peut ne pas sembler être assez. 
 	Au contraire, dans le contexte de la prévision et de l'analyse du risque à moyen ou long terme, et en tant qu'outil d'aide à la décision, cette fréquence est en fait suffisante.
 	 Si un événement perturbe les marchés, il faut simplement de nouveau effectuer le calcul de risque pour les mois ou années à venir, et réévaluer ses décisions stratégiques.
+
 	
-		\subsubsection{Le projet front-end}
-		
-			\paragraph{AngularJS}
+	\subsection{Le projet front-end}
+		\subsubsection{AngularJS}
 
 		L'application front-end utilise le framework open-source AngularJS, initialement développé par Google.
 		Il permet d'organiser son project de manière cohérente, en séparant:
@@ -276,7 +276,7 @@ Toto \textsc{titi},\\[0.5cm]
 	
 	Ma contribution pour ce sujet a consisté à appliquer les conventions préconisées par la communauté (John Papa's style guide). Cette uniformisation du nommage, de l'indentation, et des pratiques a nécessité un refactoring du projet, chose représentant un défi particulier pour le langage dynamique, faiblement typé et manquant de réelles capacités orienté objet qu'est Javascript.
 	
-		\paragraph{Tests unitaires}
+		\subsubsection{Tests unitaires}
 			Un code non testé doit être considéré invalide jusqu'à preuve du contraire. Partant de ce constat, nous avons considérablement développé les tests unitaires existant, couvrant un nombre réduit de cas, passant ainsi de 250 à un millier de tests. 
 	En plus d'écrire des tests pour le code existant, ce qui a permis de mettre en lumière certains bugs, ou simplement de considérer certains cas pas forcément pris en compte, l'écriture de tests pour le nouveau code a été institutionnalisée. 
 	Cela a eu comme résultat visible des dizaines de fichiers couverts à 100\%, pour une moyenne de couverture du projet de 40\%, expliquée en partie par une minorité de fichiers ne possédant aucun tests.
@@ -287,7 +287,7 @@ Toto \textsc{titi},\\[0.5cm]
 	
 	Cerise sur le gâteau, lorsqu'un bug est détecté, il suffit au développeur d'ajouter le test correspondant, qui est invalide avant la résolution, et valide après. On s'assure ainsi que le bug a réellement disparu, et une éventuelle réapparition sera automatiquement détectée.
 	
-	\paragraph{Tests d'intégration}
+	\subsubsection{Tests d'intégration}
 	Les tests d'intégration, ou end-to-end, consistent à tester toute la chaîne logicielle, simulant les action d'un utilisateur, afin de vérifier que chaque composant s'imbrique sans problème avec les autres. Ils complètent les tests unitaires car disposent d'une granularité plus grande et deux composants peuvent être unitairement valides tout en s'intégrant de façon invalide, dans le cas par exemple de données échangées sous un format différent pour les deux parties.
 	
 	Il est donc apparu comme indispensable de combler l'absence de tests d'intégration, surtout en disposant de la librairie Protractor mis à disposition par Angular dans cet objectif.
@@ -322,7 +322,32 @@ Toto \textsc{titi},\\[0.5cm]
 	
 	Pour leur exécution, ces tests tournent dans un vrai navigateur, collant ainsi au plus près à la réalité. Encore mieux, au même titre que les tests unitaires, on peut les exécuter dans une multitude de navigateurs et de versions différentes d'un même navigateur, détectant ainsi une éventuelle régression dans une version spécifique d'un navigateur spécifique.
 	
+	Dans notre cas, nous nous sommes limités à la dernière version de Chrome, Firefox, et Internet Explorer.
 	
+	\subsubsection{L'environnement}
+	
+	On juge un artisan à ses outils. C'est aussi le cas pour un développeur. 	Ses outils sont au moins aussi important que le code qu'il produit, car il passera probablement plus de temps à compiler, tester, débugguer et déployer son code qu'à l'écrire. En conséquence, ces outils conditionneront
+	sa productivité et la qualité du code qu'il engendre.
+	
+	Pour toutes ces raisons, il nous est apparu vital d'améliorer la chaîne d'outils existants, qui bien qu'efficace, nous a semblé complexe à utiliser, à maintenir, et à améliorer. Les attributions de ces "méta-outils" de développement sont divers mais tous visent à faciliter le travail du développeur, avec un devis: tout ce qui peut être automatisé doit être automatisé.
+	Voici les principales attributions de cet environnement: ~\\
+	
+	\begin{itemize}
+		\item Installer les dépendances grâce à un gestionnaire de paquets
+		\item Lancer le projet en mode debug
+		\item Optimiser, minifier, concaténer et compresser le code pour le déploiement: le résultat est un "artefact"
+		\item Déployer sur un serveur distant l'artefact
+		\item Lancer l'analyse statique et vérifier les conventions de code
+		\item Lancer les tests unitaires et/ou d'intégration
+		\item Afficher une page d'aide expliquant les différentes actions possibles
+	\end{itemize}	 ~\\
+	
+	Tout cela pour quatre environnements différents (développement, serveur de test, pré-production, production), avec dans l'idéal une seule commande pour chaque tâche.
+	Après ce travail de refonte de cette chaîne d'outils, il est désormais possible de lancer l'une ou l'autre tâche avec une seule commande, dans l'environnement de notre choix, ce qui est un grand pas en avant non seulement pour la productivité, mais aussi pour la qualité du projet. 
+	
+	Les implications peuvent paraître minimes, mais elles sont en fait énormes. Il s'agit de bousculer les habitudes de travail des développeurs, en menant la vie dure aux mauvaises pratiques, et en encourageant et facilitant les bonnes.
+	
+	Une autre conséquence est l'abaissement de la barrière d'entrée du projet: un nouveau développeur peut plus vite se focaliser sur le code en étant libéré des autres tâches "ingrates", qui sont automatisées, et en suivant tout de suite les bonnes conventions, son travail s'intégrera plus facilement avec le reste de l'équipe.
 				
 
 	\subsection{Contraintes}
