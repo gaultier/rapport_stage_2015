@@ -100,7 +100,7 @@
 \begin{flushleft} \huge
 \emph{Auteur:}\\
 Philippe \textsc{Gaultier},\\[0.5cm]
-\Large \'Elève ingénieur en troisième année à l'Ensiie Strasbourg
+\Large \'Elève ingénieur en troisième année à l'ENSIIE Strasbourg
 \end{flushleft}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
@@ -182,40 +182,38 @@ Toto \textsc{titi},\\[0.5cm]
 
 	\subsection{Objectif}
 
-		Ce stage était centré sur le produit proposé par EdgeLab à ses clients, l'application web, et l'objectif était multiple:
+		Ce stage était centré sur le produit proposé par EdgeLab à ses clients, l'application web, et les objectif étaient multiples, dans plusieurs domaines:
 		
 	\begin{itemize}
 		\item Développer de nouvelles fonctionnalités
 		\item Améliorer la qualité du code
 		\item Augmenter la couverture de tests
 		\item Simplifier le processus de déploiement
+		\item Améliorer les outils de développement
 		\item Moderniser et simplifier l'interface
 	\end{itemize}			
 
-	\subsection{L'Oculus Rift}
+	\subsection{L'application}
+		  L'application web est un projet de grande taille pour les standards du web: environ un millier de fichiers et 15000 lignes de code source. 
+		  C'est en effet une application client lourd qui suit les standards du web moderne et utilise les outils les plus récents: HTML5, CSS3, et la majorité de la logique en Javascript. Le serveur fournit en fait seulement une API, au même titre que l'API Facebook ou Twitter.
+		  Le rendu de pages se fait côté client, de même qu'une partie des calculs financiers, utilisant les capacités des navigateurs modernes au maximum, tout cela dans le but de rendre l'expérience utilisateur plus agréable, fluide et de minimiser les rechargements complets de page, ainsi que les échanges de données réseau, premier facteur de latence.
 
-		\subsubsection{Aperçu}
-		  L'Oculus Rift est un masque de réalité virtuelle, développé par Oculus VR, une entreprise
-		  basée en Californie et rachetée par Facebook en mars 2014 pour  2 milliards \$.
-		  L'Oculus Rift a été initialement financé via une plateforme de financement collaboratif, Kickstarter,
-		  et a levé 91 millions \$ à cette occasion. \\
-		  Il permet une immersion  réaliste dans une scène en trois dimensions, en donnant l'impression d'y être physiquement
-		  présent, et crée ainsi une nouvelle expérience
-		  utilisateur. \\
-		  De plus, son prix est relativement peu élevé (350 \$, environ 300 \euro), ce qui le rend accessible au grand public. \\
-		  Pour toutes ces raisons, l'Oculus Rift est adapté à un usage éducatif et professionnel, dans des domaines aussi variés
-		  que la simulation scientifique, le divertissement, l'éducation, \ldots
-
-		  La version grand public est prévue pour fin 2014 ou début 2015. J'ai pour ma part travaillé avec la première
-		  version du masque, le DK1, tandis que la deuxième version, le DK2 a été distribuée à partir d'août 2014.
-		  \FloatBarrier
-		  \begin{figure}[h!]
-		    \centering
-		      \includegraphics[width=0.3\textwidth]{dk1.jpg}
-		    \caption{L'Oculus Rift (DK1)}
-		  \end{figure}
-		  \FloatBarrier
-		  \subsubsection{Fonctionnement}
+		\subsubsection{Architecture}
+		
+		L'architecture est assez simple et suit le modèle d'une entreprise comme Google. L'idée est d'utiliser l'outil le plus adapté à la tâche.
+		Ainsi, le serveur web (back-end) est développé en Java 8 et utilise le framework réputé pour le développement web en entreprise, Spring.
+		
+		Les calculs lourds sont délégués au moteur de calcul financier écrit en C++, focalisé sur la performance. Ces calculs sont soit effectués en temps réels pour les plus courts (durée inférieure à 30 secondes), soit lus dans une base de données qui est remplie la nuit, pour les calculs longs et prévisibles (plusieurs heures).
+		
+		Mais sur quelles données financières s'appuie ce moteur de calcul, dans un contexte de volatilité des marchés?
+		Les données proviennent en fait de différents fournisseurs de données reconnus, par exemple Bloomberg, et sont actualisées chaque jour. Cependant, certaines données sont parfois contradictoires avec d'autres provenant d'un fournisseur différent. Rarement, le cas de données incomplètes, utilisant un format singulier, ou simplement erronées peut se poser. 
+		On comprend alors la nécessité de récupérer, valider, et agréger ces données avant de les utiliser. C'est la responsabilité d'un service à part, écrit en Java, qui va lui aussi chaque nuit effectuer ce long travail portant parfois sur des centaines de milliers de données. Il va rejeter les données suspectes puis va remplir la base de données avec les bonnes données, qui pourront alors être utilisées par le moteur de calcul, ou bien tout simplement par le back-end web qui les transmettra au front-end afin de les afficher à l'utilisateur.
+	
+	\`A l'heure du trading haute fréquence, de l'ordre de la milliseconde, l'actualisation des données quotidienne peut ne pas sembler être assez. 
+	Au contraire, dans le contexte de la prévision et de l'analyse du risque à moyen ou long terme, et en tant qu'outil d'aide à la décision, cette fréquence est en fait suffisante.
+	 Si un évènement perturbe les marchés, il faut simplement de nouveau effectuer le calcul de risque pour les mois ou années à venir, et reévaluer ses décisions stratégiques.
+	
+		\subsubsection{Fonctionnement}
 
 			\paragraph{Matériel} ~\\
 
