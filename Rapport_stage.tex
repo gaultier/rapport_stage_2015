@@ -371,6 +371,7 @@ Sven \textsc{Reber},\\[0.5cm]
 
 	
 		\paragraph{Taille et diversité des données} ~\\
+		\epigraph{The function of good software is to make the complex appear to be simple.}{Grady Booch}
 
 		Le domaine de la finance a comme caractéristique d'offrir une très grande diversité d'entités (largeur), allant des obligations aux produits structurés en passant par toutes les combinaisons possibles et imaginables (on pensera aux "Perpetual Callable Convertible Bond"), mais aussi en grandes quantités (profondeur): des centaines de milliers d'instruments ou de transactions par exemple.~\\
 		Ces deux contraintes orthogonales influent donc à la fois sur le code (comment importer un fichier csv comportant des centaines de milliers de lignes, chacune représentant une transaction, en un temps raisonnable? Que ce passe-t-il si le nombre de types d'instruments différents augmente de 3 à 15 dans un futur proche?), sur l'interface (combien d'entités dois-je proposer à l'utilisateur pour faire son choix? Cette autre entité ne contient-elle pas trop de champs pour être affichée dans un tableau? Qu'arrive-t-il si trois champs sont ajoutés?), et sur l'architecture (est-ce que ma solution "scale"? Cet algorithme doit-il être réimplémenté dans un langage plus rapide? Doit-il s'exécuter côté serveur ou côté client?), le tout en tenant compte des évolutions futures (le nombre de pays ou de monnaies différents reste relativement stable dans le temps, mais qu'en est-il des émetteurs d'obligations? Quel est leur ordre de grandeur? Cet ordre de grandeur peut-il changer subitement? Comment doit-on s'y préparer?).~\\
@@ -378,6 +379,25 @@ Sven \textsc{Reber},\\[0.5cm]
 
 
 	\subsection{Déroulement du stage}
+		Le stage a débuté par une phase nécessaire de découverte du projet et des notions métiers spécifiques au domaine financier, qui a duré environ un mois. Le reste du stage s'est ensuite divisé en trois lignes directrices: refonte d'interfaces existantes, création de nouvelles fonctionalités, et amélioration des outils de développement.
+	
+		\subsubsection{Refonte d'interfaces}
+		\epigraph{There are two ways of constructing a software design.  One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies.}{C.A.R. Hoare}
+		
+		Certaines interfaces se sont révelées soit difficiles d'utilisation, soit plus adaptées aux évolutions des demandes métiers, notamment concernant la diversité et la quantité des données. Mon travail a alors consisté a comprendre les spécifications, c'est-à-dire les fonctionnalités existantes de la page, les questionner pour savoir si elles correspondaient aux attentes et usages des utilisateurs ainsi qu'à l'évolution des données, puis déterminer quelles fonctionnalités additionnelles seraient bienvenues sur la même page,  et enfin implémenter ces fonctionnalités en simplifiant l'interface. ~\\
+		En résumé, il s'agit de faire au moins autant voire plus, mieux, et plus simplement, le tout faisant émerger un code plus clair et stable.
+		L'amélioration décisive a enfin été de tester la page refondue pour s'assurer de sa qualité et de pouvoir détecter les régressions.
+		
+		\subsubsection{Nouvelles fonctionnalités}
+		
+		Une autre ligne directrice de stage a été l'ajout de nouvelles pages, ou vues, de l'application. Cela a bien sûr été l'occasion d'appliquer dès le début les bonnes pratiques, et lors de l'adoption de TypeScript, d'utiliser ce dernier.
+		En sus, les nouvelles pages ont été testées avec une couverture de code approchant 100%.
+		
+		\subsubsection{Amélioration des outils}
+
+		Comme cité à d'autres endroits, une part significative du stage a été consacré à l'amélioration des outils, que ce soit au niveau du développement (analyseurs statiques, transpilers), des tests (deux types de tests dans deux environnements différents, à lancer individuellement ou ensemble), ou du déploiement (deux environnements différents de déploiement), dans une perspective de facilité d'utilisation, de rapidité, et de fiabilité, à l'échelle d'une équipe de plusieurs développeurs.~\\	
+Comme tout investissement, ce n'est pas du temps perdu, mais bien du temps gagné, au long terme, comme l'a montré l'intégration couronnée de succès au projet d'un nouveau langage comme TypeScript.~\\
+		Enfin, les nouveaux outils sont plus évolutifs, pour répondre à de futurs besoins, par exemple le redondance en production ou le changement de fournisseur de machines dans le nuage.
 
 
 	\subsection{Développement}
@@ -410,6 +430,8 @@ Sven \textsc{Reber},\\[0.5cm]
  	\end{itemize}
  	
 	\paragraph{Analyseurs statiques}~\\	
+	\epigraph{There are only two kinds of programming languages: those people always bitch about and those nobody uses.}{Bjarne Stroustrup}
+	
 		Javascript est un langage aussi puissant qu'il est piégeux, et ce de par quatre caractéristiques principales:~\\
 		
 		\begin{itemize}
@@ -441,317 +463,16 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 		Tous les langages de programmations un tant soit peu répandus offrent la possibilité d'écrire des commentaires, ce qui montre bien la nécessité dans un projet de documenter son code, à des fins encore une fois de lisibilité et maintenabilité.
 		Nous documentons profusément le code en utilisant JSDoc qui est un outil de formattage des commentaires (similaire à JavaDoc) et qui permet de produire une document HTML à partir des commentaires.
 
-
-	  \subsubsection{Design Patterns}
-	      \epigraph{Controlling complexity is the essence of computer programming}{Brian Kernighan}
-
-
-
-	    Les design patterns sont des motifs de programmation, des <<façons de faire>> que l'on retrouve régulièrement
-	    pour résoudre des problèmes bien connus. Ce ne sont pas des <<tours de magie>> ou des  <<gadgets à la mode>>,
-	    mais des solutions pratiques à mettre en place quand le besoin s'en fait sentir, ou pour améliorer le code.
-
-	    Pendant ce stage, j'ai utilisé plusieurs design patterns. Voici lesquels et pourquoi:
-
-	    \begin{description}
-	    \item [NullObject pattern]~\\
-		Ce design pattern sert à gérer élégamment la situation où l'on a un ensemble d'objets à gérer dont certains sont
-		nuls, sans savoir lesquels à l'avance, ou sans vouloir vérifier à chaque utilisation. Plutôt que d'écrire des dizaine de conditions pour vérifier si l'on peut bien effectuer telle ou telle action
-		afin d'éviter une segmentation fault, la variable sur laquelle nous sommes en train de travailler
-		étant nulle (c'est-à-dire ayant pour valeur le pointeur <<NULL>> ou <<nullptr>> en C++11),
-		ce pattern propose de travailler avec une classe générique. De cette dernière hérite(nt) la ou les classe(s) dont nous nous
-		servons en pratique dans notre programme, et une classe <<NullObject>> dont le corps des méthodes sont vides (ou
-		adaptées selon la situation).
-		Ainsi au lieu de travailler avec des pointeurs nuls, on travaille avec de vrais objets, inoffensifs lorsque
-		l'on intéragit avec eux, grâce au polymorphisme.
-		Ce faisant on peut aussi élégamment activer/désactiver des services.\\
-
-		Dans mon cas, j'ai travaillé avec la classe <<GraphicObject>>, dont héritent les classes <<Cube>>, <<Plane>>, \ldots,
-		mais aussi <<NullGraphicObject>>, dont la méthode d'affichage ne faisait rien.
-		Ainsi dans ma boucle de rendu, je pouvais afficher tous mes objets de la scène, sans avoir peur que certaines parties
-		de l'Octree soient vides et que cela occasionne un plantage.
-
-
-		De la même façon, j'ai utilisé ce pattern pour gérer les deux modes de rendu. J'ai une classe <<GenericOculus>>,
-		dont héritent les classes <<NullOculus>>, dont les méthodes sont vides, et <<Oculus>>, où est implémenté
-		le rendu Oculus. Dans le mode normal, j'utilise la classe <<NullOculus>> qui ne fait rien, tandis qu'en mode
-		Oculus j'utilise la classe <<Oculus>>.
-
-	    \item [Singleton pattern]~\\
-		Design pattern bien connu et parfois décrié, il permet de limiter le nombre d'instances d'un objet, typiquement
-		à 1.\\
-
-		Je l'ai utilisé pour la classe Oculus, afin d'éviter de faire l'initialisation (et la libération) du SDK Oculus plusieurs fois.
-
-	    \item [Game Loop pattern]~\\
-		Ce pattern décrit la boucle de rendu typique d'une application de rendu graphique.
-
-		Je l'ai utilisé pour l'application de simulation, comme décrit ici~(\ref{mainloop_normal}) pour le rendu normal
-		et là~(\ref{mainloop_oculus}) pour le rendu Oculus.
-
-	    \item [Flyweight Pattern]~\\
-	      Ce pattern sert à améliorer les performances d'une application où sont présents de nombreux objets identiques,
-	      mis à part la valeur de certaines propriétés, et qui utilisent des ressources similaires.
-	      Au lieu que chaque objet possède une instance de la ressource, générant une perte de performances
-	      inutile, ce pattern propose de mettre en commun tout ce qui peut l'être. Chaque objet aura alors un pointeur
-	      vers la ressource partagée. Ce partage est transparent pour l'application qui continue à utiliser les objets
-	      comme bon lui semble, en utilisant les informations particulières de chaque objet.\\
-
-	      Dans ma situation, la simulation concernait des milliers voire des millions d'objets célestes. Dans les cas que j'ai
-	      rencontrés, il s'agissait toujours d'un seul type d'objet céleste, par exemple une étoile.
-	      Si l'on choisit de représenter une étoile par un modèle 3D, une sphère par exemple, et une
-	      texture plaquée sur cette sphère, et que l'on charge la ressource <<texture>> à partir d'un fichier, il est inconcevable
-	      de lire ce fichier des millions de fois par seconde (à chaque rendu), ou même des millions de fois au démarrage du
-	      programme (initialisation des textures des objets célestes).
-	      On choisit alors de charger cette ressource une fois pour toute au démarrage. On lit une et une seule fois le fichier.
-	      Chaque étoile possède un pointeur vers cette texture partagée.
-	      La seule différence entre les étoiles sont les informations contextuelles (position, densité, âge, \ldots).
-
-	      On peut alors faire le rendu sans problème de performances: au final, on fait une seule lecture de fichier, et
-	      l'on a une seule texture en mémoire, au lieu de milliers/millions auparavant.
-	      L'initialisation prend ainsi moins de temps et la libération mémoire également à la fin du programme.
-
-	      En pratique, l'application de ce design pattern a permis de transformer un démarrage poussif (dizaines de secondes) avec 100 objets célestes,
-	      en un démarrage en environ 3s pour 1000 objets.
-
-	    \item [Factory pattern]~\\
-	      Ce pattern permet typiquement de créer dynamiquement des instances d'objets différents, dont le type
-	      n'est connu qu'à l'exécution (par exemple conséquence d'un choix utilisateur).
-	      Cependant il peut aussi être utilisé pour encapsuler la construction d'un objet derrière une interface
-	      qui fait des vérifications diverses à cette occasion.
-
-	      Dans mon cas, je l'ai utilisé pour implémenter le groupe de textures partagées. En effet lorsqu'un nouvel
-	      objet graphique texturé est créé, il fait une requête auprès de la fabrique de textures pour obtenir sa texture.
-	      La fabrique vérifie si la texture existe déjà en mémoire.
-	      Si oui elle renvoie un pointeur vers cette texture, sinon elle créé la texture correspondante, l'ajoute
-	      au groupe de textures partagées, et finalement renvoie un pointeur vers cette texture nouvellement créée.
-
-	      L'avantage d'avoir une fabrique de textures est que cette dernière peut être utilisée par plusieurs classes
-	      différentes: dans mon cas la classe <<Crate>> (<<caisse>>, qui représente un cube texturé) et <<Plane>>,
-	      (<<plan>>, qui représente un surface plane texturée) utilisent le groupe de textures partagées, et donc
-	      font appel à la fabrique.
-	      Ainsi cette logique n'est pas inhérente à une classe et peut être utilisée partout dans le programme.
-	      De plus si deux classes différentes utilisent la même texture, une seule sera créée, et non deux.
-
-	    \item [RAII]~\\
-	      \label{RAII}
-	      <<Resource Acquisition Is Initialization>>, l'acquisition de ressources c'est leur initialisation.
-	      Ce pattern permet une gestion efficace et simple de la mémoire et est inhérent au C++.
-
-	      Il repose sur l'assurance fournie par le langage que le destructeur d'un objet sera appelé lorsque l'on
-	      sort du bloc où il a été défini.
-	      Ainsi, lorsque l'on acquiert une ressource, par exemple ouvrir un fichier, et que cette ressource a besoin
-	      d'être libérée plus tard, par exemple fermer ce fichier, on peut automatiser ces deux actions en les plaçant
-	      à un endroit adéquat du code.
-
-	      En pratique, on fait l'acquisition dans le constructeur de l'objet utilisant/représentant la ressource (d'où le nom), et
-	      la libération dans le destructeur. Pour l'utilisateur de la classe ces opérations sont transparentes et il est
-	      assuré qu'elles seront exécutées automatiquement.
-
-
-	      Pour ma part, j'ai utilisé ce pattern pour l'initialisation et la libération des ressources graphiques et
-	      du SDK Oculus.
-
-	    \item [Data Locality]~\\
-
-	      Ce design pattern est un moyen d'optimiser les performances d'un programme en tirant parti du cache du CPU.
-
-	      La fragmentation est l'utilisation inefficace de l'espace mémoire. C'est un phénomène qui se produit lorsque
-	      sont effectuées de multiples allocations et
-	      désallocations de mémoire, engendrant alors une baisse de la capacité mémoire et/ou des performances.
-
-	      Dans mon cas, j'ai donc transformé mon tableau de pointeurs sur objets célestes en un tableau d'objets célestes.
-	      Cela est rendu possible par le fait que je ne dispose que d'un seul type d'objet céleste dans ma simulation.
-	      De plus l'usage de pointeurs dans mon programme est majoritaire dans la partie génération et rendu d'objets célestes
-	      de part leur nombre.
-	      Cependant il est à noter que dans le cas d'un nombre très grand d'objets (de l'ordre du million), il est possible de dépasser
-	      la taille de la pile, créant alors un <<stack overflow>>.
-
-	      J'ai ensuite mesuré les temps d'exécution dans les deux implémentations, exposés au paragraphe \ref{optimisations}
-	      et en ait tiré des conclusions suprenantes.
-
-	      Voir le paragraphe \ref{data_locality} pour plus de détails.
-
-	    \end{description}
-%“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.”
-%- Martin Fowler (author and speaker on software development)
-
 	\subsubsection{Architecture}
 	\epigraph{Perfection [in design] is achieved, not when there is nothing more to add, but when there is nothing left to take away}{Antoine de Saint-Exupéry}
-	    \FloatBarrier
-	    \begin{figure}
-				  \centering
-				  \includegraphics[width=0.8\textwidth]{uml1.png}
-				  \caption{Diagramme de classe UML pour les objets graphiques}
-	    \end{figure}
-
-	    \begin{figure}
-			      \centering
-			      \includegraphics[width=0.6\textwidth]{uml2.png}
-			      \caption{Diagramme de classe UML pour la scène}
-	    \end{figure}
-
-	    \begin{figure}
-			      \centering
-			      \includegraphics[width=0.8\textwidth]{hierarchy3.png}
-			      \caption{Hiérarchie des classes}
-	    \end{figure}
 
 
-
-	    \begin{figure}
-	      \centering
-	      \includegraphics[width=0.3\textwidth]{files1.png}
-	      \caption{Hiérarchie des fichiers}
-	    \end{figure}
-	    \FloatBarrier
-
-  \subsection{Améliorations - Optimisations}
-
-    \subsubsection{Structures de données - Data Locality}
-
-      \begin{center}
-
-	\label{optimisations}
-
-
-	\begin{tabular}{| c | c | c | c | c | p{4cm} |}
-	    \hline
-	    Stockage & Méthode & Nombre d'objets & Génération & FPS moyens & Remarques \\ \hline
-
-	    Tableau & Polymorphisme & 1024 & 3.7 s & 37.2  & array\\ \hline
-	    Tableau & Polymorphisme & 10000 & 38.2 s & 9.5  & array\\ \hline
-
-	    Tableau & Polymorphisme & 1024 & 3.6 s & 35.9  & vector, ajout avec push\_back \\ \hline
-
-	    Tableau & Polymorphisme & 10000 & 36.4 s & 9.6  & vector, ajout avec push\_back \\ \hline
-
-
-	    Tableau & Data locality & 1024 & 11 s & 35.6  & vector, ajout avec emplace\_back\\ \hline
-	    Tableau & Data locality & 1024 & 11 s & 34.6  & vector, ajout avec push\_back\\ \hline
-
-
-	    Tableau & Data locality & 1024 & 7.3 s & 34.2  & vector, ajout avec emplace\_back, réservation de la taille
-								    requise à l'avance\\ \hline
-	    Tableau & Data locality & 1024 & 7.2 s & 33.5  & vector, ajout avec push\_back, réservation de la taille
-								    requise à l'avance \\ \hline
-
-
-	    Tableau & Data locality & 10000 & 74.4 s & 9.2  & vector, ajout avec emplace\_back, réservation de la taille
-								    requise à l'avance\\ \hline
-	    Tableau & Data locality & 10000 & 71 s & 9.2  & vector, ajout avec push\_back, réservation de la taille
-								    requise à l'avance\\ \hline
-
-
-	    Octree & Polymorphisme & 1024 & 3.6 s & 62.5 & \\ \hline
-	    Octree & Polymorphisme & 32768 & 120 s & 62.5 & \\ \hline
-
-	    \hline
-	\end{tabular}
-      \end{center}
-
-	La structure <<vector>> est un tableau dynamique de la librairie standard.
-	Sa méthode <<reserve>> permet de réserver une certaine taille à l'avance. Cela permet d'éviter, lors de l'ajout
-	d'un nouvel objet, que la zone mémoire occupée par le <<vector>> se révèle trop petite, et qu'il faille en
-	réallouer une nouvelle, en y déplaçant tous les éléments existants du <<vector>>. On voit que l'usage de cette méthode
-	fait gagner quelques secondes pour la génération de 1024 objets (on passe de 11s à 7s).
-	La structure <<array>> est un tableau statique de la librairie standard.
-
-	On ne remarque cependant pas de différence majeure de performances entre ces deux structures de données une fois
-	que la taille nécessaire en mémoire est réservée initialement.
-
-	Un autre point à noter est la croissance linéaire du temps de génération en fonction du nombre d'objets, ce qui
-	est prévisible étant donné que les structures de données array et vector sont de complexité linéaire pour le parcours
-	et l'ajout.
-
-	Cependant l'évolution du nombre de FPS en fonction du nombre d'objets n'est pas linéaire: cela est probablement
-	dû au fonctionnement interne d'OpenGL.
-
-	Les résultats de la comparaison entre usage du polymorphisme et usage du pattern Data Locality
-	sont surprenants: en effet, l'application de ce design pattern a ralenti les performances
-	de l'application, en tout cas dans la partie génération, le rendu graphique restant inchangé avec
-	      des FPS constants, au lieu de les améliorer.
-
-	      Cela s'explique par le fait que ce pattern améliore les performances d'applications ralenties par les
-	      <<cache misses>>. Lors de l'analyse de l'application par un outil d'analyse de cache, Valgrind, il est
-	      apparu que seulement 0 à 2\% des accès au cache créaient des <<cache misses>>. Le problème de performances
-	      n'était donc pas dû à cela.
-
-	      Pourquoi alors les performances ne sont-elles pas restées constantes? En fait, au lieu de stocker dans notre
-	      structure de données un pointeur sur objet, qui prend typiquement 4 octets en mémoire, on stocke
-	      l'ensemble de l'objets, c'est à dire dans mon cas 136 octets. En C++, le passage d'un argument
-	      à une fonction se fait par défaut par valeur, c'est à dire qu'il y a une copie de l'objet.
-	      On copie donc 136 octets (au lieu de 4 auparavant) à chaque fois que l'on ajoute un objet dans la structure de données, et ce
-	      autant de fois qu'il y a d'objets. C'est ce qui ralentit la génération.
-
-	L'application du pattern Data Locality s'est donc révélé infructueux dans mon cas. Ce pattern reste cependant valide
-	dans le cas d'applications souffrant de problèmes de <<caches misses>> et de fragmentation.
-
-      \subsubsection{Smart pointers (<<Pointeurs intelligents>>)}
-	\epigraph{You can either have software quality or you can have pointer arithmetic, but you cannot have both at the same time}{Bertrand Meyer}
-
-
-	Les smart pointers sont des objets de la librairies standard encapsulant les pointeurs.
-	En se basant sur la RAII (\ref{RAII}, paragraphe <<Design Pattern>>), ils permettent de s'assurer que les ressources mémoires allouées manuellement
-	seront bien libérées.
-	De plus ils fournissent des fonctionnalités bien pratiques, comme le compte de pointeurs pointant sur la variable encapsulée,
-	 sorte de compte de références, pratique pour implémenter un groupe de ressources partagées: lorsque plus personne
-	 dans le programme n'utilise ces ressources, on les supprime, ou plutôt elles sont supprimées automatiquement.
-
-	C'est ce qui s'approche en C++ d'un garbage collector, à la différence que la norme du langage assure
-	à quel endroit du code le destructeur de l'objet sera appelé et que le développeur doit mettre en place manuellement
-	cette gestion <<automatisée>>, ou plutôt <<aidée>>,  de la mémoire.
-
-	L'utilisation de ces pointeurs intelligents est considérée dans le monde du développement C++ comme une bonne
-	pratique et est encouragée. De plus il n'y a peu ou pas de baisse de performances par rapport à l'utilisation
-	de pointeurs nus (<<raw pointers>>, pointeurs traditionnels <<à la C>>).
-
-	Cette optimisation ne vise donc pas les performances mais la maintenabilité, la sécurité et la stabilité du programme.
-	Au final, pour générer 1024 objets, la différence entre pointeurs nus et pointeurs intelligents est de 0.06 s,
-	et il n'y a aucune fuite mémoire. De plus le code est plus court et plus simple.
-
-
-      \subsubsection{Logs}
-	\epigraph{There are two ways to write error-free programs; only the third one works}{Alan J. Perlis}
-
-	Les logs sont l'affichage de messages de contrôle au cours du programme. Ils permettent de vérifier son exécution
-	et de détecter des bugs.
-	Après avoir utilisé des logs rudimentaires, je me suis intéressé aux bibliothèques de logs existantes, notamment Boost.Log .
-
-	Cependant, ces bibliothèques se sont révelées bien trop riches et complexes pour la taille de ce programme.
-	J'ai donc développé une classe simple de logs, qui offrent les fonctionnalités simples suivantes:
-
-	\begin{itemize}
-	 \item Quatre niveaux de logs différents (trace, debug, info, error),
-	 \item Logs dans la console (activable/désactivable),
-	 \item Logs dans des fichiers <<.log>> et <<.err>> selon le niveau du log (activable/désactivable),
-	 \item Filtre des logs selon le niveau,
-	 \item Syntaxe simple
-	\end{itemize}~
-
-	Cette amélioration n'est pas directement liée aux performances, mais vise à améliorer encore une fois la maintenabilité
-	et la stabilité du code.
-	Cependant, les performances de l'application bénéficient du fait que les logs soient désactivables en partie ou complètement, au choix.
+  \subsection{Améliorations}
+	\subsubsection{Optimisations}
+   
 
     \subsubsection{Problèmes restants - Fonctionnalités à améliorer}
-      \paragraph{Skybot 3D}~\\
-	\label{cross_eye}
-	Un problème handicapant restant dans Skybot 3D est la vue Oculus.
-	En effet cette dernière est fonctionnelle, mais souffre du phénomène de <<cross-eye>> (<<yeux croisés>>).
-	Cet effet est dû à une inversion du rendu entre les deux yeux: le rendu de l'oeil gauche se retrouve sur la moitié  droite sur
-	l'écran et vice-versa.
-	En conséquence, lorsque l'Oculus est équipé, les deux images provenant de chaque oeil ne se superposent pas
-	parfaitement pour le cerveau comme cela devrait être le cas: une impression de strabisme (fait de loucher ) se produit.
-
-	Malgré de nombreux efforts et de multiples échanges avec l'équipe Skybot 3D, aucune solution n'a émergé de
-	cette communication. Ce phénomène est donc toujours en place et est probablement dû à une application erronnée
-	des matrices de tranformation.
-
-      \paragraph{Simulation}~\\
-	Une fonctionnalité que je n'ai pas eu le temps d'implémenter pour la simulation est l'utilisation du joystick.
-	En effet la bibliothèque de fenêtrage utilisée, SDL, est capable de détecter un joystick, et ce dernier
-	facilité l'immersion et le déplacement dans la scène avec l'Oculus Rift masquant le clavier.
-
+   
 
 
 \section{Remerciements}
@@ -759,196 +480,41 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 	Plusieurs personnes m’ont apporté une aide significative sur ce projet et je tiens à les remercier chaleureusement ici:
 
 	\begin{itemize}
-	\item André \textsc{schaaff}, mon maître de stage,
-	\item L'équipe Skybot 3D: Jérôme \textsc{Berthier} et Jonathan \textsc{Normand},
-	\item Brad \textsc{Davis}, auteur du livre <<Oculus Rift in Action>>, pour l'aide qu'il m'a apporté sur les forums d'Oculus Rift,
-	\item Nicolas \textsc{Deparis} et Romain \textsc{Houpin}, stagiaires à l'Observatoire sur des sujets de rendu graphique 3D,
-	\item Sébastien \textsc{Derriere}, astronome adjoint au CDS,
-	\item Pierre \textsc{Ocvirk}, astronome adjoint au CDS, qui nous a fourni les données de simulation et nous a apporté son expertise dans ce domaine
+		  	\item TODO
 	\end{itemize}
 
 \section{Conclusion}
+	Les entreprises offrant la liberté de remettre en question des pans entiers d'un projet tout en faisant en sorte que le stagiaire soit force de proposition ne sont pas légion, et cette chance m'a été offerte tout au long de ce stage de six mois.
+J'ai eu la chance de vivre le travail collaboratif en participant à un gros projet existant, mais aussi d'expérimenter, de proposer de nouvelles idées et de les voir se réaliser, de questionner, d'améliorer, et d'apprendre au contact de développeurs et mathématiciens brillants.~\\
 
+	J'ai pu approfondir mes connaissances sur des sujets génériques et réutilisables tels que le génie logiciel, l'organisation d'un projet, la collaboration, et l'élaboration d'une interface utilisateur. J'ai également pu apprendre une myriade de notions dans un domaine qui m'était inconnu, la finance, à l'intersection des mathématiques, de l'économie, et de l'informatique.~\\
+	
+	En bref, ce stage m'a apporté énormément. L'intérêt du stage était à la hauteur des défis rencontrés.
+	Je suis reconnaissant à EdgeLab et à mon maître de stage de m'avoir fait confiance et donné cette chance.
 
-	Ce stage de 10 semaines m'a apporté énormément. L'intérêt du stage était à la hauteur des défis rencontrés.
-	J'ai eu la chance d'expérimenter le travail collaboratif en participant à un gros projet existant, mais aussi
-	de vivre un projet individuel avec une grande liberté, avec un sujet unique en son genre.
-	J'ai également pu approfondir mes connaissances sur des sujets génériques et réutilisables tels que le génie logiciel,
-	l'organisation d'un projet et la collaboration.
-	Je suis reconnaissant à l'Observatoire et à mon maître de stage de m'avoir fait confiance et donné cette chance.
-
-	Au final, je finis ce stage satisfait de ce qui a été accompli et intéressé dans le future par les domaines abordés,
-	tel que l'imagerie et le rendu 3D.
+	Au final, je finis ces six mois satisfait de ce qui a été accompli et avide de continuer à explorer ce domaine fascinant de la finance.
 	\newpage
 % \appendix
 \section{Annexes}
 
-	\subsection{Design Pattern détaillés}
-	  \subsubsection{Data Locality}
-	  \label{data_locality}
-	      Tous les CPU modernes disposent d'une certaine quantité de mémoire vive, la RAM, qui représentent
-	      plusieurs Gigaoctets. Pour accélérer l'accès à cette mémoire, le CPU dispose d'un cache (plusieurs en réalité)
-	      de taille réduite (sur ma machine je dispose d'un Intel Core i5 cadencé à 3.2 GHz avec 4 coeurs et 6144 kB
-	      de cache), qui est en fait une zone mémoire à accès très rapide où sont stockées les informations dont l'accès est fréquent
-	      dans la RAM. On accélère ainsi les opérations les plus régulièrement effectuées: c'est la mise en cache (<<caching>>).
-
-	      Cependant, le polymorphisme impose en C++ l'usage de pointeurs (cas le plus fréquent) ou de références (cas particuliers.
-	      Mais les pointeurs, par définition, pointent vers différentes zones mémoires.
-	      Ainsi, lorsque l'on veut afficher tous les objets de la scène, on parcoure la structure de données qui
-	      stocke les pointeurs sur tous ces objets et on les affiche un par un.
-
-	      Le problème est que contrairement au parcours d'un tableau de valeurs (non pointeurs), qui sont stockées
-	      contigument dans la mémoire, et sont donc particulièrement adaptées à la mise en cache, le fait de
-	      parcourir un tableau de pointeurs va silloner toute la RAM, et donc ne va pas du tout se prêter à la mise
-	      en cache. Le CPU va soit ne pas mettre ces variables (et les zones mémoires voisines) dans le cache, soit le faire
-	      et en conséquence changer la majeure partie du cache à chaque fois, ce qui n'est pas du tout optimal.
-	      On passe donc à côté d'un beau gain de performance: c'est le <<cache miss>>.
-
-	      Plus généralement, cette situation se produit dès lors qu'il y a un usage fréquent de pointeurs dans un
-	      programme, et surtout le déréférencement de ces derniers.
-
-	      Un autre point à considérer est la différence entre l'utilisation , dans une structure de donnée, du polymorphisme (plusieurs objets
-	      différents coexistent, héritant d'un objet commun) et l'utilisation d'un seul type d'objets.
-	      Dans le second cas, une méthode appelé par un objet est déterminée à la compilation (on sait quel est le type
-	      de l'objet puisqu'il n'y en a qu'un) tandis que dans le premier cas, elle est déterminée à l'exécution,
-	      ce qui peut engendrer une baisse de performances supplémentaires.
-
-	      Pour résumer, le polymorphisme apporte généricité et flexibilité, mais peut engendrer une baisse de
-	      performances, alors que l'usage d'un seul type d'objets est plus rigide, mais peut améliorer les performances.
-
-	      Un dernier point à envisager est la différence de stockage des variables entre l'utilisation de pointeurs sur variables
-	      et l'utilisation de variables. Dans le premier cas, les variables sont allouées (et libérées) manuellement et sont placées sur
-	      le tas (<<heap>>), alors que dans le second cas elles sont allouées automatiquement sur la pile (<<stack>>).
-	      Ces deux zones mémoires sont présentes dans chaque programme et sont réservées par le système d'exploitation
-	      pour le programme à son lancement et sont fort différentes:\\
-
-	      Stack:
-	      \begin{itemize}
-		\item Accès rapide
-		\item Limitée en taille
-		\item L'espace est géré automatiquement et efficacement par le CPU (pas de fragmentation)
-	      \end{itemize}~
-
-	      Heap:
-	      \begin{itemize}
-		\item Accès plus lent
-		\item Pas de limite de taille
-		\item Pas de gestion automatique de l'espace (fragmentation)
-	      \end{itemize}~
-
-	      Ces allocations/désallocations ne sont pas non plus gratuites en termes de temps d'exécution, puisque
-	      elles font appel à un certain nombre de fonctions.
-
-
 	\subsection{Outils utilisés}
 
 		\subsubsection{Langages utilisés}
-		    Les deux projets sur lesquels j'ai travaillé ont été développés en C++, même si la quasi-totalité
-		    du projet Skybot 3D est écrite en C, adapté pour pouvoir compiler en C++.
-		    Sur le deuxième projet, j'ai de plus mis en oeuvre des fonctionnalités nouvelles de C++, standardisées
-		    par la norme C++11 datant de 2011. On peut citer:\\
-
-		    \begin{itemize}
-		    \item Listes d'initialisation
-		    \item Pointeur null <<nullptr>>
-		    \item Boucle for sur une plage de valeurs
-		    \item Référence sur une rvalue
-		    \item Outils de mesure du temps à haute précision
-		    \item Mot-clé <<auto>>
-		    \item Smart pointers (pointeur intelligents)
-		    \end{itemize}
 
 		\subsubsection{Bibliothèques utilisées}
 
 		  \begin{description}
-		  \item [GLEW]~\\
-		      <<OpenGL Extension Wrangler Library>> est une bibliothèque multiplateforme de chargement des fonctionnalités d'OpenGL.
-		      Licence BSD modifiée.\\
-		      \url{http://glew.sourceforge.net/}
-		  \item [GLM]~\\
-		      <<OpenGL Mathematics>> est une bibliothèque de fonctions mathématiques pour OpenGL.
-		      Je l'ai utilisée pour le projet de simulation.
-		      Licence MIT.\\
-		      \url{http://glm.g-truc.net/0.9.5/index.html}
-		  \item [GLUT]~\\
-		      <<OpenGL Utility Toolkit>> est l'équivalent de la SDL en plus restreint. Je m'en suis servi pour le
-		      projet Skybot 3D via son implémentation open source <<freeglut>>.
-		      Licence X-Consortium.\\
-		      \url{http://freeglut.sourceforge.net/} et \url{http://www.opengl.org/ressources/libraries/glut/}
-		  \item [Octree]~\\
-		      Une bibliothèque C++ implémentant les Octree.
-		      Licence GPL.\\
-		      \url{http://nomis80.org/code/octree.html}
-		  \item [Oculus SDK]~\\
-		      Le SDK Oculus est l'interface de programmation permettant d'accéder à l'Oculus Rift et est fourni
-		      par Oculus VR (fabriquant de l'Oculus Rift).
-		      Je me suis servi des versions 0.2.5 et 0.3.2.
-		      Licence particulière mais analogue à une licence MIT, à ceci près qu'elle restreint les utilisations
-		      pouvant mettre en danger la vie ou la santé d'individus.
-		  \item [OpenGL] ~\\
-		      <<Open Graphics Library>> est une API multiplateforme pour effectuer des rendus graphiques 2D et 3D.
-		      L'implémentation est laissée à la charge des constructeurs de cartes graphiques et est fournie
-		      par les drivers. Pour ma part j'ai travaillé avec la carte graphique AMD Radeon HD 8570 disposant d'1Gb de RAM dédiée
-		      et le driver ATI Fire GL datant de mai 2014, implémentant OpenGL 4.4 (dernière version d'OpenGL).
-		      Je l'ai utilisée pour les deux projets.
-		      Pas de licence.\\
-		      \url{http://www.opengl.org/}
-		  \item [SDL]~\\
-		      <<Simple DirectMedia Layer>> est une bibliothèque multiplateforme donnant accès au système de fenêtrage,
-		      au clavier, à la souris et à un éventuel joystick. Je l'ai utilisée pour le projet de simulation.
-		      Licence zlib.\\
-		      \url{https://www.libsdl.org/}
+		  	\item TODO
 		  \end{description}
 
 
 
 		\subsubsection{Outils divers utilisés}
 		  \begin{description}
-		  \item [Clang]~\\
-		      Compilateur/interface de compilation C/C++ open source développé par Google.
-		      Licence de l'Université de l'Illinois / licence  NCSA open source.\\
-		      \url{http://clang.llvm.org/}
-		  \item [Clang Static Analyzer]~\\
-		      Outil d'analyse statique (à la compilation) de code et qui fait partie du projet Clang. \\
-		      \url{http://clang-analyzer.llvm.org/scan-build.html}
-		  \item [CMake]~\\
-		      Outil multiplateforme 'aide à la compilation et de génération de Makefiles.
-		      Licence BSD.\\
-		      \url{http://www.cmake.org/}
-		  \item [Doxygen]~\\
-		    Outil de documentation de projets informatiques et de code sources.
-		    Licence GPL\\
-		    \url{http://www.stack.nl/~dimitri/doxygen/}
-		  \item [GCC]~\\
-		      <<GNU Compiler Collection>>, compilateur C/C++.
-		      Licence GNU GPL 3+.\\
-		      \url{https://gcc.gnu.org/}
-		  item [GDB]~\\
-		      <<GNU Project Debugger>>, le déboggeur standard sur Linux.
-		      Licence GNU GPL.\\
-		      \url{http://www.gnu.org/software/gdb/}
-		  \item [Git]~\\
-		      Logiciel de gestion de version.
-		      Licence GNU GPL v2.\\
-		      \url{http://git-scm.com/}
-		  \item [Github]~\\
-		      Site web de stockage en ligne de projets open source via git.\\
-		      \url{https://github.com/}
-		  \item [Qmake]~\\
-		    Outil d'aide à la compilation multi-plateforme, semblable à Cmake.
-		    Licence LGPL.\\
-		    \url{http://qt-project.org/doc/qt-4.8/qmake-manual.html}
-		    \item [QtCreator]~\\
-		      IDE C++ open source avec débuggeur et outils d'analyses intégrés.
-		      Licence LGPL.\\
-		      \url{http://qt-project.org/wiki/category:tools::qtcreator}
-		  \item [Valgrind]~\\
-		      Outil d'analyse dynamique (à l'exécution) de programme, pour notamment traquer les fuites de mémoire.
-		      Licence GPL v2.\\
-		      \url{http://valgrind.org/}
+		  		  	\item TODO
 		  \end{description}
 
-		Tous ces outils sont open source et multiplateformes.
+		Tous ces outils sont multiplateformes.
 
 	\subsection{Captures d'écran}
 		\FloatBarrier
@@ -959,80 +525,9 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 			      \caption{Visualisation de la planète Terre dans Skybot 3D en vue normale}
 		\end{figure}
 
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{skybot_oculus_earth.png}
-			      \caption{Visualisation de la planète Terre dans Skybot 3D en vue Oculus}
-		\end{figure}
-
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{skybot_normal.png}
-			      \caption{Visualisation du systême solaire dans Skybot 3D en vue normale}
-		\end{figure}
-
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{skybot_oculus.png}
-			      \caption{Visualisation du systême solaire dans Skybot 3D en vue Oculus}
-		\end{figure}
-
-		\FloatBarrier
-		Les images suivantes (figures \ref{octree_normal} et \ref{octree_oculus}) présentent l'application de simulation d'un cube de données d'objets célestes,
-		organisés en un Octree  de taille 128*128*128, divisé en octants de taille 8.
-
-		Les objets céleste sont modélisés par des cubes texturés de taille 1.
-
-		Seul l'octant actuel et les octants directement voisins sont visibles pour des raisons de performances.
-
-		La caméra est dirigeable par les mouvements de la tête en mode Oculus.
-
-
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{octree_normal.png}
-			      \caption{Simulation en vue normale}
-			      \label{octree_normal}
-		\end{figure}
-
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{octree_oculus.png}
-			      \caption{Simulation en vue normale}
-			      \label{octree_oculus}
-		\end{figure}
-		\FloatBarrier
-
-		Les images suivantes (figures \ref{basic_normal} et \ref{basic_oculus}) présentent l'application de simulation d'un cube de données d'objets célestes,
-		organisés en un tableau simple.
-
-		Les objets céleste sont modélisés par des cubes texturés de taille 1.
-
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{basic_normal.png}
-			      \caption{Simulation en vue normale}
-			      \label{basic_normal}
-		\end{figure}
-
-		\begin{figure}
-			      \centering
-			      \includegraphics[width=1.0\textwidth]{basic_oculus.png}
-			      \caption{Simulation en vue normale}
-			      \label{basic_oculus}
-		\end{figure}
-		\FloatBarrier
+		
 
 	\newpage
-	\subsection{Code source}
-	\epigraph{Talk is cheap. Show me the code}{Linus Torvalds}
-
-	\FloatBarrier
-	<<Oculus.h>> est un fichier d'en-tête décrivant la classe Oculus. Il prend comme argument de template la scene
-	OpenGL générique que l'on veut afficher en mode Oculus. La seule contrainte est que cette scène fournisse
-	la méthode <<render>>.
-	\lstinputlisting[language=C++]{Oculus.h}
-	\FloatBarrier
 
 	\subsection{Glossaire}
 		\begin{description}
@@ -1041,81 +536,13 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 		    <<Application Programming Interface>>, interface de programmation. Ensemble normalisé de classes et de
 		    fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels.
 
-		\item [C] ~\\
-		    Langage de programmation impératif, procédural utilisé dans des applications ayant un besoin critique
-		    de performances.
-
-		\item [C++] ~\\
-		    Langage de programmation mutliplateforme, multiparadigme, générique, compilé, largement utilisé
-		    dans les domaines scientifiques, industriels, de l'entreprise, de l'image, \ldots
-
-		\item [CPU]~\\
-		    <<Central Processing Unit>>, processeur.
-		    Composant de l'ordinateur qui exécute les instructions machine des programmes informatiques.
-
-		\item [FPS] ~\\
-		      <<Frame Per Seconds>>, mesure de la fluidité du rendu graphique en images par seconde.
-
-		\item [Frame]~\\
-		    Image rendue graphiquement par un programme, typiquement 60 fois par seconde.
-
 		\item [Framework]~\\
 		    Ensemble cohérent de composants logiciels structurels.
-
-		\item [GPU]~\\
-		    <<Graphics Processing Unit>>, processeur graphique.
-		    Circuit intégré présent sur une carte graphique et assurant les fonctions de calcul de l'affichage.
-
-		\item [Oculus Rift]~\\
-		    Masque de réalité virtuelle fournissant une expérience d'immersion inédite.
-
-		\item [Oculus VR]~\\
-		    Entreprise de réalité virtuelle fabriquant l'Oculus Rift.
-
-
-		\item [SDK]~\\
-		    <<Software Develoment Kit>>, kit de développement.
-		    Ensemble d'outils permettant aux développeurs de créer des applications de type défini.
-
-		\item [Shader]~\\
-		    Programme informatique, utilisé en image de synthèse,
-		    pour paramétrer une partie du processus de rendu réalisé par une carte graphique ou un moteur de rendu logiciel.
-		    Ils peuvent permettre de décrire l'absorption et la diffusion de la lumière, la texture à utiliser,
-		    les réflexions et réfractions, l'ombrage, le déplacement de primitives
-		    et des effets post-traitement.
-
 		\end{description}
 
 	\subsection{Ressources}
 	  \begin{description}
-	  \item [Site web du créateur du langage C++]~\\
-	      \url{http://www.stroustrup.com/}
-	  \item [Conventions de code C++]~\\
-	      \url{http://www.stroustrup.com/JSF-AV-rules.pdf}
-	  \item [Site d'Oculus pour les développeurs]~\\
-	      \url{https://developer.oculusvr.com/}
-	  \item [Wiki officiel d'OpenGL]~\\
-	      \url{http://www.opengl.org/wiki/Main_Page}
-	  \item [Site web sur les design patterns]~\\
-	      \url{http://gameprogrammingpatterns.com/}
-	  \item [Blog sur le développement Oculus Rift]~\\
-	      \url{http://rifty-business.blogspot.fr}
-	  \item [Tutoriel C++]~\\
-	      \url{http://cpp.developpez.com/faq/cpp/}
-	  \item [Tutoriel OpenGL 3.x]~\\
-	      \url{http://tomdalling.com/blog/category/modern-opengl/}
-	  \item [Site web de Skybot 3D]~\\
-	      \url{http://vo.imcce.fr/webservices/skybot3d}
-	  \item [Site web de l'Observatoire]~\\
-	      \url{http://astro.unistra.fr/}
-	  \item [Site web traitant du problème d'échelle et des grands nombres dans OpenGL]~\\
-	      \url{http://www.floatingorigin.com/}
-	  \item [Autre tutoriel OpenGL 3.x]~\\
-	      \url{http://open.gl/}
-	  \item [Oculus SDK]~\\
-	      \url{https://developer.oculusvr.com/?action=dl}
-	  \item [Page Github du projet de Simulation]~\\
-	    \url{https://github.com/gaultier/Simulation_Stage_2014}
+	 		  	\item TODO
 	  \end{description}
 
 
