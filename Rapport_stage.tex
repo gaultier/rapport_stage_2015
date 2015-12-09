@@ -144,8 +144,8 @@ Philippe \textsc{Gaultier},\\[0.5cm]
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \huge
 \emph{Maître de stage:} \\
-Toto \textsc{titi},\\[0.5cm]
-\Large tata tutu
+Sven \textsc{Reber},\\[0.5cm]
+\Large Software Developer
 \end{flushright}
 \end{minipage}
 
@@ -351,6 +351,22 @@ Toto \textsc{titi},\\[0.5cm]
 				
 
 	\subsection{Contraintes}
+	
+	Le projet est une application web et bénéficie donc des avantages de cette technologie: présence multi-plateforme, légèreté et accessibilité. Cependant cela signifie aussi des contraintes intrinsèques au web, dans un contexte d'entreprises ne possédant pas toujours la dernière version de leur navigateur web:~\\
+	\begin{itemize}
+		\item Délai de réponse par page inférieur à 1 seconde, idéalement inférieur à 100 ms
+		\item Support des anciennes versions d'Internet Explorer (9+)
+		\item Pas d'utilisation de fonctionnalités très récentes d'HTML5 (3D, etc)
+	\end{itemize}~\\
+	
+ Ces contraintes sont sommes toutes assez légères et font sens dans un contexte d'entreprise: l'utilisation de la 3D ou le contrôle de la webcam n'ont que peu d'utilité dans notre cas.
+ 
+ De plus, certaines fonctionnalités très utiles, comme l'utilisation de threads dans le navigateur pour effectuer des gros calculs ("Web Workers") sont fournies depuis un certain nombre de versions par tous les navigateurs web du marché, et nous sont donc accessibles.
+ 
+ Enfin, AngularJS permet d'abstraire les petites différences entre navigateurs en fournissant une API commune, et l'utilisation de modules externes pallie aux manquements de l'un ou l'autre navigateur.
+ 
+ Une contrainte qui aurait pu être gênante est la disparité de support de la nouvelle version de Javascript (ES6 ou ES2015), qui offre une pléthore d'améliorations, comme de nouvelles fonctions mathématiques, une vraie programmation orienté objet, ou encore la possibilité de marquer une variable constante ("const").
+ Toutefois, il est possible de profiter de la plupart de ces fonctionnalités grâce à des librairies externes ("transpilers", cf TypeScript), ce qui est la voie que nous avons choisie. 
 
 	\subsubsection{Skybot 3D}
 	    \paragraph{Existant} ~\\
@@ -492,33 +508,6 @@ Toto \textsc{titi},\\[0.5cm]
 
 	\subsection{Déroulement du stage}
 
-	   \epigraph{Premature optimization is the source of all evil}{Donald Knuth}
-
-		Mon stage s'est principalement déroulé en trois temps: formation, développement, optimisation.
-
-		La première semaine a été consacrée à la découverte de l'Oculus Rift, l'essai de démos, et l'installation
-		des outils de développement.
-
-		Les deuxième et troisième semaines ont consisté à se former à l'Oculus SDK et OpenGL, et à tester la
-		faisabilité de l'intégration de l'Oculus Rift à un moteur de rendu 3D existant, Irrlicht. Malheureusement
-		cela s'est révélé plus complexe que prévu et la décision a été prise d'utiliser OpenGL sans framework,
-		vu le temps imparti.
-		Cette période a aussi servi à se (re)former au C++. C'est un langage que j'avais déjà utilisé sur d'anciens
-		projets mais les nouveautés introduites par C++11 m'étaient inconnues.
-
-		Les quatrième et cinquième semaines ont été centrées sur le développement de programmes minimalistes mettant
-		en place OpenGL et l'intégration de l'Oculus Rift, et la découverte du code source de Skybot 3D.
-
-		Les sixième, septième et huitième semaines ont été axées sur le développement de mes deux projets.
-
-		Les neuvième et dixième semaines ont porté sur la rédaction de ce rapport et sur les possibles optimisations
-		des deux projets, ainsi que la refactorisation du code et la documentation complète.
-
-		Je me suis toutefois formé tout au long de mon stage à OpenGL, notamment à propos
-		des différences entre les versions 1.x/2.x et 3.x/4.x, où la philosophie du <<tout shader>> a été introduite,
-		et la compatibilité entre ces versions.
-
-
 
 	\subsection{Développement}
 
@@ -526,23 +515,59 @@ Toto \textsc{titi},\\[0.5cm]
 	    \epigraph{Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live}{Martin Golding}
 	    \epigraph{Programs must be written for people to read, and only incidentally for machines to execute}{Arold Abelson}
 
-	    Comme mentionné plus tôt, j'ai tout au long de mon stage versionné mon code avec git et Github, ce qui a
-	    permis de le partager facilement avec l'équipe Skybot 3D et André \textsc{schaaff}.
-
-	    De plus j'ai régulièrement utilisé des outils d'analyse statique et dynamique pour jauger de la qualité de
-	    mon code et l'améliorer.
-
-	    En sus, j'ai activé les options de compilation aidant dans cette tâche: <<-Wall>>, <<-Wextra>>, <<-Werror>>, \ldots
-
-
-
-	    J'ai également entièrement documenté mon code avec l'outil dédié Doxygen, et gardé une constance dans le nommage des variables,
-	    l'indentation du code, \ldots
-
-	    Enfin, j'ai utilisé deux compilateurs différents, clang et gcc, en comparant leurs performances,
-	    notamment avec les options d'optimisations <<-O1>>, <<-O2>>, <<-O3>>, <<-Ofast>>.
-	    Pour finir, j'ai utilisé le déboggeur gdb et l'analyseur de mémoire Valgrind pour vérifier que mon application
-	    était exempte de fuites mémoires (mis à part celles provenant du SDK Oculus pour lesquelles je ne peux rien faire).
+	\paragraph{Git}~\\	
+	    Comme mentionné plus tôt, le projet est versionné avec git, ce qui procure moult avantages bien connus:~\\
+	    
+	    \begin{itemize}
+	    	\item Historique des modifications
+	    	\item Annulation de changements
+	    	\item Identification de l'auteur d'un changement
+	    	\item Partage du code
+	    	\item Statistiques
+	    	\item Exécution automatique de scripts à différentes étapes du développement ("Git hooks")
+	    \end{itemize}~\\
+	    
+ Mais d'autres avantages moins connus sont aussi présents en utilisant le processus de développement par pull request, qui consiste pour chaque nouvelle tâche à faire une "branche" (copie indépendante du projet à un instant T). Nous avons adopté ce processus de façon systématique ce qui nous a procuré les avantages suivants:~\\
+ 
+ 	\begin{itemize}
+ 		\item Gestion des versions et retour facile à une version antérieure
+ 		\item Identification et comparaison des changements ("diff")
+ 		\item Revue de code
+ 		\item Application systématique des bonne pratiques de développement
+ 		\item Déploiement indépendant du développement
+ 		\item Cycle itératif de développement d'une fonctionnalité
+ 	\end{itemize}
+ 	
+	\paragraph{Analyseurs statiques}~\\	
+		Javascript est un langage aussi puissant qu'il est piégeux, et ce de par quatre caractéristiques principales:~\\
+		
+		\begin{itemize}
+			\item Faiblement typé (les types sont implicites, ils ne sont pas spécifiés par le développeur)
+			\item Ensemble de fonctionnalités dépréciées mais pas supprimées par souci de rétro-compatibilité
+			\item Dynamique (une variable peut changer de type, un objet peut se voir ajouter de nouveaux membres)
+			\item Coexistence de types primitifs (passés par valeur) et non primitifs (passés par référence, ou plus exactement la référence est passée par valeur), le tout implicitement
+		\end{itemize}	~\\	
+		
+		Il se trouve que les deux premiers points sont facilement résolus par l'analyse statique, qui consiste à détecter erreurs et mauvaises pratiques avant l'exécution du code, en parcourant le code source.
+		Ils sont particulièrement utiles sur de gros projets et remplacent en fait partiellement l'étape de compilation, qui est la force et la faiblesse des langages compilés.~\\	
+		Nous avons donc utilisés deux analysteurs statiques ("linters") de façon systématique, grâce aux "Git hooks") qui permettent l'exécution automatique d'un script ou d'un programme à certaines étapes du développement, dans notre cas avant un commit et un push.~\\	
+		Le développeur est ainsi alerté de quel extrait de code ne répond pas aux critères de qualité du projet avant que ledit code soit incorporé dans le projet, et il peut ainsi résoudre le problème en amont.
+		
+	\paragraph{TypeScript}~\\	
+	
+	TypeScript est un langage développé par Microsoft qui est converti ("transpilé") en pur Javascript avant d'être exécuté. Il peut être vu comme une surcouche à Javascript et apporte de nombreux avantages, dont comme son nom l'indique, des types, plus précisément un typage fort: le développeur peut spécifier le type de telle variable ou fonction. Il répond donc à nos premières et troisièmes problématiques (typage faible et nature dynamique).~\\
+	
+On peut s'interroger sur la nécessité de rajouter des types apparents à un langage qui a fait le choix de les cacher, surtout si cela ajoute une étape (la transpilation) au processus de build. Pour répondre à cette question légitime, il faut se replonger dans les origines de Javascript, qui fut créé il y a 20 ans, aux débuts du world wide web, comme un langage de script et d'animation pour des pages web simples à destination de non-programmeurs.~\\
+	Aujourd'hui, le contexte est bien différent puisqu'il est utilisé autant côté serveur que côté client dans des applications riches, complexes, et imposantes (plusieurs milliers voire centaines de milliers de lignes de code), sur de nombreuses plateformes allant du navigateur à l'ordinateur de bureau en passant par le téléphone portable et la tablette.~\\
+	Si des types peuvent sembler être une contrainte dans une petite application, ils sont tout simplement indispensables dans une grande.
+	Ils permettent bien sûr d'améliorer la lisibilité et la maintenabilité, 
+	mais aussi la qualité du code: est-il bien normal qu'un nombre se transforme en chaîne de caractères, et inversement, de façon impromptue, et ce plusieurs fois dans le même paragraphe? ~\\
+	Le développeur est poussé à remettre son code en question et à avoir une vision à plus long terme, sans parler du coût en performances que requièrent ces nombreuses conversions, parfois implicites.~\\
+	 Enfin, le compilateur TypeScript peut déduire seul le type d'une variable sous certaines conditions ("type inference"), allégeant ainsi la charge du développeur.~\\
+	 Parmis les autres avantages de TypeScript, on pourra citer le support de tous les ajouts de la nouvelle version de JavaScript (ES6 ou ES2015), la présence d'énumération, d'interfaces, de modules, de paramètres optionnels ou par défaut dans une fonction... En bref, des fonctionnalités indispensables au développement et présentes dans la plupart des langages mais qui manquaient jusqu'à ce jour à JavaScript (ou étaient émulées de façon fastidieuse et/ou cryptiques). 
+	
+	\paragraph{Documentation}~\\	
+	    
 
 
 	  \subsubsection{Design Patterns}
