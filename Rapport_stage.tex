@@ -352,6 +352,7 @@ Sven \textsc{Reber},\\[0.5cm]
 
 	\subsection{Contraintes}
 	
+	\paragraph{Contraintes générales} ~\\
 	Le projet est une application web et bénéficie donc des avantages de cette technologie: présence multi-plateforme, légèreté et accessibilité. Cependant cela signifie aussi des contraintes intrinsèques au web, dans un contexte d'entreprises ne possédant pas toujours la dernière version de leur navigateur web:~\\
 	\begin{itemize}
 		\item Délai de réponse par page inférieur à 1 seconde, idéalement inférieur à 100 ms
@@ -368,142 +369,12 @@ Sven \textsc{Reber},\\[0.5cm]
  Une contrainte qui aurait pu être gênante est la disparité de support de la nouvelle version de Javascript (ES6 ou ES2015), qui offre une pléthore d'améliorations, comme de nouvelles fonctions mathématiques, une vraie programmation orienté objet, ou encore la possibilité de marquer une variable constante ("const").
  Toutefois, il est possible de profiter de la plupart de ces fonctionnalités grâce à des librairies externes ("transpilers", cf TypeScript), ce qui est la voie que nous avons choisie. 
 
-	\subsubsection{Skybot 3D}
-	    \paragraph{Existant} ~\\
+	
+		\paragraph{Taille et diversité des données} ~\\
 
-		La contrainte principale pour le projet Skybot 3D était de travailler avec du code existant non documenté,
-		de taille conséquente (3840 fichiers, 22863 lignes de code).
-		En effet, j'avais accès à une version de développement non finalisée et non encore publiée. Cependant j'ai
-		eu de riches échanges avec les développeurs par mail et vidéoconférence, et j'ai eu la chance
-		de les rencontrer à la fin du stage.
-
-	    \paragraph{Langages} ~\\
-
-		Une contrainte supplémentaire a été le conflit de langages: le programme existant est écrit en C, et le
-		SDK Oculus en C++, exigeant en conséquence un compilateur C++.
-		C et C++ sont des langages proches de par leur origine et leur histoire, C++ étant issu de C,
-		ils sont donc en grande partie compatibles. La majorité du code n'a donc pas posé de problème,
-		mais certains motifs ont dû être modifiés, notamment les conversions de types implicites,
-		les arithmétiques de pointeurs et les pointeurs de fonctions ont du être réécrits de manière
-		idiomatique en C++.
-
-	    \paragraph{Versions d'OpenGL} ~\\
-
-		Une contrainte additionnelle, et peut-être la plus importante, était l'utilisation de différentes
-		fonctionnalités d'OpenGL, appartenant à des versions différentes.
-		En effet, la totalité du rendu graphique dans l'application existante se fait avec le <<fixed pipeline>>
-		d'OpenGL, c'est-à dire une suite d'opérations fixes de rendu. Cela consiste a faire un rendu graphique basé sur des
-		appels à des fonctions OpenGL qui fournissent des fonctionnalités bien pratiques, comme des transformations
-		matricielles, des lumières, \ldots Cependant ces appels, typiques d'OpenGL 1.x et 2.x,
-		utilisent principalement le CPU et ont donc
-		été dépréciés pour des raisons de performances dans OpenGL 3.x et 4.x, au profit d'une programmation
-		<<tout shader>>. Les shaders sont des programmes appliquant des effets sur chaque pixel de l'image et qui
-		sont exécutés sur la carte graphique.
-
-		Le développeur doit donc maintenant tout faire manuellement, au profit des performances et de l'éventail
-		de possibilités, mais au détriment de la simplicité.
-
-		Le SDK Oculus utilise les shaders pour appliquer les effets graphiques mentionnés plus tôt (distorsion,
-		correction des aberrations, \ldots), et cela a créé quelques conflits au niveau du rendu graphique,
-		avec le rendu existant n'utilisant pas ces shaders.
-
-	    \paragraph{Échelles} ~\\
-	      Skybot 3D est une simulation du système solaire et en tant que telle manipule des distances très grandes.
-	      Cela n'est pas gênant sauf lorsque deux distances très grandes sont multipliées entre elles, par exemple
-	      dans un calcul matriciel.
-	      Cela peut provoquer un <<overflow>> (<<dépassement>>), phénomène consistant en une variable ayant une valeur
-	      plus grande que ce que son type peut stocker en mémoire. Dans le meilleur des cas cela occasionne des
-	      erreurs d'arrondis causant des tremblements de la caméra ou des objets, des effets de <<flashing>> et
-	      <<tearing>> dans le rendu, et dans le pire des cas un crash du programme.
-
-	      Dans mon cas, ce phénomène a provoqué un phénomène de <<cross-eye>> gênant pour l'utilisateur en mode
-	      Oculus (cf paragraphe \ref{cross_eye}).
-
-	    \subsubsection{Simulation}
-		\paragraph{Portabilité} ~\\
-		  \epigraph{I don’t care if it works on your machine!  We are not shipping your machine!}{Vidiu Platon}
-
-		  Pour ce projet, nous avons convenus dès le départ d'assurer la portabilité du programme, c'est-à-dire
-		  le fonctionnement multiplateforme.
-
-		  Dans cette optique, j'ai choisi un langage fonctionnant sur n'importe quelle plateforme existante
-		  (dès lors qu'il existe un compilateur adéquat), le C++, et
-		  des bibliothèques multiplateformes, notamment pour le rendu graphique,
-		  pour permettre l'abstraction d'une API spécifique à une plateforme donnée, en fournissant une API générique.
-		  Un exemple est l'utilisation de la SDL, une bibliothèque de fenêtrage, ou d'OpenGL, une API de rendu
-		  graphique.
-
-		  De plus, un soin particulier a été porté dans le développement à éviter l'introduction
-		  de code spécifique à une plateforme donnée. Une solution a été l'utilisation maximale de la libraire
-		  standard du langage.
-
-		  Enfin j'ai utilisé un outil de compilation multi-plateforme, qmake, qui permet de compiler le code
-		  sur plusieurs plateformes différentes automatiquement.
-
-		  Au final, j'ai uniquement travaillé sur Linux mais le code fonctionne selon toute probabilité sur
-		  Windows et OSX, avec des drivers à jour, sur des versions relativement récentes de ces systèmes d'exploitation.
-
-		\paragraph{Taille des données} ~\\
-
-		  Comme évoqué plus haut, j'ai travaillé sur des données avoisinant le million d'objets.
-		  Ces données proviennent de simulations à haute résolution de la réionisation de galaxies de la voie lactée.
-		  Cela a posé
-		  principalement un problème de performances. En effet, c'est en travaillant avec de tels nombres que
-		  l'on se rend compte de la disparité CPU (processeur) / GPU (carte graphique).
-		  En effet, malgré un processeur avec 16 GB de RAM, le fait de parcourir tous les objets pour les afficher (une fois par frame, $\mathcal{O}(n)$),
-		  prenait plus de 16 millisecondes, nombre critique dans le domaine du rendu graphique, puisqu'il
-		  correspond au temps de rendu maximal d'une frame si l'on veut un rendu à 60 FPS (frame per seconds),
-		  ce qui fournit une expérience correcte pour l'utilisateur: $1000 ms / 60 = 16.666 ms$.
-
-		  En sus, comme j'ai travaillé avec des +cubes de données (corps célestes dont les cooordonnées spatiales se trouvent toutes
-		  contenues dans un cube, typiquement de taille 64*64*64 ou 100*100*100), ce qui peut donner une boucle de rendu
-		  de complexité $\mathcal{O}(n^3)$, empirant alors le temps de rendu.
-
-		  De plus, il faut garder à l'esprit que l'objectif final est d'avoir un rendu Oculus valide. Or le
-		  SDK Oculus fait un double rendu (un pour chaque oeil), en appliquant des transformations matricielles
-		  pour chacun des rendus. Il est donc primordial d'avoir des FPS corrects dans le rendu graphique normal.
-
-		  Cependant, je me suis aperçu que la carte graphique ne rencontrait pas de problème de temps de rendu,
-		  gardant la plupart du temps un temps de rendu d'une frame inférieur à la milliseconde.
-
-		  Dès lors, plusieurs solutions se sont présentées:
-
-		  \begin{description}
-		  \item [Travailler avec un seul objet graphique]~\\ Cela consiste à avoir un seul objet dans le programme qui
-		  contient les coordonnées de tous les objets célestes. On <<boucle>> donc sur un seul objet et on envoie toute
-		  les positions des objets célestes en une seule fois comme s'il n'y avait q'un objet et la carte
-		  graphique fait tout le travail. Cela fonctionne mais est peu flexible (comment faire pour sélectionner
-		  un seul objet céleste pour afficher des informations à son sujet?) et on atteint les limites de la
-		  carte graphique pour un très grand nombre d'objets. Cependant le CPU a un minimum de travail.
-
-		  \item [Octree]~\\ Un Octree (cf figure \ref{octree_action}) est un arbre où chaque noeud (appelé <<octant>>) compte jusqu'à 8 fils. Il correspond à partition
-		  d'un espace cubique, à la manière d'un quadtree en 2D, et permet de diviser notre scène en régions,
-		  contenant elles-mêmes des sous-régions et ainsi de suite. On peut alors décider d'afficher seulement les
-		  régions voisines de notre position sans afficher les régions que l'on ne peut pas voir ou qui sont
-		  trop lointaines. C'est la solution que j'ai choisie car c'est la plus flexible et celle qui offre le
-		  plus de possibilités. A noter cependant que cela impose une taille de cube d'une puissance de deux.
-
-		  \FloatBarrier
-		\end{description}
-
-
-		On optimise alors le rendu à la fois sur le CPU (moins d'objets parcourus dans la boucle
-			      de rendu à chaque frame) et sur le GPU (moins de données envoyées et
-			      rendues graphiquement à chaque frame).
-
-
-		Initialement, mes objets étaient tous stockés dans un tableau que je parcourais à chaque frame pour les afficher.
-		Pour 1000 objets, j'avais une moyenne de 5 FPS.
-		J'ai alors mis en place un Octree. J'ai eu alors des FPS variant entre 30 et 60 FPS, avec une moyenne de 55 FPS
-		(le rendu est limité à 60 FPS maximum
-		pour ne pas surcharger le CPU/GPU), quelque soit le nombre d'objets présents dans la scène, ce qui est acceptable.
-		En effet, l'Octree permet d'afficher un nombre moyen constant d'objets quelque soit notre position.
-		Avec un cube de taille 128*128*128 et 32768 objets, le temps de génération de l'Octree est d'environ 120s.
-		J'affiche l'octant (et donc tous les objets célestes se trouvant dans cet octant) où la caméra se trouve
-		et les 6 octants immédiatement voisins, avec une taille d'octant de 8.
-		Pour résumer, on sacrifie le temps de démarrage du programme au profit des performances à l'exécution.
-
-
+		Le domaine de la finance a comme caractéristique d'offrir une très grande diversité d'entités (largeur), allant des obligations aux produits structurés en passant par toutes les combinaisons possibles et imaginables (on pensera aux "Perpetual Callable Convertible Bond"), mais aussi en grandes quantités (profondeur): des centaines de milliers d'instruments ou de transactions par exemple.~\\
+		Ces deux contraintes orthogonales influent donc à la fois sur le code (comment importer un fichier csv comportant des centaines de milliers de lignes, chacune représentant une transaction, en un temps raisonnable? Que ce passe-t-il si le nombre de types d'instruments différents augmente de 3 à 15 dans un futur proche?), sur l'interface (combien d'entités dois-je proposer à l'utilisateur pour faire son choix? Cette autre entité ne contient-elle pas trop de champs pour être affichée dans un tableau? Qu'arrive-t-il si trois champs sont ajoutés?), et sur l'architecture (est-ce que ma solution "scale"? Cet algorithme doit-il être réimplémenté dans un langage plus rapide? Doit-il s'exécuter côté serveur ou côté client?), le tout en tenant compte des évolutions futures (le nombre de pays ou de monnaies différents reste relativement stable dans le temps, mais qu'en est-il des émetteurs d'obligations? Quel est leur ordre de grandeur? Cet ordre de grandeur peut-il changer subitement? Comment doit-on s'y préparer?).~\\
+		Toutes ces questions sont des problématiques réelles que j'ai rencontré au cours de mon stage.
 
 
 	\subsection{Déroulement du stage}
@@ -567,7 +438,8 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 	 Parmis les autres avantages de TypeScript, on pourra citer le support de tous les ajouts de la nouvelle version de JavaScript (ES6 ou ES2015), la présence d'énumération, d'interfaces, de modules, de paramètres optionnels ou par défaut dans une fonction... En bref, des fonctionnalités indispensables au développement et présentes dans la plupart des langages mais qui manquaient jusqu'à ce jour à JavaScript (ou étaient émulées de façon fastidieuse et/ou cryptiques). 
 	
 	\paragraph{Documentation}~\\	
-	    
+		Tous les langages de programmations un tant soit peu répandus offrent la possibilité d'écrire des commentaires, ce qui montre bien la nécessité dans un projet de documenter son code, à des fins encore une fois de lisibilité et maintenabilité.
+		Nous documentons profusément le code en utilisant JSDoc qui est un outil de formattage des commentaires (similaire à JavaDoc) et qui permet de produire une document HTML à partir des commentaires.
 
 
 	  \subsubsection{Design Patterns}
