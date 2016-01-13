@@ -519,6 +519,7 @@ J'ai eu la chance de vivre le travail collaboratif en participant à un gros pro
 			Typescript est un langage de programmation développé par Microsoft qui enrichit Javascript avec des fonctionnalités jugées par beaucoup comme indispensable: typage fort, véritable programmation orienté objet, etc, autorisant un analyseur statique à détecter des erreurs de programmation avant l'exécution du programme.
 
 		\subsubsection{Bibliothèques utilisées}
+		Les principales bibliothèques utilisées dans le projet sont les suivantes:
 
 		  \paragraph{AngularJS}
 		  	AngularJS, souvent abrégé Angular, est un framework créé par Google pour développer des applications web riches et structurée.
@@ -533,13 +534,18 @@ J'ai eu la chance de vivre le travail collaboratif en participant à un gros pro
 		  Elle a été téléchargée plus d'un milliard de fois depuis sa création.
 		  
 
-
 		\subsubsection{Outils divers utilisés}
-		  \begin{description}
-		  		  	\item TODO
-		  \end{description}
-
-		Tous ces outils sont multiplateformes.
+		  \paragraph{Grunt}
+		  Grunt est un outil configurable pour gérer toutes les étapes du cycle de développement d'un projet: rechargement automatique de la page lors d'un changement dans le code, lancement des tests, build du projet (minification, compression des images, etc), et déploiement sur serveur distant (avec mise en cache des fichiers), tout cela avec une seule commande.
+		  
+		 \paragraph{Jshint}
+		 Jshint est un analyseur statique de style du code, pour que l'indentation, le nombre d'accolades ou de parenthèses ou encore les retours à la ligne soient uniformes dans le projet.
+		 
+		\paragraph{Tslint}
+		Tslint est le pendant de Jshint pour Typescript. De part le typage fort de Typescript, il est de plus capable d'alerter si une variable n'existe pas dans une classe, si le nom comporte une typo, ou si la variable est utilisée de façon contraire à son type.
+		
+		\paragraph{Tsc}
+		Le transpiler qui transforme le code Typescript en code Javascript.
 
 	\subsection{Captures d'écran}
 		\FloatBarrier
