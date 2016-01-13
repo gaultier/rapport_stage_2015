@@ -185,7 +185,7 @@ Sven \textsc{Reber},\\[0.5cm]
 
 \section{Introduction}
 
-	La Suisse fait partie des leaders mondiaux du secteur financier, et dispose d'un statut particulier en Europe: elle fait partie de l'espace Schengen mais pas de l'Union Européenne, ainsi disposant d'un certain exotisme, comme une monnaie et une législation spécifique, tout en offrant certaines facilités pour les formalités administratives aux travailleurs européens, notamment français.~\\	
+	La Suisse fait partie des leaders mondiaux du secteur financier, et dispose d'un statut particulier en Europe: elle fait partie de l'espace Schengen mais pas de l'Union Européenne, ainsi disposant d'un certain exotisme, comme une monnaie, des prises éléctriques et une législation spécifique, tout en offrant certaines facilités pour les formalités administratives aux travailleurs européens, notamment français.~\\	
 	
 	
 	Lausanne, quatrième ville de Suisse, est particulièrement attrayante de part son emplacement, au bord du lac Léman, et son investissement dans l'éducation supérieure, particulièrement en mathématiques et en informatique, de rang mondial.~\\	
@@ -231,7 +231,8 @@ Sven \textsc{Reber},\\[0.5cm]
 
 \section{L'application}
 
-			  L'application web est un projet de grande taille pour les standards du web: environ un millier de fichiers et 15000 lignes de code source. 
+			  L'application web est un projet de grande taille pour les standards du web: environ un millier de fichiers et 15 000 lignes de code source (et après mon passage, 25 000 lignes de tests).~\\	
+			  
 		  C'est en effet une application client lourd qui suit les standards du web moderne et utilise les outils les plus récents: HTML5, CSS3, et la majorité de la logique en Javascript. Le serveur fournit en fait seulement une API, au même titre que l'API Facebook ou Twitter.~\\	
 		  
 		  Le rendu de pages se fait côté client, de même qu'une partie des calculs financiers, utilisant les capacités des navigateurs modernes au maximum, tout cela dans le but de rendre l'expérience utilisateur plus agréable, fluide et de minimiser les rechargements complets de page, ainsi que les échanges de données réseau, premier facteur de latence.
@@ -247,7 +248,7 @@ Sven \textsc{Reber},\\[0.5cm]
 		Mais sur quelles données financières s'appuie ce moteur de calcul, dans un contexte de volatilité des marchés?
 		Les données proviennent en fait de différents fournisseurs de données reconnus, par exemple Bloomberg, et sont actualisées chaque jour. Cependant, certaines données sont parfois contradictoires avec d'autres provenant d'un fournisseur différent. Rarement, le cas de données incomplètes, utilisant un format singulier, ou simplement erronées peut se poser. ~\\	
 		
-		On comprend alors la nécessité de récupérer, valider, et agréger ces données avant de les utiliser. C'est la responsabilité d'un service à part, écrit en Java, qui va lui aussi chaque nuit effectuer ce long travail portant parfois sur des centaines de milliers de données. Il va rejeter les données suspectes puis va remplir la base de données avec les bonnes données, qui pourront alors être utilisées par le moteur de calcul, ou bien tout simplement par le back-end web qui les transmettra au front-end afin de les afficher à l'utilisateur.~\\	
+		On comprend alors la nécessité de récupérer, valider, et agréger ces données avant de les utiliser ou des les afficher à l'utilisateur. C'est la responsabilité d'un service à part, écrit en Java, qui va lui aussi chaque nuit effectuer ce long travail portant parfois sur des centaines de milliers de données. Il va rejeter les données suspectes puis va remplir la base de données avec les bonnes données, qui pourront alors être utilisées par le moteur de calcul, ou bien tout simplement par le back-end web qui les transmettra au front-end afin de les afficher à l'utilisateur.~\\	
 	
 	\`A l'heure du trading haute fréquence, de l'ordre de la milliseconde, l'actualisation des données quotidienne peut ne pas sembler être assez. 
 	Au contraire, dans le contexte de la prévision et de l'analyse du risque à moyen ou long terme, et en tant qu'outil d'aide à la décision, cette fréquence est en fait suffisante.~\\	
@@ -267,26 +268,33 @@ Sven \textsc{Reber},\\[0.5cm]
 		\item Services: les fonctionnalités génériques utilisées dans les contrôleurs
 		\item Directives: les petits composants réutilisables (par exemple un datetimepicker sur un formulaire)
 		\item Configuration
-	\end{itemize}	
+	\end{itemize}	~\\	
 	
 	L'utilisation d'un framework bien connu est nécessaire, sinon indispensable, dans ce domaine assez peu structuré et évoluant très rapidement qu'est le développement front-end, ainsi que dans le contexte d'utilisation du très flexible et piégeux langage Javascript.~\\	
 	
-	En sus, AngularJS automatise de nombreuses tâches indispensables à une expérience utilisateur riche: TODO
+	En sus, AngularJS automatise de nombreuses tâches indispensables à une expérience utilisateur riche:~\\	
 	
-	De plus, un avantage majeur d'AngularJS comparé aux autres frameworks, est le fait qu'il ait été conçu avec les tests en tête. Il fournit de nombreuses aides pour tests son code, allant même jusqu'à proposer une librairie de tests d'intégration, chose inédite dans l'écosystème Javascript.~\\	
+	\begin{itemize}
+		\item Animations
+		\item Cryptage
+		\item Cookies
+		\item etc
+	\end{itemize}~\\	
+	
+	De plus, un avantage majeur d'AngularJS comparé aux autres frameworks, est le fait qu'il ait été conçu avec les tests en tête. Il fournit de nombreuses aides pour tester son code, allant même jusqu'à proposer une librairie de tests d'intégration, chose inédite dans l'écosystème Javascript.~\\	
 	
 	Enfin, la communauté a travaillé dur pour procurer tout un assortiment de modules open sources pour répondre aux besoins courants du développement web.~\\	
 	
 	Ma contribution pour ce sujet a consisté à appliquer les conventions préconisées par la communauté (John Papa's style guide). Cette uniformisation du nommage, de l'indentation, et des pratiques a nécessité un refactoring du projet, chose représentant un défi particulier pour le langage dynamique, faiblement typé et manquant de réelles capacités orienté objet qu'est Javascript.
 	
 		\subsubsection{Tests unitaires}
-			Un code non testé doit être considéré invalide jusqu'à preuve du contraire. Partant de ce constat, nous avons considérablement développé les tests unitaires existant, couvrant un nombre réduit de cas, passant ainsi de 250 à un millier de tests. ~\\	
+			Un code non testé doit être considéré invalide jusqu'à preuve du contraire. Partant de ce constat, nous avons considérablement développé les tests unitaires existant, couvrant un nombre réduit de cas, passant ainsi de 250 à un millier de tests, et de quelques milliers de lignes de tests à 25 000. ~\\	
 			
 	En plus d'écrire des tests pour le code existant, ce qui a permis de mettre en lumière certains bugs, ou simplement de considérer certains cas pas forcément pris en compte, l'écriture de tests pour le nouveau code a été institutionnalisée. ~\\	
 	
-	Cela a eu comme résultat visible des dizaines de fichiers couverts à 100\%, pour une moyenne de couverture du projet de 40\%, expliquée en partie par une minorité de fichiers ne possédant aucun tests.
+	Cela a eu comme résultat visible des dizaines de fichiers couverts à 100\%, pour une moyenne de couverture du projet de 40\%, expliquée en partie par une minorité de fichiers ne possédant aucun tests.~\\	
 	
-	Enfin, cette décision a aussi porté ses fruits pour l'épineux sujet des régressions, qui consiste à une perte ou détérioration des fonctionnalités de l'application à la suite d'un changement. Sans tests, une régression passe souvent inaperçue jusqu'à ce qu'un utilisateur s'y heurte.~\\	
+	Enfin, cette décision a aussi porté ses fruits pour l'épineux sujet des régressions, qui consiste en une perte ou détérioration des fonctionnalités de l'application à la suite d'un changement. Sans tests, une régression passe souvent inaperçue jusqu'à ce qu'un utilisateur s'y heurte.~\\	
 	
 	Avec une bonne couverture de tests, c'est de l'histoire ancienne: le changement provoque l'échec d'un ou plusieurs tests qui étaient valides auparavant. Ainsi la régression est signalée instantanément au développeur, qui peut cerner son ampleur et la résoudre, tout cela avant qu'elle touche l'utilisateur final.~\\	
 	
@@ -295,7 +303,7 @@ Sven \textsc{Reber},\\[0.5cm]
 	\subsubsection{Tests d'intégration}
 	Les tests d'intégration, ou end-to-end, consistent à tester toute la chaîne logicielle, simulant les action d'un utilisateur, afin de vérifier que chaque composant s'imbrique sans problème avec les autres. Ils complètent les tests unitaires car disposent d'une granularité plus grande et deux composants peuvent être unitairement valides tout en s'intégrant de façon invalide, dans le cas par exemple de données échangées sous un format différent pour les deux parties.~\\	
 	
-	Il est donc apparu comme indispensable de combler l'absence de tests d'intégration, surtout en disposant de la librairie Protractor mis à disposition par Angular dans cet objectif.~\\	
+	Il est donc apparu comme indispensable de combler l'absence de tests d'intégration, surtout en disposant de la librairie Protractor mise à disposition par Angular dans cet objectif.~\\	
 	
 	Pour le front-end, les tests d'intégration consistent à automatiser les interactions d'un éventuel utilisateur: mouvement de souris, clics, scroll, etc... C'est un travail titanesque à l'échelle d'une application complexe, disposant de multiples pages, avec de très nombreuses possibilités.~\\	
 	
