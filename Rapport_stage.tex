@@ -305,11 +305,11 @@ Sven \textsc{Reber},\\[0.5cm]
 	
 	Il est donc apparu comme indispensable de combler l'absence de tests d'intégration, surtout en disposant de la librairie Protractor mise à disposition par Angular dans cet objectif.~\\	
 	
-	Pour le front-end, les tests d'intégration consistent à automatiser les interactions d'un éventuel utilisateur: mouvement de souris, clics, scroll, etc... C'est un travail titanesque à l'échelle d'une application complexe, disposant de multiples pages, avec de très nombreuses possibilités.~\\	
+	Pour le front-end, les tests d'intégration consistent à automatiser les interactions d'un éventuel utilisateur: mouvement de souris, clics, défilement vertical, etc... C'est un travail titanesque à l'échelle d'une application complexe, disposant de multiples pages, avec de très nombreuses possibilités.~\\	
 	
 	Pourtant, partant du principe énoncé par Lao-Tseu, "Un voyage d'un millier de lieues commence par un premier pas", nous avons entamé ce gros chantier, et écrit de nombreux tests d'intégrations.~\\	
 	
-	L'énorme avantage d'un test d'intégration de ce genre est qu'il permet d'écrire des scénarios. Par example, pour l'authentification d'un utilisateur, on peut écrire le scénario correspondant, en explorant plusieurs cas se produisant en réalité:
+	L'énorme avantage d'un test d'intégration de ce genre est qu'il permet d'écrire des scénarios. Par example, pour l'authentification d'un utilisateur, on peut écrire le scénario correspondant, en explorant plusieurs cas se produisant en réalité:~\\	
 
 	\begin{itemize}
 		\item J'entre une mauvaise combinaison d'email/mot de passe
@@ -320,7 +320,7 @@ Sven \textsc{Reber},\\[0.5cm]
 	
 	Le code suivant illustre le premier cas: ~\\
 	
-	\begin{lstlisting}[caption=Testing the login with Protractor]
+	\begin{lstlisting}[caption=Test de connection à son compte avec Protractor]
 	it('should not change page if the login fails', function() {
       nameInput.sendKeys('toto@edgelab.ch');
       passwordInput.sendKeys('toto');
@@ -343,14 +343,14 @@ Sven \textsc{Reber},\\[0.5cm]
 	On juge un artisan à ses outils. C'est aussi le cas pour un développeur. 	Ses outils sont au moins aussi important que le code qu'il produit, car il passera probablement plus de temps à compiler, tester, débugguer et déployer son code qu'à l'écrire. En conséquence, ces outils conditionneront
 	sa productivité et la qualité du code qu'il engendre.~\\	
 	
-	Pour toutes ces raisons, il nous est apparu vital d'améliorer la chaîne d'outils existants, qui bien qu'efficace, nous a semblé complexe à utiliser, à maintenir, et à améliorer. Les attributions de ces "méta-outils" de développement sont divers mais tous visent à faciliter le travail du développeur, avec un devis: tout ce qui peut être automatisé doit être automatisé.
+	Pour toutes ces raisons, il nous est apparu vital d'améliorer la chaîne d'outils existants, qui bien qu'efficace, nous a semblé complexe à utiliser, à maintenir, et à améliorer. Les attributions de ces outils de métadéveloppement sont divers mais tous visent à faciliter le travail du développeur, avec une devise: tout ce qui peut être automatisé doit être automatisé.
 	Voici les principales attributions de cet environnement: ~\\
 	
 	\begin{itemize}
 		\item Installer les dépendances grâce à un gestionnaire de paquets
-		\item Lancer le projet en mode debug
-		\item Optimiser, minifier, concaténer et compresser le code pour le déploiement: le résultat est un "artefact"
-		\item Déployer sur un serveur distant l'artefact
+		\item Lancer le projet en mode deboguage
+		\item Optimiser, minifier, concaténer et compresser le code pour le déploiement: le résultat est un "artefact" qui sera exécuté
+		\item Déployer l'artefact sur un serveur distant
 		\item Lancer l'analyse statique et vérifier les conventions de code
 		\item Lancer les tests unitaires et/ou d'intégration
 		\item Afficher une page d'aide expliquant les différentes actions possibles
@@ -378,7 +378,7 @@ Sven \textsc{Reber},\\[0.5cm]
 	
  Ces contraintes sont sommes toutes assez légères et font sens dans un contexte d'entreprise: l'utilisation de la 3D ou le contrôle de la webcam n'ont que peu d'utilité dans notre cas.~\\	
  
- De plus, certaines fonctionnalités très utiles, comme l'utilisation de threads dans le navigateur pour effectuer des gros calculs ("Web Workers") sont fournies depuis un certain nombre de versions par tous les navigateurs web du marché, et nous sont donc accessibles.~\\	
+ De plus, certaines fonctionnalités très utiles, comme l'exécution de calculs parallèles avec l'utilisation de threads dans le navigateur pour effectuer des gros calculs ("Web Workers") sont fournies depuis un certain nombre de versions par tous les navigateurs web du marché, et nous sont donc accessibles.~\\	
  
  Enfin, AngularJS permet d'abstraire les petites différences entre navigateurs en fournissant une API commune, et l'utilisation de modules externes pallie aux manquements de l'un ou l'autre navigateur.~\\	
  
@@ -390,11 +390,11 @@ Sven \textsc{Reber},\\[0.5cm]
 		\paragraph{Taille et diversité des données} ~\\
 		\epigraph{The function of good software is to make the complex appear to be simple.}{Grady Booch}
 
-		Le domaine de la finance a comme caractéristique d'offrir une très grande diversité d'entités (largeur), allant des obligations aux produits structurés en passant par toutes les combinaisons possibles et imaginables (on pensera aux "Perpetual Callable Convertible Bond"), mais aussi en grandes quantités (profondeur): des centaines de milliers d'instruments ou de transactions par exemple.~\\
+		Le domaine de la finance a comme caractéristique d'offrir une très grande diversité d'entités (largeur du spectre des données), allant des obligations aux produits structurés en passant par toutes les combinaisons possibles et imaginables (on pensera aux "Perpetual Callable Convertible Bond"), mais aussi en grandes quantités (profondeur du spectre des données): des centaines de milliers d'instruments ou de transactions par exemple.~\\
 		
-		Ces deux contraintes orthogonales influent donc à la fois sur le code (comment importer un fichier csv comportant des centaines de milliers de lignes, chacune représentant une transaction, en un temps raisonnable? Que ce passe-t-il si le nombre de types d'instruments différents augmente de 3 à 15 dans un futur proche?), sur l'interface (combien d'entités dois-je proposer à l'utilisateur pour faire son choix? Cette autre entité ne contient-elle pas trop de champs pour être affichée dans un tableau? Qu'arrive-t-il si trois champs sont ajoutés?), et sur l'architecture (est-ce que ma solution "scale"? Cet algorithme doit-il être réimplémenté dans un langage plus rapide? Doit-il s'exécuter côté serveur ou côté client?), le tout en tenant compte des évolutions futures (le nombre de pays ou de monnaies différents reste relativement stable dans le temps, mais qu'en est-il des émetteurs d'obligations? Quel est leur ordre de grandeur? Cet ordre de grandeur peut-il changer subitement? Comment doit-on s'y préparer?).~\\
+		Ces deux contraintes orthogonales influent donc à la fois sur le code (comment importer un fichier csv comportant des centaines de milliers de lignes, chacune représentant une transaction, en un temps raisonnable? Que ce passe-t-il si le nombre de types d'instruments différents augmente de 3 à 15 dans un futur proche?), sur l'interface (combien d'entités dois-je proposer à l'utilisateur pour faire son choix? Cette autre entité ne contient-elle pas trop de champs pour être affichée dans un tableau? Qu'arrive-t-il au design de la page si trois champs sont ajoutés dans le futur?), et sur l'architecture (est-ce que ma solution "scale", c'est-à-dire reste pertinente si la quantité de données augmente considérablement? Cet algorithme doit-il être réimplémenté dans un langage plus rapide? Doit-il s'exécuter côté serveur ou côté client?), le tout en tenant compte des évolutions futures (le nombre de pays ou de monnaies différents reste relativement stable dans le temps, mais qu'en est-il des émetteurs d'obligations? Quel est leur ordre de grandeur? Cet ordre de grandeur peut-il changer subitement? Comment doit-on s'y préparer?).~\\
 		
-		Toutes ces questions sont des problématiques réelles que j'ai rencontré au cours de mon stage.
+		Toutes ces questions sont des problématiques réelles que j'ai rencontré au cours de mon stage et auxquelles il a fallu répondre.
 
 
 	\subsection{Déroulement du stage}
@@ -403,7 +403,7 @@ Sven \textsc{Reber},\\[0.5cm]
 		\subsubsection{Refonte d'interfaces}
 		\epigraph{There are two ways of constructing a software design.  One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies.}{C.A.R. Hoare}
 		
-		Certaines interfaces se sont révelées soit difficiles d'utilisation, soit plus adaptées aux évolutions des demandes métiers, notamment concernant la diversité et la quantité des données. Mon travail a alors consisté a comprendre les spécifications, c'est-à-dire les fonctionnalités existantes de la page, les questionner pour savoir si elles correspondaient aux attentes et usages des utilisateurs ainsi qu'à l'évolution des données, puis déterminer quelles fonctionnalités additionnelles seraient bienvenues sur la même page,  et enfin implémenter ces fonctionnalités en simplifiant l'interface. ~\\
+		Certaines interfaces utilisateur se sont révelées soit difficiles d'utilisation, soit plus adaptées aux évolutions des demandes métiers, notamment concernant la diversité et la quantité des données. Mon travail a alors consisté à comprendre les spécifications, c'est-à-dire les fonctionnalités existantes de la page, les questionner pour savoir si elles correspondaient aux attentes et usages des utilisateurs ainsi qu'à l'évolution des données, puis déterminer quelles fonctionnalités additionnelles seraient bienvenues sur la même page,  et enfin implémenter ces fonctionnalités en simplifiant l'interface. ~\\
 		En résumé, il s'agit de faire au moins autant voire plus, mieux, et plus simplement, le tout faisant émerger un code plus clair et stable.
 		L'amélioration décisive a enfin été de tester la page refondue pour s'assurer de sa qualité et de pouvoir détecter les régressions.
 		
@@ -411,7 +411,7 @@ Sven \textsc{Reber},\\[0.5cm]
 		
 		Une autre ligne directrice de stage a été l'ajout de nouvelles pages, ou vues, de l'application. Cela a bien sûr été l'occasion d'appliquer dès le début les bonnes pratiques, et lors de l'adoption de TypeScript, d'utiliser ce dernier.
 		
-		En sus, les nouvelles pages ont été testées avec une couverture de code approchant 100%.
+		En sus, les nouvelles pages ont été testées avec une couverture de code approchant 100\%.
 		
 		\subsubsection{Amélioration des outils}
 
@@ -419,7 +419,7 @@ Sven \textsc{Reber},\\[0.5cm]
 		
 Comme tout investissement, ce n'est pas du temps perdu, mais bien du temps gagné, au long terme, comme l'a montré l'intégration couronnée de succès au projet d'un nouveau langage comme TypeScript.~\\
 
-		Enfin, les nouveaux outils sont plus évolutifs, pour répondre à de futurs besoins, par exemple le redondance en production ou le changement de fournisseur de machines dans le nuage.
+		Enfin, les nouveaux outils sont plus évolutifs, pour répondre à de futurs besoins, par exemple la redondance en production (si une machine cesse de fonctionner, une autre prend la relève automatiquement) ou le changement de fournisseur de machines dans le nuage.
 
 
 	\subsection{Développement}
@@ -457,7 +457,7 @@ Comme tout investissement, ce n'est pas du temps perdu, mais bien du temps gagn�
 		Javascript est un langage aussi puissant qu'il est piégeux, et ce de par quatre caractéristiques principales:~\\
 		
 		\begin{itemize}
-			\item Faiblement typé (les types sont implicites, ils ne sont pas spécifiés par le développeur)
+			\item Faiblement typé (les types sont implicites, ils ne sont pas spécifiés par le développeur; certaines conversions implicites peuvent passer inaperçues)
 			\item Ensemble de fonctionnalités dépréciées mais pas supprimées par souci de rétro-compatibilité
 			\item Dynamique (une variable peut changer de type, un objet peut se voir ajouter de nouveaux membres)
 			\item Coexistence de types primitifs (passés par valeur) et non primitifs (passés par référence, ou plus exactement la référence est passée par valeur), le tout implicitement
@@ -472,7 +472,7 @@ Comme tout investissement, ce n'est pas du temps perdu, mais bien du temps gagn�
 		
 	\paragraph{TypeScript}~\\	
 	
-	TypeScript est un langage développé par Microsoft qui est converti ("transpilé") en pur Javascript avant d'être exécuté. Il peut être vu comme une surcouche à Javascript et apporte de nombreux avantages, dont comme son nom l'indique, des types, plus précisément un typage fort: le développeur peut spécifier le type de telle variable ou fonction. Il répond donc à nos premières et troisièmes problématiques (typage faible et nature dynamique).~\\
+	TypeScript est un langage développé par Microsoft qui est converti ("transpilé") en pur Javascript avant d'être exécuté. Il peut être vu comme une surcouche à Javascript et apporte de nombreux avantages, dont comme son nom l'indique, des types, plus précisément un typage fort: le développeur peut spécifier explicitement le type de telle variable ou fonction. Il répond donc à nos premières et troisièmes problématiques (typage faible et nature dynamique).~\\
 	
 On peut s'interroger sur la nécessité de rajouter des types apparents à un langage qui a fait le choix de les cacher, surtout si cela ajoute une étape (la transpilation) au processus de build. Pour répondre à cette question légitime, il faut se replonger dans les origines de Javascript, qui fut créé il y a 20 ans, aux débuts du world wide web, comme un langage de script et d'animation pour des pages web simples à destination de non-programmeurs.~\\
 
@@ -480,7 +480,7 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 	
 	Si des types peuvent sembler être une contrainte dans une petite application, ils sont tout simplement indispensables dans une grande.
 	Ils permettent bien sûr d'améliorer la lisibilité et la maintenabilité, 
-	mais aussi la qualité du code: est-il bien normal qu'un nombre se transforme en chaîne de caractères, et inversement, de façon impromptue, et ce plusieurs fois dans le même paragraphe? ~\\
+	mais aussi la qualité du code: est-il bien normal qu'un nombre se transforme en chaîne de caractères, et inversement, de façon impromptue, et ce plusieurs fois dans le même bloc de code? ~\\
 	
 	Le développeur est poussé à remettre son code en question et à avoir une vision à plus long terme, sans parler du coût en performances que requièrent ces nombreuses conversions, parfois implicites.~\\
 	
@@ -493,10 +493,11 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 		
 		Nous documentons profusément le code en utilisant JSDoc qui est un outil de formattage des commentaires (similaire à JavaDoc) et qui permet de produire une document HTML à partir des commentaires.~\\	
 		
-	Ce format permet notamment de préciser quels sont les arguments d'une fonction et quelle est sa valeur de retour (particulièrement utile en Javascript sans typage fort) mais aussi les préconditions, postconditions, complexité, etc de cette fonction, facilitant ainsi le travail à plusieurs sur le même projet.
+	Ce format permet notamment de préciser quels sont les arguments d'une fonction et quelle est sa valeur de retour (particulièrement utile en Javascript sans typage fort) mais aussi les préconditions, postconditions, complexité, etc de cette fonction, facilitant ainsi le travail à plusieurs sur le même projet ainsi que la pérennité de ce dernier.
 
 	\subsubsection{Architecture}
 	\epigraph{Perfection [in design] is achieved, not when there is nothing more to add, but when there is nothing left to take away}{Antoine de Saint-Exupéry}
+	TODO
 
 
   \subsection{Améliorations}
@@ -511,10 +512,7 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 	
 	Grâce aux outils de mesures du navigateur, nous avons pu précisément évaluer le temps pris par chaque opération, et l'optimiser en conséquence. Par exemple, la lecture du fichier csv est infinitésimale (< 1 seconde) par rapport au temps total. Il est donc superflu d'optimiser cette partie.~\\	
 	
-	Au final, le temps d'exécution après optimisation est environ de 10 secondes, ce qui signifie un gain d'un facteur 4, avec une expérience utilisateur plus fluide et plus agréable, une validation accrue, et de nouvelles fonctionnalités (telle que le choix de la précision de l'arrondi pour les nombres réels, quantité variant d'un systême client à un autre).
-   
-
-    \subsubsection{Problèmes restants - Fonctionnalités à améliorer}
+	Au final, le temps d'exécution après optimisation est environ de 10 secondes, ce qui signifie un gain d'un facteur 4, avec une expérience utilisateur plus fluide et plus agréable, une validation accrue, et de nouvelles fonctionnalités (telle que le choix de la précision de l'arrondi pour les nombres réels, quantité variant d'un système client à un autre).
    
 
 
@@ -560,7 +558,7 @@ J'ai eu la chance de vivre le travail collaboratif en participant à un gros pro
 			définir des comportements additionnels sur une page web, et 				est devenu un langage multiplateforme utilisé autant côté serveur que côté client, et s'est enrichi pour répondre aux besoins nouveaux du web tels que manipulation d'images, simulation 3D, audio, etc.
 			
 			\paragraph{Sass}~\\	
-			Sass est une surcouche à CSS: il permet de définir des variables, des conditions, des boucles, élevant CSS au rang de véritable langage de programmation.
+			Sass est une surcouche à CSS: il permet de définir des variables, des conditions, des boucles, élevant quasiment CSS au rang de véritable langage de programmation.
 			
 			\paragraph{Typescript} ~\\	
 			Typescript est un langage de programmation développé par Microsoft qui enrichit Javascript avec des fonctionnalités jugées par beaucoup comme indispensable: typage fort, véritable programmation orienté objet, etc, autorisant un analyseur statique à détecter des erreurs de programmation avant l'exécution du programme.
@@ -569,8 +567,8 @@ J'ai eu la chance de vivre le travail collaboratif en participant à un gros pro
 		Les principales bibliothèques utilisées dans le projet sont les suivantes:
 
 		  \paragraph{AngularJS}~\\	
-		  	AngularJS, souvent abrégé Angular, est un framework créé par Google pour développer des applications web riches et structurée.
-		  	Il enrichit HTML5, fournit des API uniformes selon les navigateurs et leurs différentes versions, et dispose d'un large écosystême de modules provenant de la communauté.
+		  	AngularJS, souvent abrégé Angular, est un framework créé par Google pour développer des applications web riches et structurées.
+		  	Il enrichit HTML5, fournit des API uniformes selon les navigateurs et leurs différentes versions, et dispose d'un large écosystème de modules provenant de la communauté.
 		  	Il s'est de facto imposé comme l'un des frameworks web les plus utilisés des cinq dernières années. La version 2 est en bêta.
 
 		\paragraph{JQuery}~\\	
@@ -584,6 +582,9 @@ J'ai eu la chance de vivre le travail collaboratif en participant à un gros pro
 		\subsubsection{Outils divers utilisés}
 		  \paragraph{Grunt}~\\	
 		  Grunt est un outil configurable pour gérer toutes les étapes du cycle de développement d'un projet: rechargement automatique de la page lors d'un changement dans le code, lancement des tests, build du projet (minification, compression des images, etc), et déploiement sur serveur distant (avec mise en cache des fichiers), tout cela avec une seule commande.
+
+		\paragraph{Jscs}~\\	
+		Analyseur statique de formattage de code similaire à Jshint.	  
 		  
 		 \paragraph{Jshint}~\\	
 		 Jshint est un analyseur statique de style du code, pour que l'indentation, le nombre d'accolades ou de parenthèses ou encore les retours à la ligne soient uniformes dans le projet.
@@ -612,12 +613,6 @@ J'ai eu la chance de vivre le travail collaboratif en participant à un gros pro
 		
 
 		\end{description}
-
-	\subsection{Ressources}
-	  \begin{description}
-	 		  	\item TODO
-	  \end{description}
-
 
 
 \end{document}
