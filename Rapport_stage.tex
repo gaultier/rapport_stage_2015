@@ -469,6 +469,17 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 
   \subsection{Améliorations}
 	\subsubsection{Optimisations}
+	Un cas intéressant d'optimisation qui impacte directement l'utilisateur est la page d'importation de données au format CSV.
+	L'ordre de grandeur des données dans un cas d'utilisation réel est de 100 000 à 200 000. Or pour autant de données, le temps initial de chargement était de 45 secondes. L'objectif fut donc de diminuer ce temps autant que possible.
+	
+	La première étape fut de refondre le code, notamment en enlevant certains motifs connus pour ralentir l'exécution, tels que déclarer une fonction à l'intérieur d'une boucle, au lieu de le faire à l'extérieur, résultant en autant de déclarations de la même fonction que de tours de boucle (ici, 100 000!). Cette étape fut guidée par les analyseurs statiques et l'étude de multiples mesures de performance en ligne pour décider du construct optimal, choix au final dicté par la comparaison de mesures de performances de chacun au sein de l'application.
+	
+	La seconde étape fut d'optimiser le tri des données. Chaque donnée (ligne dans le csv) contenant une dizaine de champs (colonnes dans le csv), chacun demandant à être validé, parfois en fonctions d'autres champs, le tri consiste en une part significative du temps d'exécution total (environ 25\%). Au lieu d'effectuer de nouveau la validation de multiples fois comme le tri le requiert, cette validation fut effectué une seule fois au début puis enregistrée au sein de chaque donnée. 
+	Puis, puisque la meilleure façon d'accélérer un programme est de lui faire faire moins d'opérations, nous nous sommes posés la question du bien fondé du tri. Cela est-il requis pour l'utilisateur? Ceci améliore-t-il son expérience? Il est apparu que non et nous avons donc supprimé complètement ce tri superflu.
+	
+	Grâce aux outils de mesures du navigateur, nous avons pu précisément évaluer le temps pris par chaque opération, et l'optimiser en conséquence. Par exemple, la lecture du fichier csv est infinitésimale (< 1 seconde) par rapport au temps total. Il est donc superflu d'optimiser cette partie.
+	
+	Au final, le temps d'exécution après optimisation est environ de 10 secondes, ce qui signifie un gain d'un facteur 4, avec une expérience utilisateur plus fluide et plus agréable, une validation accrue, et de nouvelles fonctionnalités (telle que le choix de la précision de l'arrondi pour les nombres réels, quantité variant d'un systême client à un autre).
    
 
     \subsubsection{Problèmes restants - Fonctionnalités à améliorer}
@@ -483,8 +494,8 @@ On peut s'interroger sur la nécessité de rajouter des types apparents à un la
 		\item Fabrice \textsc{Douchant}, mon maître de stage pendant la première partie de mon stage
 		\item Sven \textsc{Reber}, mon maître de stage pendant la deuxième partie de mon stage
 		\item Mathieu \textsc{Cambou}, pour ses conseils et sa vision à long terme du projet
-		\item Martin \textsc{Soubeyrand} pour ses conseils techniques
-		\item Jonathan \textsc{Ballet} pour son aide technique
+		\item Martin \textsc{Soubeyrand}, pour ses conseils techniques
+		\item Jonathan \textsc{Ballet}, pour son aide technique
 	\end{itemize}
 
 \section{Conclusion}
