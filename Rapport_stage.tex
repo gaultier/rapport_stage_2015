@@ -338,6 +338,40 @@ Sven \textsc{Reber},\\[0.5cm]
 	
 	Dans notre cas, nous nous sommes limités à la dernière version de Chrome, Firefox, et Internet Explorer.
 	
+	\subsubsection{Développement continu - Intégration continue}
+	Le développement continu est une bonne pratique de développement qui consiste, dans le cadre d'un projet disposant d'une grande couverture de tests, à automatiser le lancement de tests dans un environnement de test le plus proche possible de l'environnement de production final, lors de tout changement dans le code.
+	Cela s'accompagne d'outils de visualisation de la progression et du résultat des tests, afin que le développeur soit informé le plus vite possible, idéalement de façon instantané, de l'apparition d'un bug dans le code à la suite d'une modification.~\\
+	
+	Ce modèle de développement se distingue du modèle traditionnel où le développeur développe, et des testeurs, appartenant souvent à une autre équipe, et parfois plusieurs jours plus tard, testent le code et alerte le développeur d'éventuels bugs. En résumé, le cycle de développement est réduit à une granularité beaucoup plus faible: l'entièreté des étapes développement, test, détection de bugs, correction s'effectue dès lors en quelques minutes, voire quelques secondes.~\\
+	
+	Enfin, puisque la détection de bugs est automatisée par l'exécution de tests dans un environnement ressemblant à celui de production, si tous les tests passent avec succès, on peut considérer que le code est valide. Pourquoi donc ne pas déployer en production le nouveau code? Et ce automatiquement? C'est le principe de l'intégration continue, qui prolonge le modèle du développement continu en ajoutant une étape finale.
+		
+	Une nécessité de ce modèle est cependant d'avoir une grande couverture de tests (proche de 100\%). Dans le cas contraire, le fait que tous les tests passent n'est en soit pas un signe que le code est valide. Mais on peut voir cette nécessité comme un avantage: le développeur se voit forcé d'écrire les tests attenant au code qu'il vient de produire, et l'on maintient à l'échelle du projet une bonne couverture de tests.~\\
+	
+	Un autre point important, souvent soulevé par les détracteurs de ce modèle, modèle largement adopté dans le monde de l'informatique, est la crainte de voir les développeurs coder en circuit fermé sans que les manageurs n'aient de contrôle ou même d'assurance sur la qualité du code. Ce faisant, un développeur mal intentionné pourrait introduire du code malicieux en toute discrétion.
+	C'est pour celà qu'il est important de faire des revues de code, pratique collégiale largement introduite par les projets open-source ayant des membres aux quatre coins du globe.
+	Cettre pratique consiste à relire les modifications faites par un développeur, avant qu'elles soient incorporées dans le code officiel, seul ou en duo composé du développeur original et d'un autre développeur expérimenté. Le but est d'encourager les bonnes pratiques grâce à une présence physique d'une part, et d'autre part d'utiliser un levier psychologique bien connu: si l'on sait que l'on a des invités à la maison, on range et nettoie ladite maison avant de les recevoir. Et ainsi, si le développeur sait que son code sera relu par ses pairs, il est plus enclin à mettre tout en oeuvre pour que ledit code soit le plus lisible, clair, et de qualité que possible. Enfin un dernier avantage est que l'équipe a une vision plus globale et complète du projet au lieu de ne voir que la petite partie qui les concerne.~\\
+	
+	Nous avons vu comment maintenir un projet qui bénéficie de nombreux tests, dans un état aussi bon, voire meilleur, grâce aux pratiques citées ci-dessus. Nous avons adoptées toutes ces dernières dans la deuxième moitié de mon stage, cela résultant en un essor remarquable du projet et de la motivation des développeurs. ~\\
+	
+	Mais comment adapter un projet non conçu avec ces bonnes pratiques en tête? C'est ce qui a constitué la majeure partie de la première moitié de mon stage. Il est tout à fait possible de le faire, même sur un projet de grande taille. Les étapes que nous avons effectuée sont les suivantes, de façon chronologique:~\\
+	
+	\begin{itemize}
+	\item Augmenter drastiquement le nombre de tests pour le code existant
+	\item Forcer l'écriture de tests avec tout nouveau code
+	\item Mettre en place les revues de code
+	\item Automatiser le lancement des tests sur la version principale du code
+	\item Insister pour que l'environnement  de test soit toujours (ou le plus possible) valide, c'est-à-dire que tous les tests passent avec la dernière version du code
+	\item Automatiser le lancement des tests sur les version alternatives du code (branches)
+	\item Automatiser le déploiement du code en environnement de production
+	\item Former les équipes aux bonnes pratiques de développement et outils de tests
+	\end{itemize}~\\
+	
+	Dans notre cas, nous avons utilisé un serveur de développement continu appelé Jenkins, qui permet de lancer des tests automatiquement quand un changement dans le code est fait, et ce quelque soit le projet ou le langage. Cela contribue à une compétition saine et productive entre équipes et projets pour atteindre un état stable et valide avec tous les tests qui passent avec succès.~\\
+	
+	
+	
+	
 	\subsubsection{L'environnement}
 	
 	On juge un artisan à ses outils. C'est aussi le cas pour un développeur. 	Ses outils sont au moins aussi important que le code qu'il produit, car il passera probablement plus de temps à compiler, tester, débugguer et déployer son code qu'à l'écrire. En conséquence, ces outils conditionneront
